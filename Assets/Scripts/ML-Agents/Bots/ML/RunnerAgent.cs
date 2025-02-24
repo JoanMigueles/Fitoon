@@ -10,21 +10,20 @@ public class RunnerAgent : Agent
     [SerializeField] private Transform target;
     [SerializeField] private bool training = false;
 
-    private NPCController controller;
+    private BotRunner controller;
     private Vector3 diff;
     private Vector3 lastDiff;
     private float backwards = 0f;
 
     public override void Initialize()
     {
-        controller = GetComponent<NPCController>();
-        target = FindObjectOfType<GoalController>().transform;
+        controller = GetComponent<BotRunner>();
+        target = GameObject.FindWithTag("Goal").transform;
     }
 
     public override void OnEpisodeBegin()
     {
         controller.enabled = true;
-        controller.SetBoost(1f);
         target.GetComponent<Collider>().enabled = true;
         backwards = 0f;
 

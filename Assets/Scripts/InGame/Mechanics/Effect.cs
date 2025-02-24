@@ -12,41 +12,13 @@ public class Effect
 
     internal void applyEffect(GameObject player)
     {
-        PlayerControl pC = player.GetComponent<PlayerControl>();
-        BotController bC = player.GetComponent<BotController>();
+        BaseRunner runner = player.GetComponent<BaseRunner>();
 
-        //Is a Player
-        if (pC != null)
+        if (runner != null)
         {
-            pC.SetBoost(effectValue);
-        }
-
-        //Is a Bot
-        if (bC != null)
-        {
-            bC.SetBoost(effectValue);
+            runner.Boost(effectValue, effectDuration);
         }
 
         Debug.Log(player.name + " has been affected with " + effectName + " effect.");
-    }
-
-    internal void removeEffect(GameObject player)
-    {
-        PlayerControl pC = player.GetComponent<PlayerControl>();
-        BotController bC = player.GetComponent<BotController>();
-
-        //Is a Player
-        if (pC != null)
-        {
-            pC.SetBoost(1);
-        }
-
-        //Is a Bot
-        if (bC != null)
-        {
-            bC.SetBoost(1);
-        }
-
-        Debug.Log(player.name + " has been recovered from the " + effectName + " effect.");
     }
 }

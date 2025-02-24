@@ -35,7 +35,7 @@ public class Ranking : MonoBehaviour
             //nombre
             rankingEntry.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GameManager.runnerData[i].character.name;
 
-            if (RaceManager.Instance.raceBots[i].isPlayer)
+            if (GameManager.runnerData[i].isPlayer)
             {
                 playerEntry = rankingEntry.GetComponent<RectTransform>();
                 rankingEntry.GetComponent<Image>().color = Color.green;

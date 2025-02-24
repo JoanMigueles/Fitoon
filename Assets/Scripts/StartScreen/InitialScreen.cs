@@ -18,7 +18,6 @@ public class InitialScreen : MonoBehaviour
 		ReadUsername();
         ReadCharacter();
         ResetScenesPlayed();
-        if (RaceManager.Instance != null) RaceManager.Instance.Reset();
     }
 
     void ReadUsername()

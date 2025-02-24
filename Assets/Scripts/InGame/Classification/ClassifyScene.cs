@@ -10,7 +10,6 @@ public class ClassifyScene : MonoBehaviour
 
     void Start()
     {
-        RaceManager.Instance.numberOfRace++;
 
         countdownText.text = countdown.ToString();
         StartCoroutine(Countdown());
@@ -24,7 +23,6 @@ public class ClassifyScene : MonoBehaviour
             countdown--;
             if (countdown == 0)
             {
-                GetComponent<ButtonFunctions>().LoadScene("FindingScenario");
             }
             else
             {
