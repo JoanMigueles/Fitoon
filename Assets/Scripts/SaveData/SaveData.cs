@@ -7,7 +7,7 @@ using UnityEngine.Android;
 public static class SaveData
 {
     public static PlayerData player;
-    static string filePath = Path.Combine(Application.dataPath, "PlayerData.json");
+    static string filePath = Path.Combine(Application.persistentDataPath, "PlayerData.json");
     public static void SaveToJson()
     {
         if (player == null)
@@ -18,7 +18,7 @@ public static class SaveData
 
         string playerData = JsonUtility.ToJson(player);
         System.IO.File.WriteAllText(filePath, playerData);
-        //Si está vacío poner un personaje default
+        //Si estï¿½ vacï¿½o poner un personaje default
         if (player.playerCharacterData is null)
         {
             player.playerCharacterData = new CharacterData();
@@ -30,12 +30,13 @@ public static class SaveData
             player.playerCharacterData.shoes = 0;
             player.playerCharacterData.prefabId = 0;
             playerData = JsonUtility.ToJson(player);
-            Debug.Log("No había datos. Creando personaje por defecto.");
+            Debug.Log("No habï¿½a datos. Creando personaje por defecto.");
         }
-        player.username = "Username";
+        player.username = GooglePlayServicesManager.instance.GetPlayerUsername();
         player.normalCoins = 0;
         player.points = 0;
         System.IO.File.WriteAllText(filePath, playerData);
+        GooglePlayServicesManager.instance.SaveGame(playerData);
         Debug.Log("[SAVE] Datos guardados en " + filePath);
     }
 
@@ -50,10 +51,23 @@ public static class SaveData
         }
         catch (System.Exception)
         {
-            Debug.Log("No existe JSON: Creandolo...");
+            Debug.Log("No existe JSON: Creandolo buscando en la nube");
+            GooglePlayServicesManager.instance.LoadGame();
+        }
+
+    }
+
+    public static void ReceiveData(string playerData)
+    {
+        if(playerData != null)
+        {
+            player = JsonUtility.FromJson<PlayerData>(playerData);
+            Debug.Log("[SAVE] Datos recibidos desde la nube");
+        }
+        else
+        {
             SaveToJson();
             ReadFromJson();
         }
-
     }
 }
