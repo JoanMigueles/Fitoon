@@ -14,13 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CharacterCreator.unity
     guid: a21a597e524912b41993821a16f98613
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Tienda.unity
     guid: ed99ad9ac867ef947a0ff16156d613cc
   - enabled: 1
     path: Assets/Scenes/LobbyScene.unity
     guid: c78f77aef35cdec458af96d9d51d93c3
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/FindingScenario.unity
     guid: e2519767f6c1f0b4c9c101aea80a6b19
   - enabled: 0

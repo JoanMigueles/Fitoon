@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LobbyManager : NetworkBehaviour
@@ -33,7 +34,6 @@ public class LobbyManager : NetworkBehaviour
 	List<GameObject> cardList = new List<GameObject>();
 
 	bool starting = false;
-	bool disconnectOnDisable = false;
 
 	public static LobbyManager Instance;
 
@@ -43,21 +43,6 @@ public class LobbyManager : NetworkBehaviour
 			Instance = this;
 		else
 			Destroy(gameObject);
-	}
-
-	void OnDisable()
-	{
-		if (!disconnectOnDisable)
-		{
-			return;
-		}
-		if (InstanceFinder.NetworkManager != null)
-		{
-			InstanceFinder.NetworkManager.ClientManager.StopConnection();
-			InstanceFinder.NetworkManager.ServerManager.StopConnection(true);
-			Destroy(InstanceFinder.NetworkManager.gameObject);
-		}
-		UnityEngine.SceneManagement.SceneManager.LoadScene(0);
 	}
 
 	private void OnApplicationQuit()
@@ -87,11 +72,6 @@ public class LobbyManager : NetworkBehaviour
 			Destroy(cardList[j]);
 			cardList.RemoveAt(j);
 		}
-	}
-
-	public override void OnStartNetwork()
-	{
-		disconnectOnDisable = true;
 	}
 
 	public override void OnStartServer()
@@ -177,7 +157,6 @@ public class LobbyManager : NetworkBehaviour
 
 			InstanceFinder.NetworkManager.GetComponent<NetworkDiscovery>().StopSearchingOrAdvertising();
 			starting = true;
-			disconnectOnDisable = false;
 			StartCoroutine(StartGameCountdown());
 		}
 		else
@@ -185,7 +164,6 @@ public class LobbyManager : NetworkBehaviour
 			ChangeCountdownText("WAITING FOR PLAYERS");
 			InstanceFinder.NetworkManager.GetComponent<NetworkDiscovery>().AdvertiseServer();
 			starting = false;
-			disconnectOnDisable = true;
 		}
 	}
 
@@ -215,6 +193,10 @@ public class LobbyManager : NetworkBehaviour
 			if (!starting)
 				yield break;
 		}
-		//Cambiar escena
+		SceneLoadData sld = new SceneLoadData("FindingScenario");
+		SceneManager.LoadGlobalScenes(sld);
+
+		SceneUnloadData sud = new SceneUnloadData("LobbyScene");
+		SceneManager.UnloadGlobalScenes(sud);
 	}
 }
