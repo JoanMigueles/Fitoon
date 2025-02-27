@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using FishNet.Object;
+using FishNet;
 
-public class Ranking : MonoBehaviour
+public class Ranking : NetworkBehaviour
 {
     [SerializeField] GameObject rankingPosPrefab;
     [SerializeField] ScrollRect scrollRect;
@@ -35,7 +37,7 @@ public class Ranking : MonoBehaviour
             //nombre
             rankingEntry.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GameManager.runnerData[i].character.name;
 
-            if (GameManager.runnerData[i].isPlayer)
+            if (GameManager.runnerData[i].connection == InstanceFinder.ClientManager.Connection)
             {
                 playerEntry = rankingEntry.GetComponent<RectTransform>();
                 rankingEntry.GetComponent<Image>().color = Color.green;

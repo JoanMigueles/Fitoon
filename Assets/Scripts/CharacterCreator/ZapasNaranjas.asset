@@ -13,10 +13,6 @@ MonoBehaviour:
   m_Name: ZapasNaranjas
   m_EditorClassIdentifier: 
   id: 4
-  icon: {fileID: 21300000, guid: 65f5d6ea57aa8644fa91a50aa9a850ed, type: 3}
-  mesh: {fileID: 5982886046550509618, guid: e33d27a957c5e6d4a9055f17f8797c55, type: 3}
-  materials:
-  - {fileID: 2100000, guid: 4c12cc165ccf5bc45adc7d24e94cf180, type: 2}
-  - {fileID: 2100000, guid: 52f38cb3478c04a4f94b4547d122fc29, type: 2}
-  - {fileID: 2100000, guid: 1a1fdb48eb3c3d44598b1c451b6502b5, type: 2}
-  - {fileID: 2100000, guid: a2f639703d1ecdc4796dfad766eec283, type: 2}
+  icon: 1
+  mesh: 4
+  materials: 08000000010000000400000009000000

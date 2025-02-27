@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Object;
+using TMPro;
 
 public class BaseRunner : NetworkBehaviour
 {
@@ -10,6 +11,9 @@ public class BaseRunner : NetworkBehaviour
 	[SerializeField] protected GameObject trailBoost;
 	[SerializeField] protected LayerMask whatIsGround;
 	[SerializeField] protected float runnerHeight = 2;
+	[SerializeField] TextMeshProUGUI nameTag;
+
+	string runnerName;
 
 	int id;
 
@@ -98,7 +102,8 @@ public class BaseRunner : NetworkBehaviour
 		}
 		if(shoes != null)
 		{
-			shoes.GetComponent<SkinnedMeshRenderer>().sharedMesh = character.shoes.mesh;
+			shoes.GetComponent<SkinnedMeshRenderer>().sharedMesh = ShoeLoader.GetMesh(character.shoes.mesh);
+			shoes.GetComponent<SkinnedMeshRenderer>().materials = ShoeLoader.getMaterials(character.shoes.materials);
 		}
 		animator = GetComponentInChildren<Animator>();
 	}
@@ -115,20 +120,28 @@ public class BaseRunner : NetworkBehaviour
 	{
 		Freeze();
 		rigidBody.detectCollisions = false;
-		GameManager.GoalReached(this);
+		GameManager.Instance.GoalReached(this);
 	}
 
 	public void Boost(float amount, float duration)
 	{
 		StartCoroutine(BoostCoroutine(amount, duration));
 	}
+
+	[ObserversRpc]
 	public void Freeze()
 	{
+		if (!IsOwner)
+			return;
 		rigidBody.constraints = RigidbodyConstraints.FreezeAll;
 		canMove = false;
 	}
+
+	[ObserversRpc]
 	public void UnFreeze()
 	{
+		if (!IsOwner)
+			return;
 		rigidBody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 		canMove = true;
 	}

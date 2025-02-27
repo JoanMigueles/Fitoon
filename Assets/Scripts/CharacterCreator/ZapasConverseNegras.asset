@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: ZapasConverseNegras
   m_EditorClassIdentifier: 
   id: 2
-  icon: {fileID: 21300000, guid: f7eb72b7c065db14e859782969f5acbd, type: 3}
-  mesh: {fileID: -3849114509612418297, guid: 645eeb72fcf32574bb7be9d364cf2e67, type: 3}
-  materials:
-  - {fileID: 2100000, guid: 0d3f77f76a6e8504ebf5829a81f77763, type: 2}
-  - {fileID: 2100000, guid: 52f38cb3478c04a4f94b4547d122fc29, type: 2}
+  icon: 0
+  mesh: 2
+  materials: 0500000001000000

@@ -12,14 +12,7 @@ public class PlayerController : BaseRunner
 		Debug.Log("Player Started");
         BaseAwake();
 		LoadCharacter(LoadCharacterData());
-		AddPlayerRpc();
 		faceTracking = GetComponent<FaceTrackingToMovement>();
-	}
-
-	[ServerRpc]
-	void AddPlayerRpc()
-	{
-		GameManager.AddPlayerToRace(this);
 	}
 
 	private void FixedUpdate()
@@ -38,10 +31,6 @@ public class PlayerController : BaseRunner
 		BaseUpdate();
 	}
 
-	public override void OnStopClient()
-	{
-		GameManager.RemoveRunner(this);
-	}
 	Character LoadCharacterData()
 	{
 		SaveData.ReadFromJson();

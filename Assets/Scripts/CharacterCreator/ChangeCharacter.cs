@@ -184,8 +184,8 @@ public class ChangeCharacter : MonoBehaviour
         {
             if (shoeItem.id == i)
             {
-                renderer.sharedMesh = shoeItem.mesh;
-                renderer.materials = shoeItem.materials;
+                renderer.sharedMesh = ShoeLoader.GetMesh(shoeItem.mesh);
+                renderer.materials = ShoeLoader.getMaterials(shoeItem.materials);
                 zapatos.GetComponent<WhatShoeIHave>().myShoe = shoeItem;
                 actualShoes = zapatos.GetComponent<WhatShoeIHave>().myShoe;
                 break;

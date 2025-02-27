@@ -76,8 +76,8 @@ public class InitialScreen : MonoBehaviour
         {
             if (shoeItem.id == i)
             {
-                renderer.sharedMesh = shoeItem.mesh;
-                renderer.materials = shoeItem.materials;
+                renderer.sharedMesh = ShoeLoader.GetMesh(shoeItem.mesh);
+                renderer.materials = ShoeLoader.getMaterials(shoeItem.materials);
                 break;
             }
         }

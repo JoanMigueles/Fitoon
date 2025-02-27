@@ -18,8 +18,8 @@ public class ChangeObjects : MonoBehaviour
         foreach(GameObject obj in selectedObjects)
         {
             SkinnedMeshRenderer renderer = obj.GetComponent<SkinnedMeshRenderer>();
-            renderer.sharedMesh = objectItem.mesh;
-            renderer.materials = objectItem.materials;
+            renderer.sharedMesh = ShoeLoader.GetMesh(objectItem.mesh);
+            renderer.materials = ShoeLoader.getMaterials(objectItem.materials);
             obj.GetComponent<WhatShoeIHave>().myShoe = objectItem;
         }
     }

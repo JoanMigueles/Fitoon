@@ -1,64 +1,56 @@
-using FishNet;
-using FishNet.Component.Spawning;
-using FishNet.Managing;
-using FishNet.Managing.Scened;
+using FishNet.Connection;
 using FishNet.Object;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : NetworkBehaviour
 {
+    public static GameManager Instance;
+	public static List<Runner> runnerData;
+
 	[SerializeField] Transform[] spawnPoints;
     [SerializeField] PlayerController playerPrefab;
     [SerializeField] BotRunner botPrefab;
     [SerializeField] Countdown countdown;
-    [SerializeField] int m_numberOfRunners;
+    [SerializeField] string sceneName;
 
-    public static List<Runner> runnerData;
-    static List<Runner> winners;
-    static List<BaseRunner> runners;
-	public static int numberOfRunners;
-	public static int numberOfPlayers = 0;
-    static int currentRace = 0;
-    static int[] s_numberOfWinners = { 16, 8, 1 };
+    public static bool addBots = true;
+    
+    List<BaseRunner> runners;
 
-    static bool classified = false;
+    static int positionIndex = 1;
 
-    static int playerIndex = 0;
+	private void Start()
+	{
+		if(Instance != null)
+        {
+            Destroy(Instance.gameObject);
+        }
+        Instance = this;
+	}
 
-    public override void OnStartServer()
+	public override void OnStartNetwork()
     {
         if(IsServerInitialized)
         {
-			InstanceFinder.NetworkManager.gameObject.GetComponent<PlayerSpawner>().Spawns = spawnPoints;
-			Debug.Log(InstanceFinder.NetworkManager.gameObject.GetComponent<PlayerSpawner>().Spawns);
-
-			if (currentRace != 0)
-			{
-				playerIndex = 0;
-				SpawnBots();
-				return;
-			}
-
-			if (runners == null)
-			{
-				ResetStaticValues();
-				Debug.Log("Reset Static values");
-			}
-
 			Debug.Log("Current race != 0");
-			InitializeBots();
+            if(addBots)
+			    InitializeBots();
             Debug.Log("Initialized bots");
-			SpawnBots();
+			SpawnRunners();
+
+			countdown.StartCountdown();
+			StartCoroutine(WaitForCountdown());
 		}
-		
-		countdown.StartCountdown();
-		StartCoroutine(WaitForCountdown());
+        else
+        {
+			countdown.StartCountdown();
+		}
 	}
 
+    [ServerRpc]
     void UnfreezeAllRunners()
     {
         for(int i = 0; i < runners.Count; i++)
@@ -67,164 +59,85 @@ public class GameManager : NetworkBehaviour
         }
     }
 
-	void SpawnBots()
+	void SpawnRunners()
     {
 		for (int i = 0; i < runnerData.Count; i++)
 		{
-            if (runnerData[i].isPlayer)
+            if (runnerData[i].connection != null)
             {
-                continue;
+                PlayerController player = Instantiate(playerPrefab, spawnPoints[i].position, spawnPoints[i].rotation);
+                player.SetId(runnerData[i].id);
+                player.LoadCharacter(runnerData[i].character);
+                runners.Add(player);
+                Spawn(player.gameObject, runnerData[i].connection);
+			}
+            else
+            {
+                BotRunner runner = Instantiate(botPrefab, spawnPoints[i].position, spawnPoints[i].rotation);
+                runner.SetId(runnerData[i].id);
+                runner.LoadCharacter(runnerData[i].character);
+                runners.Add(runner);
+                Spawn(runner.gameObject);
             }
-
-			BotRunner runner = Instantiate(botPrefab, spawnPoints[i].position, spawnPoints[i].rotation);
-            runner.SetId(runnerData[i].id);
-            runner.LoadCharacter(runnerData[i].character);
-            runners.Add(runner);
-            Spawn(runner.gameObject);
 		}
-	}
-
-	public static void ResetStaticValues()
-	{
-        runners = new List<BaseRunner>();
-		runnerData = new List<Runner>();
-		winners = new List<Runner>();
-		currentRace = 0;
-		classified = false;
-        playerIndex = 0;
-        numberOfRunners = s_numberOfWinners[0] * 2;
 	}
 
     void InitializeBots()
     {
-        for (int i = numberOfPlayers; i < numberOfRunners; i++)
+        while (runnerData.Count < 32)
         {
             runnerData.Add
             (
                 new Runner
                 {
-                    id = i,
+                    id = runnerData.Count,
                     character = CharacterLoader.CreateRandomCharacter(),
-                    isPlayer = false,
+                    connection = null,
+                    position = -1
                 }
             );
         }
-	}
+    }
 
-	public static void GoalReached(BaseRunner baseRunner)
-    {
-		if (runnerData.Count == 0)
-		{
-			return;
-		}
-
-		if (baseRunner.GetComponent<PlayerController>() != null)
-        {
-            classified = true;
-        }
-
+	[ServerRpc]
+    public void GoalReached(BaseRunner baseRunner)
+	{
 		Runner runner = new Runner();
-
 		try
-        {
-			runner = runnerData.Find((r) => r.id == baseRunner.GetId());
-        }
-        catch(ArgumentNullException)
-        {
-            Debug.LogError("Runner not found");
-            return;
-        }
-
-        winners.Add(runner);
-        if(winners.Count >= s_numberOfWinners[currentRace])
-        {
-            runnerData = winners;
-            winners = new List<Runner>();
-            runners = new List<BaseRunner>();
-			currentRace++;
-
-            if(!classified)
-            {
-                AssessResult();
-                return;
-            }
-
-            if (currentRace < s_numberOfWinners.Length)
-            {
-                SceneLoadData sld = new SceneLoadData("Classified");
-                InstanceFinder.SceneManager.LoadGlobalScenes(sld);
-            }
-            else
-            {
-                AssessResult();
-            }
-        }
-    }
-
-    public static void AssessResult()//Esto habrá que cambiarlo para networking
-    {
-        if(runnerData.Count == 0)
-        {
-            return;
-        }
-
-        if(currentRace == s_numberOfWinners.Length)
-        {
-            if (classified)
-            {
-                currentRace = 0;
-                SceneLoadData sldw = new SceneLoadData("YouWin");
-                InstanceFinder.SceneManager.LoadGlobalScenes(sldw);
-                return;
-            }
-        }
-        currentRace = 0;
-		SceneLoadData sld = new SceneLoadData("YouLose");
-		InstanceFinder.SceneManager.LoadGlobalScenes(sld);
-	}
-
-    public static void AddPlayer()
-    {
-        numberOfPlayers++;
-    }
-
-    public static void RemovePlayer()
-    {
-        numberOfPlayers--;
-    }
-
-    public static void AddPlayerToRace(PlayerController player)//Probablemente habrá que cambiarlo para networking
-    {
-        if(runners == null)
-        {
-			ResetStaticValues();
-			Debug.Log("Reset Static values");
-		}
-        Debug.Log("PlayerAdded");
-        runners.Add(player);
-		if (runnerData.Count == 0)
 		{
+			runner = runnerData.Find((r) => r.id == baseRunner.GetId());
+		}
+		catch (ArgumentNullException)
+		{
+			Debug.LogError("Runner not found");
 			return;
 		}
+		runner.position = positionIndex++;
+		if (positionIndex > runnerData.Count)
+		{
+			positionIndex = 1;
+			runnerData.Clear();
 
-		player.SetId(playerIndex);
-        runnerData.Add(
-            new Runner()
-            {
-                id = playerIndex++,
-                isPlayer = true
-            });
+			//GO TO GAME OVER SCENE
+		}
+	}
+
+	[ServerRpc]
+    public void AddPlayer(NetworkConnection connection, Character character)
+    {
+        runnerData.Add(new Runner()
+        {
+            id = connection.ClientId,
+            character = character,
+            connection = connection,
+            position = -1
+        });
     }
 
-    public static void RemoveRunner(BaseRunner runner)
+    [ServerRpc]
+    public void RemovePlayer(NetworkConnection connection)
     {
-        runnerData.RemoveAt(runnerData.FindIndex((r) => r.id == runner.GetId()));
-        runners.RemoveAt(runners.FindIndex((r) => r.GetId() == runner.GetId()));
-        try
-        {
-            winners.RemoveAt(winners.FindIndex((r) => r.id == runner.GetId()));
-		}
-        catch(Exception) { }
+        runnerData.Remove(runnerData.Find((Runner r) => r.id == connection.ClientId));
     }
 
     public IEnumerator WaitForCountdown()
@@ -237,5 +150,6 @@ public struct Runner
 {
 	public int id;
 	public Character character;
-	public bool isPlayer;
+	public NetworkConnection connection;
+    public int position;
 }
