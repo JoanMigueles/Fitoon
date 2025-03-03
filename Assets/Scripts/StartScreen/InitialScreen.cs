@@ -13,8 +13,6 @@ public class InitialScreen : MonoBehaviour
     [SerializeField] TMP_InputField inputName;
     private void Start()
     {
-        GooglePlayServicesManager.instance.SignIn();
-		SaveData.ReadFromJson();
 		ReadUsername();
         ReadCharacter();
         ResetScenesPlayed();

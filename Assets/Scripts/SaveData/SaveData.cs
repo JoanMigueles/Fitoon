@@ -1,13 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.Android;
+using UnityEngine.SceneManagement;
 
 public static class SaveData
 {
     public static PlayerData player;
     static string filePath = Path.Combine(Application.persistentDataPath, "PlayerData.json");
+
+    /// <summary>
+    /// Saves the player data to a json file, if its the first time, tries to load a Json before saving
+    /// </summary>
     public static void SaveToJson()
     {
         if (player == null)
@@ -40,6 +42,9 @@ public static class SaveData
         Debug.Log("[SAVE] Datos guardados en " + filePath);
     }
 
+    /// <summary>
+    /// tries to read the player data from a json file, if not found, tries to load it from the cloud
+    /// </summary>
     public static void ReadFromJson()
     {
         try
@@ -48,6 +53,7 @@ public static class SaveData
 
             player = JsonUtility.FromJson<PlayerData>(playerData);
             Debug.Log("[SAVE] Datos leidos");
+            GooglePlayServicesManager.instance.SaveGame(playerData);
         }
         catch (System.Exception)
         {
@@ -57,15 +63,21 @@ public static class SaveData
 
     }
 
+    /// <summary>
+    /// Recieves the player data from the cloud, if none is found, creates a new one
+    /// </summary>
+    /// <param name="playerData"></param>
     public static void ReceiveData(string playerData)
     {
         if(playerData != null)
         {
             player = JsonUtility.FromJson<PlayerData>(playerData);
-            Debug.Log("[SAVE] Datos recibidos desde la nube");
+            Debug.Log("[LOAD] Datos recibidos desde la nube");
+            ReadFromJson();
         }
         else
         {
+            player = new PlayerData();
             SaveToJson();
             ReadFromJson();
         }

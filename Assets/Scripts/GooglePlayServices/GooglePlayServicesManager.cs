@@ -5,10 +5,13 @@ using UnityEngine;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using GooglePlayGames.BasicApi.SavedGame;
+using UnityEngine.SceneManagement;
 
 public class GooglePlayServicesManager : MonoBehaviour
 {
     public static GooglePlayServicesManager instance;
+    private enum DataOperation { Save, Load }
+    private DataOperation currentOperation;
     private ISavedGameMetadata currentSavedGame = null;
     private string savedGameFilename = "PlayerData";
 
@@ -20,6 +23,7 @@ public class GooglePlayServicesManager : MonoBehaviour
         if(GooglePlayServicesManager.instance == null)
         {
             GooglePlayServicesManager.instance = this;
+            SignIn();
             DontDestroyOnLoad(this.gameObject);
         }
         else
@@ -39,7 +43,11 @@ public class GooglePlayServicesManager : MonoBehaviour
 
     private void OnSignInResult(SignInStatus signInStatus)
     {
-        if(signInStatus == SignInStatus.Success) Debug.Log("Sign in success");
+        if(signInStatus == SignInStatus.Success)
+        {
+            Debug.Log("Sign in success");
+            SaveData.ReadFromJson();
+        }
         else Debug.Log("Sign in failed");
     }
 
@@ -47,9 +55,9 @@ public class GooglePlayServicesManager : MonoBehaviour
     {
         if(currentSavedGame == null || !currentSavedGame.IsOpen)
         {
+            currentOperation = DataOperation.Save;
             OpenSavedGame();
         }
-
         var update = new SavedGameMetadataUpdate.Builder()
                 .WithUpdatedDescription("Saved at " + DateTime.Now.ToString())
                 .WithUpdatedPlayedTime(currentSavedGame.TotalTimePlayed.Add(TimeSpan.FromHours(1)))
@@ -60,17 +68,21 @@ public class GooglePlayServicesManager : MonoBehaviour
                 update,
                 System.Text.ASCIIEncoding.Default.GetBytes(savedData),
                 (status, updated) => {return;});
+        Debug.Log("[SAVE] Datos guardados en la nube");
     }
 
     public void LoadGame()
     {
         if(currentSavedGame == null || !currentSavedGame.IsOpen)
         {
+            currentOperation = DataOperation.Load;
             OpenSavedGame();
         }
-
-        ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
-        savedGameClient.ReadBinaryData(currentSavedGame, OnSavedGameDataRead);
+        else
+        {
+            ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
+            savedGameClient.ReadBinaryData(currentSavedGame, OnSavedGameDataRead);
+        }
     }
 
     private void OnSavedGameDataRead(SavedGameRequestStatus status, byte[] data)
@@ -79,6 +91,7 @@ public class GooglePlayServicesManager : MonoBehaviour
         {
             string savedData = System.Text.ASCIIEncoding.Default.GetString(data);
             SaveData.ReceiveData(savedData);
+            SceneManager.LoadScene("Inicial");
         }
         else
         {
@@ -90,7 +103,7 @@ public class GooglePlayServicesManager : MonoBehaviour
     /// <summary>
     /// Opens the saved game file in the cloud (if it doesn't exist, it creates it)
     /// </summary>
-    public void OpenSavedGame()
+    private void OpenSavedGame()
     {
         ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
         savedGameClient.OpenWithAutomaticConflictResolution(savedGameFilename, DataSource.ReadCacheOrNetwork, ConflictResolutionStrategy.UseLongestPlaytime, OnSavedGameOpened);
@@ -98,7 +111,12 @@ public class GooglePlayServicesManager : MonoBehaviour
 
     private void OnSavedGameOpened(SavedGameRequestStatus status, ISavedGameMetadata game)
     {
-        if(status == SavedGameRequestStatus.Success) currentSavedGame = game;
+        if(status == SavedGameRequestStatus.Success)
+        {
+            currentSavedGame = game;
+            ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
+            if(currentOperation == DataOperation.Load) savedGameClient.ReadBinaryData(currentSavedGame, OnSavedGameDataRead);
+        }
         else Debug.Log("Error opening saved game: " + status);
     }
 
