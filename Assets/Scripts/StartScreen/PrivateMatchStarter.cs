@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
+[Obsolete]
 public class PrivateMatchStarter : MonoBehaviour
 {
 	[SerializeField] GameObject inputMenu;

@@ -429,7 +429,7 @@ PrefabInstance:
     - target: {fileID: 5863279230379946901, guid: f288081b226145d45aae3937e5bdedeb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 146489843}
+      objectReference: {fileID: 0}
     - target: {fileID: 5863279230379946901, guid: f288081b226145d45aae3937e5bdedeb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: LoadScene
@@ -455,11 +455,9 @@ GameObject:
   - component: {fileID: 146489844}
   - component: {fileID: 146489850}
   - component: {fileID: 146489849}
-  - component: {fileID: 146489843}
   - component: {fileID: 146489846}
   - component: {fileID: 146489848}
   - component: {fileID: 146489851}
-  - component: {fileID: 146489853}
   - component: {fileID: 146489852}
   m_Layer: 0
   m_Name: GameManager
@@ -468,18 +466,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &146489843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 146489842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9566431fc4b49543808c656bb6fa50c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &146489844
 Transform:
   m_ObjectHideFlags: 0
@@ -691,20 +677,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &146489853
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 146489842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 966a25047375a9c48924cb840cf83892, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputMenu: {fileID: 1708715533}
-  inputField: {fileID: 1375911012}
 --- !u!1 &182885687
 GameObject:
   m_ObjectHideFlags: 0
@@ -1989,7 +1961,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 146489843}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ButtonFunctions, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 5
@@ -3436,7 +3408,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 146489853}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PrivateMatchStarter, Assembly-CSharp
         m_MethodName: OpenMenu
         m_Mode: 1
@@ -4436,7 +4408,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 146489853}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PrivateMatchStarter, Assembly-CSharp
         m_MethodName: SetPasscode
         m_Mode: 5
@@ -4953,7 +4925,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 146489853}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PrivateMatchStarter, Assembly-CSharp
         m_MethodName: StartGame
         m_Mode: 1
@@ -6134,7 +6106,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 146489843}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ButtonFunctions, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 5
@@ -6556,7 +6528,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 146489853}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PrivateMatchStarter, Assembly-CSharp
         m_MethodName: CloseMenu
         m_Mode: 1

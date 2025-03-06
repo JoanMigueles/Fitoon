@@ -6,8 +6,9 @@ using FishNet.Object;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : NetworkBehaviour
 {
@@ -16,6 +17,7 @@ public class GameManager : NetworkBehaviour
     [SerializeField] BotRunner botPrefab;
     [SerializeField] Countdown countdown;
     [SerializeField] int m_numberOfRunners;
+    
 
     public static List<Runner> runnerData;
     static List<Runner> winners;
@@ -28,7 +30,6 @@ public class GameManager : NetworkBehaviour
     static bool classified = false;
 
     static int playerIndex = 0;
-
     public override void OnStartServer()
     {
         if(IsServerInitialized)
@@ -231,6 +232,23 @@ public class GameManager : NetworkBehaviour
     {
         yield return new WaitUntil(() => countdown.HasFinished());
         UnfreezeAllRunners();
+    }
+
+    public void ExitApp()
+    {
+        Application.Quit();
+    }
+
+    public void SetPasscode(string value)
+    {
+        DiscoveryHandler.Passcode = value;
+    }
+
+    public void JoinLobby(bool privateLobby)
+    {
+        if (!privateLobby) DiscoveryHandler.Passcode = null;
+        Debug.Log("Passcode:" + DiscoveryHandler.Passcode);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("LobbyScene");
     }
 }
 public struct Runner

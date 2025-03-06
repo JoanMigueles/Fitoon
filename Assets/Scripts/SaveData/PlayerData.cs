@@ -7,7 +7,10 @@ public class PlayerData
 {
     public string username;
     public int normalCoins;
-    public int points;
+    public int expPoints;
+    public int streak;
+    public int runnedDistance;
+    public int medals;
     public List<int> purchasedSkins;
     public List<int> purchasedShoes;
     public List<int> purchasedColors;

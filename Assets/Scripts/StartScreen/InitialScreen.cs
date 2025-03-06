@@ -118,10 +118,4 @@ public class InitialScreen : MonoBehaviour
         SaveData.player.scenesPlayed.Clear();
         SaveData.SaveToJson();
     }
-
-    public void StartGame()
-    {
-        DiscoveryHandler.Passcode = null;
-        SceneManager.LoadScene("LobbyScene");
-	}
 }
