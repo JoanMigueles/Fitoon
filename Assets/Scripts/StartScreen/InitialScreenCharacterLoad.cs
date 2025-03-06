@@ -4,31 +4,20 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-public class InitialScreen : MonoBehaviour
+public class InitialScreenCharacterLoad : MonoBehaviour
 {
     [SerializeField] GameObject characterContainer;
     [SerializeField] List<CharacterItem> characters;
     CharacterItem actualCharacter;
     [SerializeField] List<ObjectItem> shoes;
     [SerializeField] GameObject treadmillPrefab;
-    [SerializeField] TMP_InputField inputName;
+
     private void Start()
     {
 		SaveData.ReadFromJson();
-		ReadUsername();
         ReadCharacter();
-        ResetScenesPlayed();
-        if (RaceManager.Instance != null) RaceManager.Instance.Reset();
     }
 
-    void ReadUsername()
-    {
-        if (SaveData.player.username == "Username") return;
-        else
-        {
-            inputName.text = SaveData.player.username;
-        }
-    }
     void ReadCharacter()
     {
         //Leer la skin
@@ -105,17 +94,5 @@ public class InitialScreen : MonoBehaviour
         {
             actualCharacter.top.color = color;
         }
-    }
-
-    public void SaveUsername(string value)
-    {
-        SaveData.player.username = value;
-        SaveData.SaveToJson();
-    }
-
-    public void ResetScenesPlayed()
-    {
-        SaveData.player.scenesPlayed.Clear();
-        SaveData.SaveToJson();
     }
 }

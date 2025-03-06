@@ -5078,7 +5078,6 @@ GameObject:
   - component: {fileID: 1853098194}
   - component: {fileID: 1853098193}
   - component: {fileID: 1853098192}
-  - component: {fileID: 1853098191}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -5086,33 +5085,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1853098191
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1853098190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cf55cf1aed87a441afbe8ae461a04d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterContainer: {fileID: 0}
-  characters:
-  - {fileID: 11400000, guid: 61929e2d12e1855459c6d5085e64d7e6, type: 2}
-  - {fileID: 11400000, guid: 3dee8a9500c042247ab3598f63f10977, type: 2}
-  - {fileID: 11400000, guid: 3500b0f443d6c01438652ed81533ba29, type: 2}
-  - {fileID: 11400000, guid: 6f25130db9a5749408d3dd3f76d34610, type: 2}
-  - {fileID: 11400000, guid: 723b8df3ce551ec41a9cb8c6935dc3f5, type: 2}
-  shoes:
-  - {fileID: 11400000, guid: 158b7b6357dd92847b6a55d0f2f98a7d, type: 2}
-  - {fileID: 11400000, guid: 6cbb8dfb02351d24395c22f2a698c655, type: 2}
-  - {fileID: 11400000, guid: 2e4dcd7d6421e2b4d96e21aab24c80b1, type: 2}
-  - {fileID: 11400000, guid: 31139ce02ebf2dd4fac1bc77f8e4d3b2, type: 2}
-  - {fileID: 11400000, guid: 45e162a67199dbd46b847c1d9c3ddbe9, type: 2}
-  treadmillPrefab: {fileID: 392287001776682457, guid: cc93add219906c547a7022c345cfe457, type: 3}
-  inputName: {fileID: 0}
 --- !u!114 &1853098192
 MonoBehaviour:
   m_ObjectHideFlags: 0

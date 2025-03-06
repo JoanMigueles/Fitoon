@@ -234,22 +234,7 @@ public class GameManager : NetworkBehaviour
         UnfreezeAllRunners();
     }
 
-    public void ExitApp()
-    {
-        Application.Quit();
-    }
-
-    public void SetPasscode(string value)
-    {
-        DiscoveryHandler.Passcode = value;
-    }
-
-    public void JoinLobby(bool privateLobby)
-    {
-        if (!privateLobby) DiscoveryHandler.Passcode = null;
-        Debug.Log("Passcode:" + DiscoveryHandler.Passcode);
-        UnityEngine.SceneManagement.SceneManager.LoadScene("LobbyScene");
-    }
+    
 }
 public struct Runner
 {

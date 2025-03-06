@@ -17,6 +17,7 @@ public class PlayerData
     public CharacterData playerCharacterData;
     public List<EscenarioItem> scenesPlayed;
 }
+
 [System.Serializable]
 public class CharacterData
 {

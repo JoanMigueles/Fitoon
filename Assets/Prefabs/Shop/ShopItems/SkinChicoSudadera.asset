@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0088a8de9577e8a40bea6a2327f18cc4, type: 3}
+  m_Script: {fileID: 11500000, guid: 8006988837f0ba94c9b5bedf144d81e8, type: 3}
   m_Name: SkinChicoSudadera
   m_EditorClassIdentifier: 
   itemID: 2
   itemType: 0
   objectIcon: {fileID: 653098680963409810, guid: 6fee5700039388c4392fe5bb6e464de5, type: 3}
   itemName: Curly Guy
-  itemPrice: 15
+  itemPrice: 30
   coinType: {fileID: 21300000, guid: cc56ed4117b317c4495b248f5affc31f, type: 3}
   isAlreadyBought: 0

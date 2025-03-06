@@ -12,49 +12,55 @@ public static class SaveData
     {
         if (player == null)
         {
-            player = new PlayerData();
-            ReadFromJson();
+            ResetPlayerData();
         }
 
-        string playerData = JsonUtility.ToJson(player);
-        System.IO.File.WriteAllText(filePath, playerData);
         //Si está vacío poner un personaje default
         if (player.playerCharacterData is null)
         {
-            player.playerCharacterData = new CharacterData();
-            player.playerCharacterData.characterName = "Juan";
-            player.playerCharacterData.hairColor = "#4D2413";
-            player.playerCharacterData.skinColor = "#A87458";
-            player.playerCharacterData.topColor = "#B46600";
-            player.playerCharacterData.bottomColor = "#4F2F12";
-            player.playerCharacterData.shoes = 0;
-            player.playerCharacterData.prefabId = 0;
-            playerData = JsonUtility.ToJson(player);
+            player.playerCharacterData = new CharacterData() {
+                characterName = "Juan",
+                hairColor = "#4D2413",
+                skinColor = "#A87458",
+                topColor = "#B46600",
+                bottomColor = "#4F2F12",
+                shoes = 0,
+                prefabId = 0
+            };
             Debug.Log("No había datos. Creando personaje por defecto.");
         }
-        /*
-        player.username = "Username";
-        player.normalCoins = 0;
-        player.expPoints = 0;*/
+
+        string playerData = JsonUtility.ToJson(player);
         System.IO.File.WriteAllText(filePath, playerData);
         Debug.Log("[SAVE] Datos guardados en " + filePath);
     }
 
     public static void ReadFromJson()
     {
-        try
-        {
-            string playerData = System.IO.File.ReadAllText(filePath);
-
-            player = JsonUtility.FromJson<PlayerData>(playerData);
-            Debug.Log("[SAVE] Datos leidos");
+        if (File.Exists(filePath)) {
+            try {
+                string playerData = System.IO.File.ReadAllText(filePath);
+                player = JsonUtility.FromJson<PlayerData>(playerData);
+                Debug.Log("[SAVE] Datos leidos");
+            }
+            catch (System.Exception) {
+                Debug.Log("Error obteniendo datos");
+            }
         }
-        catch (System.Exception)
-        {
-            Debug.Log("No existe JSON: Creandolo...");
+        else {
+            Debug.Log("No Json found, creating...");
             SaveToJson();
             ReadFromJson();
         }
+    }
 
+    public static void ResetPlayerData()
+    {
+        player = new PlayerData() {
+            username = "Fitooner",
+            purchasedSkins = new List<int>(),
+            purchasedShoes = new List<int>(),
+            purchasedColors = new List<int>()
+        };
     }
 }

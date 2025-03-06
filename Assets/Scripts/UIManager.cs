@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image leagueImage;
     [SerializeField] private TextMeshProUGUI streakText;
     public float baseXP = 100f;
+    public int rankMedalInterval = 500;
 
     [Header("Player Data")]
     [SerializeField] private TextMeshProUGUI playerNameText;
@@ -38,26 +39,42 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.V)) {
+        if (Input.GetKeyDown(KeyCode.Delete)) {
             Debug.Log("Erased");
-            SaveData.player.expPoints = 0;
-            SaveData.player.medals = 0;
-            SaveData.player.streak = 0;
-            SaveData.player.normalCoins = 0;
-            SaveData.player.username = "TestUsername";
+            SaveData.ResetPlayerData();
+            SaveData.SaveToJson();
             UpdateAllUI();
         }
-        if (Input.GetKeyDown(KeyCode.C)) {
+        if (Input.GetKeyDown(KeyCode.Keypad2)) {
             
             SaveData.player.normalCoins += 20;
+            SaveData.SaveToJson();
             UpdateCoins();
         }
-        if (Input.GetKeyDown(KeyCode.D)) {
+        if (Input.GetKeyDown(KeyCode.Keypad1)) {
 
             SaveData.player.expPoints += 50;
+            SaveData.SaveToJson();
             UpdateExp();
         }
+        if (Input.GetKeyDown(KeyCode.UpArrow)) {
+
+            SaveData.player.medals += 50;
+            SaveData.SaveToJson();
+            UpdateMedals();
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow)) {
+
+            SaveData.player.medals -= 50;
+            SaveData.SaveToJson();
+            UpdateMedals();
+        }
+
     }
+
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
+    // Menu and scene management
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
 
     public void OpenMenu(GameObject menu)
     {
@@ -78,6 +95,10 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
+    // Data display
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
 
     public void SaveUsername(string value)
     {
@@ -119,8 +140,13 @@ public class UIManager : MonoBehaviour
 
     public void UpdateMedals()
     {
+
         if (medalText != null) medalText.text = SaveData.player.medals.ToString();
-        if (medalSlider != null) medalSlider.value = SaveData.player.medals;
+        if (medalSlider != null) {
+            medalSlider.minValue = SaveData.player.medals / rankMedalInterval * rankMedalInterval;
+            medalSlider.maxValue = ((SaveData.player.medals / rankMedalInterval) + 1) * rankMedalInterval;
+            medalSlider.value = SaveData.player.medals;
+        }
     }
 
     public void UpdateStreak()
@@ -130,15 +156,18 @@ public class UIManager : MonoBehaviour
 
     public void UpdateProfile()
     {
+        
         if (playerNameText != null) playerNameText.text = SaveData.player.username;
+        if (playerNameField != null) playerNameField.text = SaveData.player.username;
 
     }
-
-    //Progresion de puntos
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
+    // Progresion de puntos
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
     //Se utiliza una progresion geométrica de manera que sea un aumento exponencial de dificultad. De esta manera ganar nivel al principio es sencillo para motivar a jugar, pero
     //subir de nivel en un momento más avanzado es más difícil. Implica jugar muchas partidas o pagar para conseguir monedas.
     //Formula: PuntosNecesarios(nivel)=base*factor elevado a (nivel−1)
-    
+
 
     //Ejemplo con base 100 y factor 1.5: Para llegar al nivel 1 hacen falta 0+100 puntos. Nivel 2: 100+150 puntos. Nivel 3: 100+150+225 puntos...
     private int CalculateXPForNextLevel(int level)
@@ -169,5 +198,25 @@ public class UIManager : MonoBehaviour
         }
 
         return totalXP;
+    }
+
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
+    // Lobby
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
+    public void ExitApp()
+    {
+        Application.Quit();
+    }
+
+    public void SetPasscode(string value)
+    {
+        DiscoveryHandler.Passcode = value;
+    }
+
+    public void JoinLobby(bool privateLobby)
+    {
+        if (!privateLobby) DiscoveryHandler.Passcode = null;
+        Debug.Log("Passcode: " + DiscoveryHandler.Passcode);
+        SceneManager.LoadScene("LobbyScene");
     }
 }

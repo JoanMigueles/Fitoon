@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
+
+[Obsolete]
 public class Tienda : MonoBehaviour
 {
-    public List<IconTienda> itemsByCategory;
+    public List<ShopElement> itemsByCategory;
     public GameObject iconPrefab;
     public GameObject gameManager;
     public GameObject container;
     ScrollRect scrollRect;
     RectTransform item;
+
     void Start()
     {
         scrollRect = FindObjectOfType<ScrollRect>();
@@ -32,7 +36,7 @@ public class Tienda : MonoBehaviour
         for (int i = 0; i < itemsByCategory.Count; i++)
         {
             GameObject iconoCreado = Instantiate(iconPrefab, container.transform);
-            IconTienda iconTiendaActual = itemsByCategory[i];
+            ShopElement iconTiendaActual = itemsByCategory[i];
             //Primer hijo: Boton. Hijos (en orden): Texto monedas y Icono monedas
             iconoCreado.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = iconTiendaActual.itemPrice.ToString();
             iconoCreado.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = iconTiendaActual.coinType;
@@ -45,7 +49,7 @@ public class Tienda : MonoBehaviour
             iconoCreado.transform.GetChild(2).gameObject.GetComponentInChildren<TextMeshProUGUI>().text = iconTiendaActual.itemName;
             //añadir id
             iconTiendaActual.itemID = i;
-            iconoCreado.GetComponent<ShopItem>().iconTiendaPropio = iconTiendaActual;
+            //iconoCreado.GetComponent<ShopSlot>().shopItemElement = iconTiendaActual;
 
             if ((SaveData.player.purchasedSkins.Contains(i) && iconTiendaActual.itemType.ToString() == "SKIN") || 
                 (SaveData.player.purchasedShoes.Contains(i) && iconTiendaActual.itemType.ToString() == "SHOE") || 
