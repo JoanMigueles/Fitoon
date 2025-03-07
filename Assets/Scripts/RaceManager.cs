@@ -59,7 +59,7 @@ public class RaceManager : MonoBehaviour
         raceBots = new List<RaceBotsData>();
         playerWon = false;
 		SaveData.ReadFromJson();
-		SaveData.player.scenesPlayed.Clear();
+		//SaveData.player.scenesPlayed.Clear();
 		SaveData.SaveToJson();
     }
 }

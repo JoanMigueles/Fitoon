@@ -15,7 +15,6 @@ public class PlayerData
     public List<int> purchasedShoes;
     public List<int> purchasedColors;
     public CharacterData playerCharacterData;
-    public List<EscenarioItem> scenesPlayed;
 }
 
 [System.Serializable]

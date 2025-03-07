@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject banner;
     [SerializeField] private Image profileIconImage;
 
+
     private void Start()
     {
         SaveData.ReadFromJson();

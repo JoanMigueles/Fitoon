@@ -48,7 +48,7 @@ public class RandomEscenario : MonoBehaviour
         }
 
 		//timer = 0;
-		SaveData.player.scenesPlayed.Add(escenarioElegido);
+		// SaveData.player.scenesPlayed.Add(escenarioElegido);
 		SaveData.SaveToJson();
 
         timerActive = false;
@@ -77,10 +77,11 @@ public class RandomEscenario : MonoBehaviour
 
     private void GetAvaliableScenarios()
     {
+        /*
 		SaveData.ReadFromJson();
         foreach (EscenarioItem item in SaveData.player.scenesPlayed)
         {
             escenariosDisponibles.Remove(item);
-        }
+        }*/
     }
 }
