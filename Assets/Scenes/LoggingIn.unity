@@ -181,7 +181,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Loging in...
+  m_text: Logging in...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3de17d7904d63f345835edca2003087b, type: 2}
   m_sharedMaterial: {fileID: 549146937464187453, guid: 3de17d7904d63f345835edca2003087b, type: 2}

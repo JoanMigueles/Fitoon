@@ -6,6 +6,7 @@ using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using GooglePlayGames.BasicApi.SavedGame;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class GooglePlayServicesManager : MonoBehaviour
 {
@@ -123,5 +124,15 @@ public class GooglePlayServicesManager : MonoBehaviour
     public string GetPlayerUsername()
     {
         return PlayGamesPlatform.Instance.GetUserDisplayName();
+    }
+
+    public void ShowLeaderboard()
+    {
+        PlayGamesPlatform.Instance.ShowLeaderboardUI();
+    }
+
+    public void PostScore()
+    {
+        int score = 0;
     }
 }
