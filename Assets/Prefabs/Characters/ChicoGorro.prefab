@@ -95,6 +95,39 @@ Transform:
   m_Father: {fileID: 6678597545063238918}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &550247639128999591
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6204342675730920184}
+  m_Layer: 0
+  m_Name: MeshHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6204342675730920184
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550247639128999591}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7372558662317411551}
+  - {fileID: 2572867641843293898}
+  m_Father: {fileID: 3026636403835857995}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &565190224994568608
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,7 +507,7 @@ GameObject:
   - component: {fileID: 4137781882899562374}
   m_Layer: 3
   m_Name: cabeza
-  m_TagString: Skin
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -745,7 +778,7 @@ GameObject:
   - component: {fileID: 3154337625098712044}
   m_Layer: 3
   m_Name: orejas.001
-  m_TagString: Skin
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -982,9 +1015,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3026636403835857995}
   - component: {fileID: 8998448321280030257}
-  - component: {fileID: 521287158}
   - component: {fileID: 521287157}
   - component: {fileID: 2355253033629851648}
+  - component: {fileID: 5104544834882387328}
   m_Layer: 3
   m_Name: ChicoGorro
   m_TagString: Character
@@ -1000,12 +1033,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2399034774071457521}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.0992907, y: 0.0000076293945, z: -3.359993}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7372558662317411551}
-  - {fileID: 2572867641843293898}
+  - {fileID: 6204342675730920184}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1030,20 +1062,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!136 &521287158
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2399034774071457521}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.83
-  m_Height: 5.0228806
-  m_Direction: 1
-  m_Center: {x: 0, y: 3.0211372, z: 0}
 --- !u!114 &521287157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1074,6 +1092,24 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &5104544834882387328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2399034774071457521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28192331b2bb028488045ddd994b98ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shader: {fileID: 4800000, guid: 8fa84e1c8f3a97b4bb416e8eb087630e, type: 3}
+  hairMaterial: {fileID: 2100000, guid: 5d0185f5b180b9440a5c5a9d26c1a2b1, type: 2}
+  skinMaterial: {fileID: 2100000, guid: 073b48346f09f774aa583a315c7eed2e, type: 2}
+  topMaterial: {fileID: 2100000, guid: 97e67947a58182b4cb657d0a8b84cb47, type: 2}
+  bottomMaterial: {fileID: 2100000, guid: 600f3193300e44e419be70eb3d43048b, type: 2}
+  shoe: {fileID: 7541126460742296558}
 --- !u!1 &2490345629196703146
 GameObject:
   m_ObjectHideFlags: 0
@@ -1105,7 +1141,7 @@ Transform:
   - {fileID: 1012769312603092387}
   - {fileID: 6689260333112703968}
   - {fileID: 7077528712574598988}
-  m_Father: {fileID: 3026636403835857995}
+  m_Father: {fileID: 6204342675730920184}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2586212164287308501
@@ -1183,7 +1219,7 @@ GameObject:
   - component: {fileID: 2495465875965113824}
   m_Layer: 3
   m_Name: pelo
-  m_TagString: Hair
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1335,7 +1371,7 @@ GameObject:
   - component: {fileID: 8383566946003717817}
   m_Layer: 3
   m_Name: cejas
-  m_TagString: Hair
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1517,7 +1553,7 @@ GameObject:
   - component: {fileID: 6745036124633158503}
   m_Layer: 3
   m_Name: camiseta
-  m_TagString: Top
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2001,7 +2037,7 @@ GameObject:
   - component: {fileID: 1036508937803832943}
   m_Layer: 3
   m_Name: nariz
-  m_TagString: Skin
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2173,7 +2209,7 @@ GameObject:
   - component: {fileID: 1938207825384462811}
   m_Layer: 3
   m_Name: brazos
-  m_TagString: Skin
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2412,7 +2448,7 @@ GameObject:
   - component: {fileID: 3237459690960808505}
   m_Layer: 3
   m_Name: cuelloCamiseta
-  m_TagString: Top
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2642,7 +2678,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8717795707382525358}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2660,6 +2696,6 @@ Transform:
   - {fileID: 2107993097739816393}
   - {fileID: 5325511859833021223}
   - {fileID: 2921657628507114297}
-  m_Father: {fileID: 3026636403835857995}
+  m_Father: {fileID: 6204342675730920184}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

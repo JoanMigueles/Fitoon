@@ -20,7 +20,7 @@ public class PrivateMatchStarter : MonoBehaviour
     public void StartGame()
     {
         DiscoveryHandler.Passcode = inputField.text;
-
+        SessionDataHolder.lookForLobby = true;
 		SceneManager.LoadScene("LobbyScene");
     }
     public void SetPasscode(string value)

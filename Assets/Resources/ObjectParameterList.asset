@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: ShoeParameters
+  m_Script: {fileID: 11500000, guid: 63b6b8216ddb5474289aad9ff640785c, type: 3}
+  m_Name: ObjectParameterList
   m_EditorClassIdentifier: Assembly-CSharp::ObjectParameterList
   icons:
   - {fileID: 21300000, guid: f7eb72b7c065db14e859782969f5acbd, type: 3}
@@ -25,11 +25,11 @@ MonoBehaviour:
   materials:
   - {fileID: 2100000, guid: 468315a7e2e8bff439fcbd947bd5e8c1, type: 2}
   - {fileID: 2100000, guid: 52f38cb3478c04a4f94b4547d122fc29, type: 2}
-  - {fileID: 2100000, guid: ce63d78af43fde843b2abb694490e123, type: 2}
+  - {fileID: 2100000, guid: cec2a3b910fa2fe45bd6aa1d2b9ecbc3, type: 2}
   - {fileID: 2100000, guid: 0ea86cc725659cc46af357abe8798389, type: 2}
   - {fileID: 2100000, guid: 1a1fdb48eb3c3d44598b1c451b6502b5, type: 2}
   - {fileID: 2100000, guid: 0d3f77f76a6e8504ebf5829a81f77763, type: 2}
   - {fileID: 2100000, guid: 22bbf7715a03fb14485832e4bd1473b8, type: 2}
-  - {fileID: 2100000, guid: b3182c2de6df124448d5ca62e7119ca9, type: 2}
-  - {fileID: 2100000, guid: 15ac8cd572b557e489bb46a49abecddf, type: 2}
+  - {fileID: 2100000, guid: 278432a1c465306449df48e98b65b595, type: 2}
+  - {fileID: 2100000, guid: 4c12cc165ccf5bc45adc7d24e94cf180, type: 2}
   - {fileID: 2100000, guid: a2f639703d1ecdc4796dfad766eec283, type: 2}

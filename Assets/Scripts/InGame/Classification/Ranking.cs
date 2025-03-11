@@ -35,7 +35,7 @@ public class Ranking : NetworkBehaviour
             //posicion
             rankingEntry.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"#{i+1}";
             //nombre
-            rankingEntry.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GameManager.runnerData[i].character.name;
+            rankingEntry.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GameManager.runnerData[i].name;
 
             if (GameManager.runnerData[i].connection == InstanceFinder.ClientManager.Connection)
             {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Drawing;
 
 public class InitialScreen : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class InitialScreen : MonoBehaviour
 		ReadUsername();
         ReadCharacter();
         ResetScenesPlayed();
+        SessionDataHolder.score = 0;
     }
 
     void ReadUsername()
@@ -52,11 +54,11 @@ public class InitialScreen : MonoBehaviour
         characterInstance.GetComponent<Outline>().enabled = false;
 
         UpdateShoes();
-        UpdateColors();
+       // UpdateColors();
 
         //Colocar a personaje adecuadamente en la cinta
         characterInstance.transform.Rotate(transform.up, 180f);
-        characterInstance.transform.position = new Vector3(0, 0.54f, 1.6f);
+        characterInstance.transform.position = new Vector3(0, 2.54f, 1.6f);
 
         //Para alejarlo un poco de la camara
         characterContainer.transform.position = new Vector3(0, 0, -2.91f);
@@ -87,23 +89,10 @@ public class InitialScreen : MonoBehaviour
 
     void UpdateColors()
     {
-        Color color = Color.black; //si falla saldrá negro
-        if (ColorUtility.TryParseHtmlString(SaveData.player.playerCharacterData.hairColor, out color))
-        {
-            actualCharacter.hair.color = color;
-        }
-        if (ColorUtility.TryParseHtmlString(SaveData.player.playerCharacterData.skinColor, out color))
-        {
-            actualCharacter.skin.color = color;
-        }
-        if (ColorUtility.TryParseHtmlString(SaveData.player.playerCharacterData.bottomColor, out color))
-        {
-            actualCharacter.bottom.color = color;
-        }
-        if (ColorUtility.TryParseHtmlString(SaveData.player.playerCharacterData.topColor, out color))
-        {
-            actualCharacter.top.color = color;
-        }
+        actualCharacter.hair.color = SaveData.player.playerCharacterData.hairColor;
+        actualCharacter.skin.color = SaveData.player.playerCharacterData.skinColor;
+        actualCharacter.bottom.color = SaveData.player.playerCharacterData.bottomColor;
+		actualCharacter.top.color = SaveData.player.playerCharacterData.topColor;
     }
 
     public void SaveUsername(string value)
@@ -121,6 +110,7 @@ public class InitialScreen : MonoBehaviour
     public void StartGame()
     {
         DiscoveryHandler.Passcode = null;
+        SessionDataHolder.lookForLobby = true;
         SceneManager.LoadScene("LobbyScene");
 	}
 }

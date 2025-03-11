@@ -18,6 +18,6 @@ public class LobbyPlayer : NetworkBehaviour
 	IEnumerator DelayHostConnection()
 	{
 		yield return new WaitForSeconds(0.1f);
-		LobbyManager.Instance.AddPlayer(InstanceFinder.ClientManager.Connection, SaveData.player.username);
+		LobbyManager.Instance.AddPlayer(InstanceFinder.ClientManager.Connection, SaveData.player.username, SaveData.player.pfp, SessionDataHolder.score, SaveData.player.playerCharacterData);
 	}
 }

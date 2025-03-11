@@ -21,7 +21,11 @@ public class LobbyManager : NetworkBehaviour
 	{
 		public string name;
 		public bool ready;
+		public int score;
+		public int pfp;
 	}
+
+	public static List<Runner> runnerData = new List<Runner>();
 
 	readonly SyncDictionary<NetworkConnection, PlayerCard> playerEntries = new SyncDictionary<NetworkConnection, PlayerCard>();
 
@@ -54,8 +58,6 @@ public class LobbyManager : NetworkBehaviour
 
 	private void Update()
 	{
-		Debug.Log(playerEntries.Keys.Count);
-		Debug.Log(playerEntries.Values.Count);
 		List<PlayerCard> playerCards = playerEntries.Values.ToList();
 		int i;
 		for(i = 0; i  < playerCards.Count; i++)
@@ -66,6 +68,8 @@ public class LobbyManager : NetworkBehaviour
 			}
 			cardList[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = playerCards[i].name;
 			cardList[i].transform.GetChild(1).GetComponent<Image>().enabled = playerCards[i].ready;
+			cardList[i].transform.GetChild(2).GetComponent<Image>().sprite = PFPLoader.LoadPFP(playerCards[i].pfp);
+			cardList[i].transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = playerCards[i].score.ToString();
 		}
 		for(int j = cardList.Count - 1; j >= i; j--)
 		{
@@ -87,6 +91,7 @@ public class LobbyManager : NetworkBehaviour
 		if(args.ConnectionState == RemoteConnectionState.Stopped)
 		{
 			playerEntries.Remove(connection);
+			runnerData.Remove(runnerData.Find((r) => r.connection == connection));
 		}
 	}
 
@@ -117,15 +122,26 @@ public class LobbyManager : NetworkBehaviour
 	}
 
 	[ServerRpc(RequireOwnership = false)]
-	public void AddPlayer(NetworkConnection key, string name)
+	public void AddPlayer(NetworkConnection key, string name, int pfp, int score, CharacterData characterData)
 	{
 		PlayerCard card = new PlayerCard()
 		{
 			name = name,
-			ready = false
+			ready = false,
+			pfp = pfp,
+			score = score
 		};
 		playerEntries.Add(key, card);
 		playerEntries.Dirty(key);
+
+		runnerData.Add(new Runner()
+		{
+			id = key.ClientId,
+			name = name,
+			connection = key,
+			position = -1,
+			characterData = characterData
+		});
 	}
 
 	[ServerRpc(RequireOwnership = false)]

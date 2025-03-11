@@ -16,6 +16,10 @@ public class DiscoveryHandler : MonoBehaviour
 
 	void Start()
 	{
+		if (!SessionDataHolder.lookForLobby)
+		{
+			return;
+		}
 		netDiscovery = networkManager.GetComponent<NetworkDiscovery>();
 		if (Passcode != null)
 		{

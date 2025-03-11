@@ -1289,9 +1289,9 @@ GameObject:
   - component: {fileID: 2538067848661280507}
   - component: {fileID: 8491866497008172161}
   - component: {fileID: 4367221086394700878}
-  - component: {fileID: 919132149221974587}
   - component: {fileID: -1196935118801125242}
   - component: {fileID: -7598977819318306462}
+  - component: {fileID: 8469793106078004148}
   m_Layer: 3
   m_Name: ChicoSudadera
   m_TagString: Character
@@ -1311,8 +1311,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8028041880959043183}
-  - {fileID: 5098709984864170254}
+  - {fileID: 4625339858652238935}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1349,20 +1348,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fb5a9facaf4b4b4388a791c15db10a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!136 &919132149221974587
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2914629327372680257}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 1.0920925
-  m_Height: 5.678772
-  m_Direction: 1
-  m_Center: {x: -0.009077072, y: 3.1442947, z: 0}
 --- !u!114 &-1196935118801125242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1393,6 +1378,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 458509c24db04f2409fbde8b0019fdd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8469793106078004148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2914629327372680257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28192331b2bb028488045ddd994b98ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shader: {fileID: 4800000, guid: 8fa84e1c8f3a97b4bb416e8eb087630e, type: 3}
+  hairMaterial: {fileID: 2100000, guid: 3422440e648480a4f8ec756382c86aef, type: 2}
+  skinMaterial: {fileID: 2100000, guid: e66068e2c142bf5408c7829e622eb0ce, type: 2}
+  topMaterial: {fileID: 2100000, guid: 86cecc6124531674b977e481715abea6, type: 2}
+  bottomMaterial: {fileID: 2100000, guid: 1d7b9a2fb128d5a498946edb2452823e, type: 2}
+  shoe: {fileID: 6097467375089907470}
+--- !u!1 &3006577476398091649
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4625339858652238935}
+  m_Layer: 0
+  m_Name: MeshHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4625339858652238935
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3006577476398091649}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8028041880959043183}
+  - {fileID: 5098709984864170254}
+  m_Father: {fileID: 2538067848661280507}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3088854468327827557
 GameObject:
   m_ObjectHideFlags: 0
@@ -1455,7 +1491,7 @@ Transform:
   - {fileID: 520120497547181843}
   - {fileID: 6191539436558643536}
   - {fileID: 7710633537251030524}
-  m_Father: {fileID: 2538067848661280507}
+  m_Father: {fileID: 4625339858652238935}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3533867554477321643
@@ -2278,7 +2314,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6507636202125336334}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2298,7 +2334,7 @@ Transform:
   - {fileID: 208236747916713654}
   - {fileID: 4664730721351795057}
   - {fileID: 2481254992033846865}
-  m_Father: {fileID: 2538067848661280507}
+  m_Father: {fileID: 4625339858652238935}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6692432935115369535

@@ -23,16 +23,16 @@ public static class SaveData
         {
             player.playerCharacterData = new CharacterData();
             player.playerCharacterData.characterName = "Juan";
-            player.playerCharacterData.hairColor = "#4D2413";
-            player.playerCharacterData.skinColor = "#A87458";
-            player.playerCharacterData.topColor = "#B46600";
-            player.playerCharacterData.bottomColor = "#4F2F12";
+            player.playerCharacterData.hairColor = new Color(77, 36, 19);
+            player.playerCharacterData.skinColor = new Color(168, 116, 88);
+            player.playerCharacterData.topColor = new Color(180, 102, 0);
+            player.playerCharacterData.bottomColor = new Color(79, 47, 18);
             player.playerCharacterData.shoes = 0;
-            player.playerCharacterData.prefabId = 0;
             playerData = JsonUtility.ToJson(player);
             Debug.Log("No había datos. Creando personaje por defecto.");
         }
         player.username = "Username";
+        player.pfp = 0;
         player.normalCoins = 0;
         player.points = 0;
         System.IO.File.WriteAllText(filePath, playerData);

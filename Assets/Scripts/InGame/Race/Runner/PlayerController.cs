@@ -5,14 +5,31 @@ using FishNet.Object;
 
 public class PlayerController : BaseRunner
 {
+	[SerializeField] new Camera camera;
     FaceTrackingToMovement faceTracking;
 
-	public override void OnStartClient()
+	public override void OnStartNetwork()
     {
-		Debug.Log("Player Started");
-        BaseAwake();
-		LoadCharacter(LoadCharacterData());
-		faceTracking = GetComponent<FaceTrackingToMovement>();
+		Debug.Log("Player Starting");
+		BaseAwake();
+		if (Owner.IsLocalClient)
+		{
+			faceTracking = GetComponent<FaceTrackingToMovement>();
+		}
+		else
+		{
+			Destroy(camera.gameObject);
+		}
+		if(IsServerInitialized)
+		{
+			Debug.Log("I'm" + characterData.characterName);
+			_characterData.Value = characterData;
+		}
+	}
+
+	public override void OnStartClient()
+	{
+		
 	}
 
 	private void FixedUpdate()
@@ -29,11 +46,5 @@ public class PlayerController : BaseRunner
 	void Update()
 	{
 		BaseUpdate();
-	}
-
-	Character LoadCharacterData()
-	{
-		SaveData.ReadFromJson();
-		return CharacterLoader.GetCharacter(SaveData.player.playerCharacterData);
 	}
 }

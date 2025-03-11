@@ -3,17 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Object;
 using TMPro;
+using FishNet.Object.Synchronizing;
+using System;
+using System.Linq;
 
 public class BaseRunner : NetworkBehaviour
 {
+	protected readonly SyncVar<CharacterData> _characterData = new SyncVar<CharacterData>();
+	public CharacterData characterData;
+	readonly SyncVar<bool> isFalling = new SyncVar<bool>();
+	readonly SyncVar<bool> isRunning = new SyncVar<bool>();
+	readonly SyncVar<float> playerSpeed = new SyncVar<float>();
+
+	private GameObject characterObject;
 	[SerializeField] protected float baseSpeed;
 	[SerializeField] protected float rotationSpeed = .5f;
 	[SerializeField] protected GameObject trailBoost;
 	[SerializeField] protected LayerMask whatIsGround;
 	[SerializeField] protected float runnerHeight = 2;
 	[SerializeField] TextMeshProUGUI nameTag;
-
-	string runnerName;
 
 	int id;
 
@@ -22,15 +30,112 @@ public class BaseRunner : NetworkBehaviour
 
 	protected float speedMultiplier = 1;
 	protected bool canMove = true;
+	void Start()
+	{
+		if (!IsServerInitialized)
+		{
+			LoadCharacter(_characterData.Value);
+		}
+	}
 	protected void BaseAwake()
 	{
+		_characterData.OnChange += LoadCharacter;
+
 		rigidBody = GetComponent<Rigidbody>();
 		rigidBody.detectCollisions = true;
-		Freeze();
+		isFalling.OnChange += IsFallingOnChange;
+		isRunning.OnChange += IsRunningOnChange;
+		playerSpeed.OnChange += PlayerSpeedOnChange;
+		//Freeze();
 	}
+
+	private void PlayerSpeedOnChange(float prev, float next, bool asServer)
+	{
+		if(animator != null)
+			animator.SetFloat("playerSpeed", next);
+	}
+
+	private void IsRunningOnChange(bool prev, bool next, bool asServer)
+	{
+		if (animator != null)
+			animator.SetBool("isRunning", next);
+	}
+
+	private void IsFallingOnChange(bool prev, bool next, bool asServer)
+	{
+		if (animator != null)
+			animator.SetBool("isFalling", next);
+	}
+
+	public void LoadCharacter(CharacterData prev, CharacterData next, bool asServer)
+	{
+		//Debug.Log("Loading Character");
+		Debug.Log("Loading: " + next.characterName);
+		Character character = CharacterLoader.GetCharacter(next);
+
+		if (character.prefab == null)
+		{
+			Debug.LogError("Character Data is Null");
+			return;
+		}
+
+		if (characterObject != null)
+			Destroy(characterObject);
+
+		characterObject = Instantiate(character.prefab, transform);
+		if(IsOwner)
+			Debug.Log("Instantiated: " + characterObject.name);
+		characterObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+
+		characterObject.GetComponent<CharacterPrefabColorChanger>().ChangeColors(character.hairColor, character.skinColor, character.topColor, character.bottomColor);
+		characterObject.GetComponent<CharacterPrefabColorChanger>().ChangeShoe(ShoeLoader.GetMesh(character.shoes.id), ShoeLoader.getMaterials(character.shoes.materials));
+
+		animator = GetComponentInChildren<Animator>();
+	}
+	public void LoadCharacter(CharacterData next)
+	{
+		//Debug.Log("Loading Character");
+		Debug.Log("Loading: " + next.characterName);
+		Character character = CharacterLoader.GetCharacter(next);
+
+		if (character.prefab == null)
+		{
+			Debug.LogError("Character Data is Null");
+			return;
+		}
+
+		if (characterObject != null)
+			Destroy(characterObject);
+
+		characterObject = Instantiate(character.prefab, transform);
+		characterObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+
+		characterObject.GetComponent<CharacterPrefabColorChanger>().ChangeColors(character.hairColor, character.skinColor, character.topColor, character.bottomColor);
+		characterObject.GetComponent<CharacterPrefabColorChanger>().ChangeShoe(ShoeLoader.GetMesh(character.shoes.id), ShoeLoader.getMaterials(character.shoes.materials));
+
+		animator = GetComponentInChildren<Animator>();
+	}
+
+	List<GameObject> GetAllChildrenRecursive(GameObject gameObject)
+	{
+		List<GameObject> children = new List<GameObject>();
+		for(int i = 0; i < gameObject.transform.childCount; i++)
+		{
+			children.Add(gameObject.transform.GetChild(i).gameObject);
+			children.Concat(GetAllChildrenRecursive(gameObject.transform.GetChild(i).gameObject));
+		}
+		Debug.Log(children);
+		return children;
+	}
+
+	private void OnDestroy()
+	{
+		Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO");
+	}
+
 	protected void BaseUpdate()
 	{
-		if(animator != null) 
+		if (animator != null && IsServerInitialized) 
 		{
 			UpdateAnimator();
 		}
@@ -51,61 +156,9 @@ public class BaseRunner : NetworkBehaviour
 	}
 	void UpdateAnimator()
 	{
-		animator.SetBool("isRunning", rigidBody.velocity.magnitude > 0.3f);
-		animator.SetBool("isFalling", Physics.Raycast(transform.position, Vector3.down, out _, runnerHeight * 0.5f + 1f, whatIsGround));
-		animator.SetFloat("playerSpeed", 0.3f + new Vector3(rigidBody.velocity.x, 0, rigidBody.velocity.z).magnitude / 10);
-	}
-	public void LoadCharacter(Character character)
-	{
-		if(character.prefab == null)
-		{
-			Debug.LogError("Character Data is Null");
-			return;
-		}
-		
-		Instantiate(character.prefab, transform);
-
-		List<GameObject> hair = new List<GameObject>();
-		List<GameObject> skin = new List<GameObject>();
-		List<GameObject> top = new List<GameObject>();
-		List<GameObject> bottom = new List<GameObject>();
-		GameObject shoes = null;
-
-		for (int i = 0; i < transform.childCount; i++)
-		{
-			if (transform.GetChild(i).tag is "Hair")
-				hair.Add(transform.GetChild(i).gameObject);
-			else if (transform.GetChild(i).tag is "Skin")
-				skin.Add(transform.GetChild(i).gameObject);
-			else if (transform.GetChild(i).tag is "Top")
-				top.Add(transform.GetChild(i).gameObject);
-			else if (transform.GetChild(i).tag is "Bottom")
-				bottom.Add(transform.GetChild(i).gameObject);
-			else if (transform.GetChild(i).tag is "Shoes")
-				shoes = transform.GetChild(i).gameObject;
-		}
-		foreach (GameObject gameObject in hair)
-		{
-			gameObject.GetComponent<SkinnedMeshRenderer>().material.color = character.hairColor;
-		}
-		foreach (GameObject gameObject in skin)
-		{
-			gameObject.GetComponent<SkinnedMeshRenderer>().material.color = character.skinColor;
-		}
-		foreach (GameObject gameObject in top)
-		{
-			gameObject.GetComponent<SkinnedMeshRenderer>().material.color = character.topColor;
-		}
-		foreach (GameObject gameObject in bottom)
-		{
-			gameObject.GetComponent<SkinnedMeshRenderer>().material.color = character.bottomColor;
-		}
-		if(shoes != null)
-		{
-			shoes.GetComponent<SkinnedMeshRenderer>().sharedMesh = ShoeLoader.GetMesh(character.shoes.mesh);
-			shoes.GetComponent<SkinnedMeshRenderer>().materials = ShoeLoader.getMaterials(character.shoes.materials);
-		}
-		animator = GetComponentInChildren<Animator>();
+		isRunning.Value = rigidBody.velocity.magnitude > 0.3f;
+		isFalling.Value = !Physics.Raycast(transform.position, Vector3.down, out _, runnerHeight * 0.5f + 1f, whatIsGround);
+		playerSpeed.Value = 0.3f + new Vector3(rigidBody.velocity.x, 0, rigidBody.velocity.z).magnitude / 10;
 	}
 
 	private void OnTriggerEnter(Collider other)
