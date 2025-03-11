@@ -21,16 +21,17 @@
 /// Resources.
 ///
 
-namespace Scripts.GooglePlayServices
-{
 public static class GPGSIds
 {
         public const string achievement_achievementtounlock = "CgkIyIKO_YUBEAIQAg"; // <GPGSID>
-        public const string leaderboard_leaders_in_smoketesting = "CgkIyIKO_YUBEAIQBQ"; // <GPGSID>
         public const string achievement_achievementtoincrement = "CgkIyIKO_YUBEAIQAQ"; // <GPGSID>
+        public const string leaderboard_players_scores = "CgkIyIKO_YUBEAIQBQ"; // <GPGSID>
         public const string achievement_achievement_hidden_incremental = "CgkIyIKO_YUBEAIQBA"; // <GPGSID>
+        public const string leaderboard_players_gym_auths = "CgkIyIKO_YUBEAIQBw"; // <GPGSID>
         public const string event_smokingevent = "CgkIyIKO_YUBEAIQBg"; // <GPGSID>
+        public const string leaderboard_auth_gyms = "CgkIyIKO_YUBEAIQCQ"; // <GPGSID>
+        public const string leaderboard_gym_ids = "CgkIyIKO_YUBEAIQCA"; // <GPGSID>
+        public const string leaderboard_app_manager = "CgkIyIKO_YUBEAIQCg"; // <GPGSID>
         public const string achievement_achievementtoreveal = "CgkIyIKO_YUBEAIQAw"; // <GPGSID>
 
-}
 }

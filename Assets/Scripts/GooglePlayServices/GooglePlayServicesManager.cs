@@ -1,12 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using GooglePlayGames.BasicApi.SavedGame;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class GooglePlayServicesManager : MonoBehaviour
 {
@@ -134,5 +131,6 @@ public class GooglePlayServicesManager : MonoBehaviour
     public void PostScore()
     {
         int score = 0;
+        PlayGamesPlatform.Instance.ReportScore(score, GPGSIds.leaderboard_players_scores, (bool success) => { Debug.Log("A"); });
     }
 }

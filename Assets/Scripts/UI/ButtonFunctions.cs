@@ -7,7 +7,9 @@ public class ButtonFunctions : MonoBehaviour
 {
     public void LoadScene(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        GooglePlayServicesManager.instance.PostScore();
+        GooglePlayServicesManager.instance.ShowLeaderboard();
+        //SceneManager.LoadScene(sceneName);
     }
 
     public void ExitApp()
