@@ -35,6 +35,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Shop.unity
     guid: 1522609a74bd5104bbda7443172012b7
+  - enabled: 1
+    path: Assets/Scenes/Settings.unity
+    guid: 0d313f104548883488e8764fbeb8d844
   - enabled: 0
     path: Assets/Scenes/NivelesAR/DizzyHeightAR.unity
     guid: af7a35b810b667f44beb5fd39b3733f2

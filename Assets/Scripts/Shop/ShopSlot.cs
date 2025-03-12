@@ -14,6 +14,9 @@ public class ShopSlot : MonoBehaviour
     [SerializeField] private Image currencyIcon;
     [SerializeField] private GameObject ownedTag;
 
+    [SerializeField] private Sprite defaultPanel;
+    [SerializeField] private Sprite ownedPanel;
+
     public void SetShopItemData(ShopElement item)
     {
         shopItemElement = item;
@@ -48,9 +51,9 @@ public class ShopSlot : MonoBehaviour
         ownedTag.SetActive(owned);
 
         if (owned) {
-            GetComponent<Image>().color = new Color(235f / 255f, 90f / 255f, 210f / 255f);
+            GetComponent<Image>().sprite = ownedPanel;
         } else {
-            GetComponent<Image>().color = Color.white;
+            GetComponent<Image>().sprite = defaultPanel;
         }
     }
 

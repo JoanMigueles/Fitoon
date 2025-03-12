@@ -431,6 +431,8 @@ MonoBehaviour:
   priceTag: {fileID: 2234132927316760832}
   currencyIcon: {fileID: 1290137977421043553}
   ownedTag: {fileID: 6973405742012906117}
+  defaultPanel: {fileID: 21300000, guid: 516fb11970afa0f4282b99a3500186a3, type: 3}
+  ownedPanel: {fileID: 21300000, guid: 2a8298cf8913e4346a372ade15e3c209, type: 3}
 --- !u!114 &811871651410783269
 MonoBehaviour:
   m_ObjectHideFlags: 0
