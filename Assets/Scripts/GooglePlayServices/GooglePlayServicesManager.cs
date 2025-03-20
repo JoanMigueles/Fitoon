@@ -122,15 +122,4 @@ public class GooglePlayServicesManager : MonoBehaviour
     {
         return PlayGamesPlatform.Instance.GetUserDisplayName();
     }
-
-    public void ShowLeaderboard()
-    {
-        PlayGamesPlatform.Instance.ShowLeaderboardUI();
-    }
-
-    public void PostScore()
-    {
-        int score = 0;
-        PlayGamesPlatform.Instance.ReportScore(score, GPGSIds.leaderboard_players_scores, (bool success) => { Debug.Log("A"); });
-    }
 }
