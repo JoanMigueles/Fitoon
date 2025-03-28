@@ -421,10 +421,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreakPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 5979585733740960852, guid: efbf6d6c6fdae8946b052bf4ddade7ea, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979585733740960852, guid: efbf6d6c6fdae8946b052bf4ddade7ea, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 108.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979585733740960852, guid: efbf6d6c6fdae8946b052bf4ddade7ea, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 93
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979585733740960852, guid: efbf6d6c6fdae8946b052bf4ddade7ea, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.000015258789
+      objectReference: {fileID: 0}
     - target: {fileID: 5979585733740960853, guid: efbf6d6c6fdae8946b052bf4ddade7ea, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 3d514bbb793f87242a037efcf945fc71, type: 3}
+      objectReference: {fileID: 21300000, guid: 4816f5f6684205f4da17eb5a35c62c6e, type: 3}
     - target: {fileID: 5979585733740960855, guid: efbf6d6c6fdae8946b052bf4ddade7ea, type: 3}
       propertyPath: m_Name
       value: StrakIcon
@@ -1458,6 +1474,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RankPanel (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5979585733740960853, guid: efbf6d6c6fdae8946b052bf4ddade7ea, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 50381fcd5b0514049883b3115916b59f, type: 3}
     - target: {fileID: 5979585733740960855, guid: efbf6d6c6fdae8946b052bf4ddade7ea, type: 3}
       propertyPath: m_Name
       value: RankIcon
@@ -1920,6 +1940,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RankPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 5979585733740960853, guid: efbf6d6c6fdae8946b052bf4ddade7ea, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 50381fcd5b0514049883b3115916b59f, type: 3}
     - target: {fileID: 5979585733740960855, guid: efbf6d6c6fdae8946b052bf4ddade7ea, type: 3}
       propertyPath: m_Name
       value: RankIcon
@@ -2024,6 +2048,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 579952831}
   m_CullTransparentMesh: 1
+--- !u!1 &619722289 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5979585733740960855, guid: efbf6d6c6fdae8946b052bf4ddade7ea, type: 3}
+  m_PrefabInstance: {fileID: 171861313}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &619722291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 619722289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &635607784
 GameObject:
   m_ObjectHideFlags: 0
@@ -2296,6 +2340,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 644590666}
   m_CullTransparentMesh: 1
+--- !u!1 &728440737 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5979585733740960855, guid: efbf6d6c6fdae8946b052bf4ddade7ea, type: 3}
+  m_PrefabInstance: {fileID: 1637845382}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &728440739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728440737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &729639802
 GameObject:
   m_ObjectHideFlags: 0
@@ -2610,6 +2674,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 772043047}
   m_CullTransparentMesh: 1
+--- !u!1 &781036168 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5979585733740960855, guid: efbf6d6c6fdae8946b052bf4ddade7ea, type: 3}
+  m_PrefabInstance: {fileID: 848117379}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &781036170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 781036168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &831316250
 GameObject:
   m_ObjectHideFlags: 0
@@ -2800,6 +2884,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DistancePanel
       objectReference: {fileID: 0}
+    - target: {fileID: 5979585733740960853, guid: efbf6d6c6fdae8946b052bf4ddade7ea, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 00de53cf30056e44098a27b75f1479bf, type: 3}
     - target: {fileID: 5979585733740960855, guid: efbf6d6c6fdae8946b052bf4ddade7ea, type: 3}
       propertyPath: m_Name
       value: DistanceIcon
@@ -2954,6 +3042,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 854616094}
   m_CullTransparentMesh: 1
+--- !u!1 &891358039 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5979585733740960855, guid: efbf6d6c6fdae8946b052bf4ddade7ea, type: 3}
+  m_PrefabInstance: {fileID: 377290296}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &891358041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891358039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &899191480
 GameObject:
   m_ObjectHideFlags: 0
@@ -4018,7 +4126,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cc56ed4117b317c4495b248f5affc31f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aed8917f62a580c49ab3bd1e3509130f, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -4047,6 +4155,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1489391336 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5979585733740960855, guid: efbf6d6c6fdae8946b052bf4ddade7ea, type: 3}
+  m_PrefabInstance: {fileID: 539177084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1489391338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489391336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1542042325
 GameObject:
   m_ObjectHideFlags: 0
@@ -4579,10 +4707,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: MedalPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 5979585733740960852, guid: efbf6d6c6fdae8946b052bf4ddade7ea, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979585733740960852, guid: efbf6d6c6fdae8946b052bf4ddade7ea, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 92.99997
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979585733740960852, guid: efbf6d6c6fdae8946b052bf4ddade7ea, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.000015258789
+      objectReference: {fileID: 0}
     - target: {fileID: 5979585733740960853, guid: efbf6d6c6fdae8946b052bf4ddade7ea, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: cc56ed4117b317c4495b248f5affc31f, type: 3}
+      objectReference: {fileID: 21300000, guid: aed8917f62a580c49ab3bd1e3509130f, type: 3}
     - target: {fileID: 5979585733740960855, guid: efbf6d6c6fdae8946b052bf4ddade7ea, type: 3}
       propertyPath: m_Name
       value: MedalIcon
@@ -5124,6 +5264,7 @@ MonoBehaviour:
   leagueImage: {fileID: 0}
   streakText: {fileID: 548451429}
   baseXP: 100
+  rankMedalInterval: 500
   playerNameText: {fileID: 1727157187}
   playerNameField: {fileID: 0}
   banner: {fileID: 503563991}
