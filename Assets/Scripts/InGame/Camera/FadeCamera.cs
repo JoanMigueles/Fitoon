@@ -10,7 +10,8 @@ public class FadeCamera : MonoBehaviour
 
     public void StartFade(bool fadeIn)
     {
-        if (currentFadeCoroutine != null)
+        Debug.Log("StartFade");
+		if (currentFadeCoroutine != null)
             StopCoroutine(currentFadeCoroutine);
 
         currentFadeCoroutine = StartCoroutine(FadeRawImageCoroutine(fadeIn));

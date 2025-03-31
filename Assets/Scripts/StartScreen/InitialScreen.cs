@@ -110,7 +110,7 @@ public class InitialScreen : MonoBehaviour
     public void StartGame()
     {
         DiscoveryHandler.Passcode = null;
-        SessionDataHolder.lookForLobby = true;
-        SceneManager.LoadScene("LobbyScene");
+        SessionDataHolder.Reset();
+		SceneManager.LoadScene("LobbyScene");
 	}
 }

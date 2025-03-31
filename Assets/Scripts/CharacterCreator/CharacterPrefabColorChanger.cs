@@ -50,7 +50,6 @@ public class CharacterPrefabColorChanger : MonoBehaviour
                     renderer.materials[i].color = bottomColor;
                 }
             }
-            renderer.materials[renderer.materials.Length - 2].color = Color.black;
         }
         hColor = hairColor;
         sColor = skinColor;

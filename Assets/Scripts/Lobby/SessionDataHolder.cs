@@ -7,4 +7,9 @@ public static class SessionDataHolder
 {
     public static int score;
     public static bool lookForLobby;
+    public static void Reset()
+	{
+		score = 0;
+		lookForLobby = true;
+	}
 }

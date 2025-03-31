@@ -9,69 +9,59 @@ using System.Linq;
 
 public class BaseRunner : NetworkBehaviour
 {
-	protected readonly SyncVar<CharacterData> _characterData = new SyncVar<CharacterData>();
-	public CharacterData characterData;
-	readonly SyncVar<bool> isFalling = new SyncVar<bool>();
-	readonly SyncVar<bool> isRunning = new SyncVar<bool>();
-	readonly SyncVar<float> playerSpeed = new SyncVar<float>();
 
-	private GameObject characterObject;
+	protected GameObject characterObject;
 	[SerializeField] protected float baseSpeed;
-	[SerializeField] protected float rotationSpeed = .5f;
+	[SerializeField] protected float rotationSpeed = 1;
+	[SerializeField] protected float groundDrag = 5f;
 	[SerializeField] protected GameObject trailBoost;
 	[SerializeField] protected LayerMask whatIsGround;
 	[SerializeField] protected float runnerHeight = 2;
-	[SerializeField] TextMeshProUGUI nameTag;
+	[SerializeField] TextMeshPro nameTag;
+	Coroutine animatorCoroutine;
 
 	int id;
 
 	protected Rigidbody rigidBody;
-	Animator animator;
+	protected Animator animator;
 
 	protected float speedMultiplier = 1;
-	protected bool canMove = true;
-	void Start()
-	{
-		if (!IsServerInitialized)
-		{
-			LoadCharacter(_characterData.Value);
-		}
-	}
-	protected void BaseAwake()
-	{
-		_characterData.OnChange += LoadCharacter;
+	public bool canMove = true;
 
+	private void Awake()
+	{
 		rigidBody = GetComponent<Rigidbody>();
 		rigidBody.detectCollisions = true;
-		isFalling.OnChange += IsFallingOnChange;
-		isRunning.OnChange += IsRunningOnChange;
-		playerSpeed.OnChange += PlayerSpeedOnChange;
-		//Freeze();
 	}
 
-	private void PlayerSpeedOnChange(float prev, float next, bool asServer)
+	protected void BaseAwake()
 	{
-		if(animator != null)
-			animator.SetFloat("playerSpeed", next);
+		animatorCoroutine = StartCoroutine(UpdateAnimatorAndBoostTrail());
 	}
 
-	private void IsRunningOnChange(bool prev, bool next, bool asServer)
+	private void OnDestroy()
 	{
-		if (animator != null)
-			animator.SetBool("isRunning", next);
+		StopCoroutine(animatorCoroutine);
 	}
 
-	private void IsFallingOnChange(bool prev, bool next, bool asServer)
+	[ServerRpc]
+	protected void SetCharacter(CharacterData characterData, string playerName)
 	{
-		if (animator != null)
-			animator.SetBool("isFalling", next);
+		LoadCharacter(characterData);
+		SetNameTag(playerName);
 	}
 
-	public void LoadCharacter(CharacterData prev, CharacterData next, bool asServer)
+	[ObserversRpc]
+	void SetNameTag(string name)
 	{
-		//Debug.Log("Loading Character");
-		Debug.Log("Loading: " + next.characterName);
-		Character character = CharacterLoader.GetCharacter(next);
+		nameTag.text = name;
+	}
+
+	[ObserversRpc]
+	void LoadCharacter(CharacterData characterData)
+	{
+		Debug.Log("Loading: " + characterData.characterName);
+		Character character = CharacterLoader.GetCharacter(characterData);
 
 		if (character.prefab == null)
 		{
@@ -83,37 +73,11 @@ public class BaseRunner : NetworkBehaviour
 			Destroy(characterObject);
 
 		characterObject = Instantiate(character.prefab, transform);
-		if(IsOwner)
-			Debug.Log("Instantiated: " + characterObject.name);
+
 		characterObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
 		characterObject.GetComponent<CharacterPrefabColorChanger>().ChangeColors(character.hairColor, character.skinColor, character.topColor, character.bottomColor);
 		characterObject.GetComponent<CharacterPrefabColorChanger>().ChangeShoe(ShoeLoader.GetMesh(character.shoes.id), ShoeLoader.getMaterials(character.shoes.materials));
-
-		animator = GetComponentInChildren<Animator>();
-	}
-	public void LoadCharacter(CharacterData next)
-	{
-		//Debug.Log("Loading Character");
-		Debug.Log("Loading: " + next.characterName);
-		Character character = CharacterLoader.GetCharacter(next);
-
-		if (character.prefab == null)
-		{
-			Debug.LogError("Character Data is Null");
-			return;
-		}
-
-		if (characterObject != null)
-			Destroy(characterObject);
-
-		characterObject = Instantiate(character.prefab, transform);
-		characterObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-
-		characterObject.GetComponent<CharacterPrefabColorChanger>().ChangeColors(character.hairColor, character.skinColor, character.topColor, character.bottomColor);
-		characterObject.GetComponent<CharacterPrefabColorChanger>().ChangeShoe(ShoeLoader.GetMesh(character.shoes.id), ShoeLoader.getMaterials(character.shoes.materials));
-
-		animator = GetComponentInChildren<Animator>();
 	}
 
 	List<GameObject> GetAllChildrenRecursive(GameObject gameObject)
@@ -128,37 +92,74 @@ public class BaseRunner : NetworkBehaviour
 		return children;
 	}
 
-	private void OnDestroy()
+	protected void BaseFixedUpdate()
 	{
-		Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO"); Debug.Log("ME CAGO EN TODO");
+		//Slow down character speed boost
+		if (speedMultiplier > 1f)
+		{
+			speedMultiplier -= 0.04f;
+			speedMultiplier = Mathf.Clamp(speedMultiplier, 1f, 10f);
+		}
 	}
 
-	protected void BaseUpdate()
+	[ServerRpc]
+	void TrailBoostServerRpc(bool on)
 	{
-		if (animator != null && IsServerInitialized) 
-		{
-			UpdateAnimator();
-		}
-		UpdateBoostTrail();
+		TrailBoostRpc(on);
 	}
-	void UpdateBoostTrail()
+
+	[ObserversRpc]
+	void TrailBoostRpc(bool on)
 	{
-		if (speedMultiplier > 1)
+		trailBoost.GetComponent<TrailRenderer>().emitting = on;
+		if (on)
 		{
-			trailBoost.GetComponent<TrailRenderer>().emitting = true;
 			trailBoost.GetComponentInChildren<ParticleSystem>().Play();
 		}
 		else
 		{
-			trailBoost.GetComponent<TrailRenderer>().emitting = false;
 			trailBoost.GetComponentInChildren<ParticleSystem>().Stop();
 		}
 	}
-	void UpdateAnimator()
+
+	protected void BaseUpdate()
 	{
-		isRunning.Value = rigidBody.velocity.magnitude > 0.3f;
-		isFalling.Value = !Physics.Raycast(transform.position, Vector3.down, out _, runnerHeight * 0.5f + 1f, whatIsGround);
-		playerSpeed.Value = 0.3f + new Vector3(rigidBody.velocity.x, 0, rigidBody.velocity.z).magnitude / 10;
+		if (animator == null)
+		{
+			animator = GetComponentInChildren<Animator>();
+		}
+	}
+
+	IEnumerator UpdateAnimatorAndBoostTrail()
+	{
+		while (IsOwner)
+		{
+			SetAnimatorParametersServerRpc(rigidBody.velocity.magnitude > 0.3f, !Physics.Raycast(transform.position, Vector3.down, out _, runnerHeight * 0.5f + 1f, whatIsGround), new Vector3(rigidBody.velocity.x, 0, rigidBody.velocity.z).magnitude / 10);
+			TrailBoostServerRpc(speedMultiplier > 1f);
+			yield return new WaitForSeconds(0.5f);
+		}
+	}
+
+	[ServerRpc]
+	void SetAnimatorParametersServerRpc(bool running, bool falling, float speed)
+	{
+		SetAnimatorParametersObserversRpc(running, falling, speed);
+	}
+
+	[ObserversRpc]
+	void SetAnimatorParametersObserversRpc(bool running, bool falling, float speed)
+	{
+		if (animator == null)
+		{
+			animator = GetComponentInChildren<Animator>();
+		}
+		if (animator == null)
+		{
+			return;
+		}
+		animator.SetBool("isRunning", running);
+		animator.SetBool("isFalling", falling);
+		animator.SetFloat("playerSpeed", speed);
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -167,18 +168,30 @@ public class BaseRunner : NetworkBehaviour
 		{
 			GoalReached();
 		}
+		if(other.GetComponent<SpeedBoost>() != null)
+		{
+			speedMultiplier = other.GetComponent<SpeedBoost>().speedBoost;
+			other.GetComponent<SpeedBoost>().FadeAndRespawn();
+		}
 	}
 
 	void GoalReached()
 	{
-		Freeze();
+		if(!IsOwner)
+			return;
+
+		FreezeServerRpc();
 		rigidBody.detectCollisions = false;
-		GameManager.Instance.GoalReached(this);
+		rigidBody.isKinematic = true;
+		rigidBody.velocity = Vector3.zero;
+		GetComponent<Collider>().enabled = false;
+		FindFirstObjectByType<GameManager>().GoalReached(id);
 	}
 
-	public void Boost(float amount, float duration)
+	[ServerRpc]
+	void FreezeServerRpc()
 	{
-		StartCoroutine(BoostCoroutine(amount, duration));
+		Freeze();
 	}
 
 	[ObserversRpc]
@@ -186,16 +199,18 @@ public class BaseRunner : NetworkBehaviour
 	{
 		if (!IsOwner)
 			return;
-		rigidBody.constraints = RigidbodyConstraints.FreezeAll;
+		//rigidBody.constraints = RigidbodyConstraints.FreezeAll;
 		canMove = false;
+		rigidBody.velocity = Vector3.zero;
 	}
 
-	[ObserversRpc]
+	[ObserversRpc(ExcludeServer = false, ExcludeOwner = false)]
 	public void UnFreeze()
 	{
 		if (!IsOwner)
 			return;
-		rigidBody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+		//rigidBody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+		Debug.Log("I'm Unfreezing");
 		canMove = true;
 	}
 
@@ -207,18 +222,5 @@ public class BaseRunner : NetworkBehaviour
 	public int GetId()
 	{
 		return id;
-	}
-
-	IEnumerator BoostCoroutine(float amount, float duration)
-	{
-		speedMultiplier += amount;
-		float decay = duration / Time.fixedDeltaTime;
-		float counter = 0;
-		while(counter < amount)
-		{
-			yield return new WaitForFixedUpdate();
-			counter += decay;
-			speedMultiplier -= decay;
-		}
 	}
 }

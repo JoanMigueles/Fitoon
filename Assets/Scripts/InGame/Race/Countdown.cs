@@ -1,3 +1,4 @@
+using FishNet.Object;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -19,15 +20,15 @@ public class Countdown : MonoBehaviour
         anim = GetComponent<Animator>();
         textMesh = GetComponent<TextMeshProUGUI>();
 
-        Reset();
+        Restart();
     }
 
     // Update is called once per frame
     void Update()
     {
         if (!hasFinished) {
-
-            if (anim.GetCurrentAnimatorStateInfo(0).IsName("JumpNext"))
+            Debug.Log(currentTime);
+			if (anim.GetCurrentAnimatorStateInfo(0).IsName("JumpNext"))
             {
                 //Update countdown number
                 currentTime--;
@@ -54,8 +55,7 @@ public class Countdown : MonoBehaviour
 
     }
 
-
-    public void Reset()
+	public void Restart()
     {
         currentTime = countdownTimer;
         textMesh.text = currentTime.ToString();
@@ -66,12 +66,11 @@ public class Countdown : MonoBehaviour
 
     public void StartCountdown()
     {
-        Reset();
+		Restart();
+		//anim.enabled = true;
+		//textMesh.enabled = true;
 
-        //anim.enabled = true;
-        //textMesh.enabled = true;
-
-        anim.SetTrigger("Start");
+		anim.SetTrigger("Start");
     }
 
     public bool HasFinished()

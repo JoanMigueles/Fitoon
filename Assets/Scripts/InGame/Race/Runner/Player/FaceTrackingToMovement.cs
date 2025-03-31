@@ -11,8 +11,9 @@ public class FaceTrackingToMovement : MonoBehaviour
 {
     ARFaceManager faceManager;
     ARFace face;
+	GameManager gameManager;
 
-    public Quaternion faceRotation
+	public Quaternion faceRotation
     {
         get
         {
@@ -30,11 +31,9 @@ public class FaceTrackingToMovement : MonoBehaviour
     [Header("Rotation")]
 	[SerializeField] int rotationIntensity = 2;
 	[Header("Velocity")]
-	[SerializeField] TextMeshProUGUI velocityText;
-	[SerializeField] TextMeshProUGUI cadenceText;
-	[SerializeField] TextMeshProUGUI animCadenceText;
 	[SerializeField] float sampleRate = 128; //frames para calcular la velocidad
     [SerializeField] float distanciaPaso = 0.67f;
+    [SerializeField] DominantFrequencyCounter frequencyCounter;
 
 
 	public bool detectado = false;
@@ -42,7 +41,6 @@ public class FaceTrackingToMovement : MonoBehaviour
 
 	List<float> data;
 
-	DominantFrequencyCounter frequencyCounter;
     
 
     //EVENTOS (Para el movimiento del personaje)
@@ -55,30 +53,33 @@ public class FaceTrackingToMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        faceManager = FindFirstObjectByType<ARFaceManager>();
+        gameManager = FindFirstObjectByType<GameManager>();
+		faceManager = FindFirstObjectByType<ARFaceManager>();
         fadeCamera = FindFirstObjectByType<FadeCamera>();
-        frequencyCounter = FindFirstObjectByType<DominantFrequencyCounter>();
 
-        faceManager.facesChanged += CaraDetectada;
+
+		faceManager.facesChanged += CaraDetectada;
         if(fadeCamera != null) fadeCamera.StartFade(true);
+        else Debug.LogWarning("No se ha encontrado el FadeCamera");
 
-        data = new List<float>();
+		data = new List<float>();
 
     }
 
     private void OnDisable()
     {
-        faceManager.facesChanged -= CaraDetectada;
+        if(faceManager != null)
+			faceManager.facesChanged -= CaraDetectada;
     }
 
     void Update()
-    {
-        if (!detectado)
+	{
+		if (!detectado)
         {
             return;
         }
 		CalculateVelocity(face.transform);
-		velocityText.text = $"Velocity: {Math.Round(speed, 2, MidpointRounding.AwayFromZero)} ({Math.Round(speed * 3.6, 2, MidpointRounding.AwayFromZero)} km/h)";
+        gameManager.velocityText.text = $"Velocity: {Math.Round(speed, 2, MidpointRounding.AwayFromZero)} ({Math.Round(speed * 3.6, 2, MidpointRounding.AwayFromZero)} km/h)";
     }
 
     private void CalculateVelocity(Transform faceData)
@@ -86,31 +87,33 @@ public class FaceTrackingToMovement : MonoBehaviour
         //Cuando pasen X frames, mandar esa lista a la FFT y sacar la frecuencia
         if (data.Count == sampleRate)
         {
-            float frecuencia = frequencyCounter.DoFFT(data.ToArray());
-            //Calcular la velocidad. Pasos/segundo -> Metros/segundo
-            speed = distanciaPaso * frecuencia;
+			float frecuencia = frequencyCounter.DoFFT(data.ToArray());
+			Debug.Log($"Frecuencia: {frecuencia} Hz.");
+			//Calcular la velocidad. Pasos/segundo -> Metros/segundo
+			speed = distanciaPaso * frecuencia;
             Debug.Log($"Velocidad media: {speed} m/s.");
 
             float cadencia = frecuencia * 60f;
 
-            cadenceText.text = $"Cadence: {cadencia}";
+			gameManager.cadenceText.text = $"Cadence: {cadencia}";
 
             //Reiniciar lista
             data.Clear();
         }
         else
         {
-            //Guardar en una lista el input del face.transform.y
-            data.Add(faceData.position.y);
-        }
+			//Guardar en una lista el input del face.transform.y
+			data.Add(faceData.position.y);
+			
+		}
 
     }
 
     //-----------EVENTS---------
     void CaraDetectada(ARFacesChangedEventArgs aRFacesChangedEventArgs)
     {
-        //Si existe una cara en "updated" (lista de caras detectadas)
-        if (aRFacesChangedEventArgs.updated != null && aRFacesChangedEventArgs.updated.Count > 0 && !detectado)
+		//Si existe una cara en "updated" (lista de caras detectadas)
+		if (aRFacesChangedEventArgs.updated != null && aRFacesChangedEventArgs.updated.Count > 0 && !detectado)
         {
             //Guardar el objeto de la cara
             face = aRFacesChangedEventArgs.updated[0];

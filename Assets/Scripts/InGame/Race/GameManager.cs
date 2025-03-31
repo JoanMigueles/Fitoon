@@ -1,80 +1,74 @@
 using FishNet;
+using FishNet.Component.Spawning;
 using FishNet.Connection;
+using FishNet.Managing.Scened;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : NetworkBehaviour
 {
 	int readyPlayers;
-	public static GameManager Instance;
-	public static List<Runner> runnerData;
+	public List<Runner> runnerData;
 
+	[SerializeField] public TextMeshProUGUI cadenceText;
+	[SerializeField] public TextMeshProUGUI velocityText;
+	[SerializeField] public TextMeshProUGUI positionText;
+	[SerializeField] public TextMeshProUGUI countdownText;
+	[SerializeField] Transform goal;
 	[SerializeField] Transform[] spawnPoints;
     [SerializeField] NetworkObject playerPrefab;
     [SerializeField] NetworkObject botPrefab;
-    [SerializeField] Countdown countdown;
+    [SerializeField] public Countdown countdown;
     [SerializeField] string sceneName;
 
-    public static bool addBots = true;
+    public static bool addBots = false;
     
     List<BaseRunner> runners = new List<BaseRunner>();
 
-    static int positionIndex = 1;
+    int positionIndex = 0;
 
-	private void Start()
+	public override void OnStartServer()
+    {
+		SceneManager.OnLoadEnd += OnSceneLoaded;
+		StartCoroutine(WaitForPlayers());
+	}
+
+	private void OnSceneLoaded(SceneLoadEndEventArgs args)
 	{
-		if(Instance != null)
-        {
-            Destroy(Instance.gameObject);
-        }
-        Instance = this;
+		readyPlayers++;
 	}
 
 	public override void OnStartClient()
 	{
-		AmReady();
-	}
-	[ServerRpc(RequireOwnership = false)]
-	void AmReady()
-	{
-		readyPlayers++;
-	}
-	public override void OnStartServer()
-    {
-		StartCoroutine(WaitForPlayers());
+		SceneManager.OnLoadEnd += OnSceneLoaded;
+		countdown.StartCountdown();
+		GetComponent<GameManager>().enabled = false;
 	}
 
-    [ServerRpc(RequireOwnership = false)]
     void UnfreezeAllRunners()
     {
         for(int i = 0; i < runners.Count; i++)
         {
-            runners[i].UnFreeze();
-        }
+			Debug.Log("Unfreezing runner");
+			runners[i].UnFreeze();
+			runners[i].canMove = true;
+		}
     }
-
-	[ObserversRpc]
-	void StartCountDown()
-	{
-		countdown.StartCountdown();
-	}
 
 	void SpawnRunners()
     {
-		if (!IsServerInitialized)
-		{
-			return;
-		}
 		for (int i = 0; i < runnerData.Count; i++)
 		{
-            NetworkObject runnerObject = Instantiate(runnerData[i].connection != null ? playerPrefab : botPrefab, spawnPoints[i].position, spawnPoints[i].rotation, transform);
+			runnerData[i].goalReached = false;
+			NetworkObject runnerObject = Instantiate(runnerData[i].connection != null ? playerPrefab : botPrefab, spawnPoints[i].position, spawnPoints[i].rotation, transform);
             BaseRunner runner = runnerObject.GetComponent<BaseRunner>();
             Debug.Log("Adding runner: " + runnerData[i].characterData.characterName);
-			runner.characterData = runnerData[i].characterData;
 			runners.Add(runner);
 			runner.SetId(runnerData[i].id);
             Debug.Log("RunnerConnection: " + runnerData[i].connection);
@@ -92,61 +86,125 @@ public class GameManager : NetworkBehaviour
                 {
                     id = runnerData.Count,
                     connection = null,
-                    position = -1,
                     characterData = CharacterLoader.CreateRandomCharacterData(),
-                }
+					name = "Runner #" + runnerData.Count.ToString().PadLeft(2, '0')
+				}
             );
         }
     }
 
-	[ServerRpc]
-    public void GoalReached(BaseRunner baseRunner)
+	[ServerRpc(RequireOwnership = false)]
+    public void GoalReached(int id)
 	{
 		Runner runner = new Runner();
+		BaseRunner runnerObject = null;
 		try
 		{
-			runner = runnerData.Find((r) => r.id == baseRunner.GetId());
+			runner = runnerData.Find((r) => r.id == id);
+			runnerObject = runners.Find((r) => r.GetId() == id);
 		}
 		catch (ArgumentNullException)
 		{
 			Debug.LogError("Runner not found");
 			return;
 		}
-		runner.position = positionIndex++;
-		if (positionIndex > runnerData.Count)
+		if(positionIndex == 0)
 		{
-			positionIndex = 1;
+			StartCoroutine(FinishCountDown());
+		}
+		runner.goalReached = true;
+		SetPosition(runner.connection, ++positionIndex);
+		if (positionIndex >= runnerData.Count)
+		{
+			StopAllCoroutines();
+			positionIndex = 0;
 			runnerData.Clear();
 
-			//GO TO GAME OVER SCENE
+			FinishRace();
 		}
+	}
+
+	void FinishRace()
+	{
+		LobbyManager.runnerData = new List<Runner>();
+
+		SceneLoadData sld = new SceneLoadData("LobbyScene");
+		SceneManager.LoadGlobalScenes(sld);
+
+		SceneUnloadData sud = new SceneUnloadData(sceneName);
+		SceneManager.UnloadGlobalScenes(sud);
+	}
+
+	IEnumerator FinishCountDown()
+	{
+		int countdown = 60;
+		while (countdown > 0)
+		{
+			countdownText.text = countdown.ToString();
+			yield return new WaitForSeconds(1);
+			countdown--;
+		}
+		if (IsServerInitialized)
+		{
+			SortRunners();
+			FinishRace();
+		}
+	}
+
+	void SortRunners()
+	{
+		List<Runner> sortedRunners = runnerData.OrderBy((runner) =>
+		{
+			BaseRunner runnerObject = runners.Find((r) => r.GetId() == runner.id);
+			return Vector3.Distance(runnerObject.transform.position, goal.position);
+		}).ToList();
+		for (int i = 0; i < sortedRunners.Count; i++)
+		{
+			if (!sortedRunners[i].goalReached)
+			{
+				SetPosition(sortedRunners[i].connection, ++positionIndex);
+			}
+		}
+	}
+
+	[TargetRpc]
+	void SetPosition(NetworkConnection client, int pos)
+	{
+		positionText.text = pos + "/" + runnerData.Count;
+		SessionDataHolder.score += runnerData.Count - pos + 1;
 	}
 
 	IEnumerator WaitForPlayers()
 	{
-		runnerData = LobbyManager.runnerData;
-		yield return new WaitWhile(() => readyPlayers < runnerData.Count);
+		yield return new WaitUntil(() => readyPlayers == 2);
+		yield return new WaitForSeconds(1);
 
-		Debug.Log("Current race != 0");
+		Debug.Log("All players ready");
+
+		runnerData = LobbyManager.runnerData;
+		LobbyManager.runnerData = null;
+
 		if (addBots)
 			InitializeBots();
 		Debug.Log("Initialized bots");
 		SpawnRunners();
-		StartCountDown();
-		StartCoroutine(WaitForCountdown());
+
+		yield return StartCoroutine(WaitForCountdown());
+		Debug.Log("Countdown finished");
+		UnfreezeAllRunners();
+
 	}
 
-    public IEnumerator WaitForCountdown()
+	public IEnumerator WaitForCountdown()
     {
         yield return new WaitUntil(() => countdown.HasFinished());
-        UnfreezeAllRunners();
-    }
+	}
 }
-public struct Runner
+public class Runner
 {
 	public int id;
     public string name;
 	public NetworkConnection connection;
     public CharacterData characterData;
-    public int position;
+	public bool goalReached = false;
 }

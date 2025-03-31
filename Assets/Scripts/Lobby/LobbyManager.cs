@@ -39,16 +39,6 @@ public class LobbyManager : NetworkBehaviour
 
 	bool starting = false;
 
-	public static LobbyManager Instance;
-
-	private void Awake()
-	{
-		if (Instance == null)
-			Instance = this;
-		else
-			Destroy(gameObject);
-	}
-
 	private void OnApplicationQuit()
 	{
 		InstanceFinder.NetworkManager.ClientManager.StopConnection();
@@ -59,6 +49,7 @@ public class LobbyManager : NetworkBehaviour
 	private void Update()
 	{
 		List<PlayerCard> playerCards = playerEntries.Values.ToList();
+		playerCards = playerCards.OrderByDescending(p => p.score).ThenBy(p => p.ready).ToList();
 		int i;
 		for(i = 0; i  < playerCards.Count; i++)
 		{
@@ -139,7 +130,6 @@ public class LobbyManager : NetworkBehaviour
 			id = key.ClientId,
 			name = name,
 			connection = key,
-			position = -1,
 			characterData = characterData
 		});
 	}

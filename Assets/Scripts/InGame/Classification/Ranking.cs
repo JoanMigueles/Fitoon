@@ -7,7 +7,7 @@ using FishNet.Object;
 using FishNet;
 
 public class Ranking : NetworkBehaviour
-{
+{/*
     [SerializeField] GameObject rankingPosPrefab;
     [SerializeField] ScrollRect scrollRect;
     [SerializeField] GameObject content;
@@ -44,5 +44,5 @@ public class Ranking : NetworkBehaviour
             }
         }
     }
-
+    */
 }

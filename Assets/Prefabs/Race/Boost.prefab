@@ -211,6 +211,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5361f33aa4b571c448d0dee110182bdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 0}
+  _networkObjectCache: {fileID: 0}
   speedBoost: 8
   matFade: {fileID: 2100000, guid: ee18b3c13f2c58242886961ac7a95a67, type: 2}
   mrBoost:
