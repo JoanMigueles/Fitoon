@@ -4,6 +4,7 @@ using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using GooglePlayGames.BasicApi.SavedGame;
 using UnityEngine.SceneManagement;
+using Firebase.Extensions;
 
 public class GooglePlayServicesManager : MonoBehaviour
 {
