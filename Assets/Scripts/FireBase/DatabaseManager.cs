@@ -1,6 +1,10 @@
 using UnityEngine;
 using Firebase.Database;
 using System;
+using System.Collections.Generic;
+using UnityEditor;
+using Unity.VisualScripting;
+using Unity.MLAgents.Actuators;
 
 public class DatabaseManager : MonoBehaviour
 {
@@ -22,18 +26,18 @@ public class DatabaseManager : MonoBehaviour
     /// Update the player data in the database.
     /// </summary>
     /// <param name="score"></param> WONT APPEAR IN THE FINAL VERSION
-    /// <param name="gymID"></param> WONT APPEAR IN THE FINAL VERSION
-    public void UpdatePlayerData(int score, int gymID)
+    /// <param name="gymKey"></param> WONT APPEAR IN THE FINAL VERSION
+    public void UpdatePlayerData(int score, int gymID, string name)
     {
         UserData user = new UserData(score, gymID);
         string json = JsonUtility.ToJson(user);
-        dbReference.Child("Users").Child(SaveData.player.username).SetRawJsonValueAsync(json);
+        dbReference.Child("Users").Child(name).SetRawJsonValueAsync(json);
     }
 
     /// <summary>
     /// Checks if a gym ID exists in the database.
     /// </summary>
-    /// <param name="gymID"></param> Gym ID to checked.
+    /// <param name="gymKey"></param> Gym ID to checked.
     /// <param name="callback"></param> Callback function to handle the result.
     public void CheckGymKey(int gymKey, Action<bool> callback)
     {
@@ -130,10 +134,233 @@ public class DatabaseManager : MonoBehaviour
         });
     }
 
+    /// <summary>
+    /// Gets the global leaderboard
+    /// </summary>
+    /// <param name="gymKey"></param>
+    /// <returns></returns>
+    public void GetLeaderboard(Action<List<Tuple<string, int>>> callback, int? gymKey = null)
+    {
+        List<Tuple<string, int>> leaderboard = new List<Tuple<string, int>>();
+        dbReference.Child("Users").OrderByChild("score").GetValueAsync().ContinueWith(task =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.LogError("Error getting leaderboard: " + task.Exception);
+            }
+            else if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                foreach (DataSnapshot child in snapshot.Children)
+                {
+                    string username = child.Key;
+                    int score = Convert.ToInt32(child.Child("score").Value);
+                    int gymKey2 = Convert.ToInt32(child.Child("gymKey").Value);
+                    if (gymKey == null) leaderboard.Add(new Tuple<string, int>(username, score));
+                    else if (gymKey == gymKey2) leaderboard.Add(new Tuple<string, int>(username, score));
+                }
+                callback(leaderboard);
+            }
+        });
+    }
+
+    /// <summary>
+    /// Gets the global position of the player in the leaderboard.
+    /// </summary>
+    /// <returns></returns>
+    public void GetGlobalPosition(Action<int> callback)
+    {
+        int position = 0;
+        dbReference.Child("Users").OrderByChild("score").GetValueAsync().ContinueWith(task =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.LogError("Error getting global position: " + task.Exception);
+            }
+            else if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                foreach (DataSnapshot child in snapshot.Children)
+                {
+                    position++;
+                    if(child.Key == SaveData.player.username)
+                    {
+                        callback(position);
+                        break;
+                    }
+                }
+            }
+        });
+    }
+
+    /// <summary>
+    /// Gets the gyms leaderboard with their names and scores.
+    /// </summary>
+    /// <returns></returns>
+    public void GetGymsLeaderboardWithNames(Action<List<Tuple<string, int>>> callback)
+    {
+        List<Tuple<string, int>> leaderboard = new List<Tuple<string, int>>();
+        dbReference.Child("Gyms").OrderByChild("gymKey").GetValueAsync().ContinueWith(task =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.LogError("Error getting gyms leaderboard: " + task.Exception);
+            }
+            else if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                foreach (DataSnapshot child in snapshot.Children)
+                {
+                    string gymName = child.Key;
+                    int gymKey = Convert.ToInt32(child.Child("gymKey").Value);
+
+                    var taskCompletionSource = new System.Threading.Tasks.TaskCompletionSource<bool>();
+                    GetLeaderboard((gymLeaderBoard) =>
+                    {
+                        int gymScore = 0;
+                        foreach (var user in gymLeaderBoard)
+                        {
+                            gymScore += user.Item2;
+                        }
+                        leaderboard.Add(new Tuple<string, int>(gymName, gymScore));
+                        taskCompletionSource.SetResult(true);
+                    }, gymKey);
+                    taskCompletionSource.Task.Wait();
+                }
+                callback(leaderboard);
+            }
+        });
+    }
+
+    /// <summary>
+    /// Gets the gyms leaderboard with their keys.
+    /// </summary>
+    /// <returns></returns>
+    public void GetGymsLeaderboardWithKeys(Action<List<Tuple<int, int>>> callback)
+    {
+        List<Tuple<int, int>> leaderboard = new List<Tuple<int, int>>();
+        dbReference.Child("Gyms").OrderByChild("gymKey").GetValueAsync().ContinueWith(task =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.LogError("Error getting gyms leaderboard: " + task.Exception);
+            }
+            else if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                foreach (DataSnapshot child in snapshot.Children)
+                {
+                    int gymKey = Convert.ToInt32(child.Child("gymKey").Value);
+                    var taskCompletionSource = new System.Threading.Tasks.TaskCompletionSource<bool>();
+                    GetLeaderboard((gymLeaderBoard) =>
+                    {
+                        int gymScore = 0;
+                        foreach (var user in gymLeaderBoard)
+                        {
+                            gymScore += user.Item2;
+                        }
+                        leaderboard.Add(new Tuple<int, int>(gymKey, gymScore));
+                        taskCompletionSource.SetResult(true);
+                    }, gymKey);
+                    taskCompletionSource.Task.Wait();
+                }
+                callback(leaderboard);
+            }
+        });
+    }
+
+    /// <summary>
+    /// Gets the position of a gym in the leaderboard.
+    /// </summary>
+    /// <param name="gymKey"></param> WON'T BE USED IN THE FINAL VERSION
+    /// <returns></returns>
+    public void GetGymPosition(int gymKey, Action<int> callback)
+    {
+        GetGymsLeaderboardWithKeys((gymsLeaderboard) =>
+        {
+            foreach (var gym in gymsLeaderboard)
+            {
+                if (gym.Item1 == gymKey)
+                {
+                    callback(gymsLeaderboard.IndexOf(gym) + 1);
+                    return;
+                }
+            }
+        });
+    }
+
     public void Test()
     {
-        string gymName = "TestGym";
-        int authKey = 123456789;
-        RegisterGym(gymName, (int) MathF.Abs(gymName.GetHashCode()), authKey);
+        // PASSED
+        // Test pushing users
+        // for(int i = 0; i < 50; i++)
+        // {
+        //     UpdatePlayerData(i * 100, i / 10, "TestUser " + i);
+        // }
+
+        // PASSSED
+        // Test pushing gyms
+        // for(int i = 0; i < 5; i++)
+        // {
+        //     RegisterGym("TestGym " + i, i, 123456789);
+        // }
+
+        // PASSED
+        // Test getting global leaderboard
+        // GetLeaderboard((leaderboard) =>
+        // {
+        //     Debug.Log("Global Leaderboard:");
+        //     foreach (var user in leaderboard)
+        //     {
+        //         Debug.Log("User: " + user.Item1 + ", Score: " + user.Item2);
+        //     }
+        // });
+
+        // PASSED
+        // Test getting a specific gym leaderboard
+        // GetLeaderboard((leaderboard) =>
+        // {
+        //     Debug.Log("Gym 3 Leaderboard:");
+        //     foreach (var user in leaderboard)
+        //     {
+        //         Debug.Log("User: " + user.Item1 + ", Score: " + user.Item2);
+        //     }
+        // }, 3);
+
+        // PASSED
+        // Test getting global position
+        // GetGlobalPosition((position) =>
+        // {
+        //     Debug.Log("Global Position: " + position);
+        // });
+
+        // PASSED
+        // Test getting gyms leaderboard
+        // GetGymsLeaderboardWithNames((leaderboard) =>
+        // {
+        //     Debug.Log("Gyms Leaderboard:");
+        //     foreach (var gym in leaderboard)
+        //     {
+        //         Debug.Log("Gym: " + gym.Item1 + ", Score: " + gym.Item2);
+        //     }
+        // });
+
+        // PASSED
+        // Test getting gyms leaderboard with keys
+        // GetGymsLeaderboardWithKeys((leaderboard) =>
+        // {
+        //     Debug.Log("Gyms Leaderboard with keys:");
+        //     foreach (var gym in leaderboard)
+        //     {
+        //         Debug.Log("GymKey: " + gym.Item1 + ", Score: " + gym.Item2);
+        //     }
+        // });
+
+        // PASSED
+        // Test getting gym position
+        // GetGymPosition(1, (position) =>
+        // {
+        //     Debug.Log("Gym Position: " + position);
+        // });
     }
 }
