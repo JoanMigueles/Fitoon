@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899e49938f2a5a04bbd844155717c132, type: 3}
   m_Name: ZapasConverseAzul
   m_EditorClassIdentifier: 
-  id: 1
+  itemID: 1
+  itemType: 2
+  itemName: Blue Shoes
+  itemPrice: 10
   icon: {fileID: 21300000, guid: f7eb72b7c065db14e859782969f5acbd, type: 3}
   mesh: {fileID: 2067332326254448104, guid: 937cf9e42142eb941bd6c366f1339d16, type: 3}
   materials:

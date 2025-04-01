@@ -26,18 +26,18 @@ public class InitialScreenCharacterLoad : MonoBehaviour
         {
             print("Error: No hay personaje guardado");
             //instanciar a juan
-            Instantiate(characters[0].prefab, Vector3.zero, Quaternion.identity, characterContainer.transform);
+            Instantiate(characters[0].characterPrefab, Vector3.zero, Quaternion.identity, characterContainer.transform);
             return;
         }
         //Buscar personaje
-        actualCharacter = characters.Find(character => character.characterName == savedSkin);
+        actualCharacter = characters.Find(character => character.itemName == savedSkin);
 
         //Instanciar la cinta de correr
         GameObject treadmill = Instantiate(treadmillPrefab, Vector3.zero, Quaternion.identity, characterContainer.transform);
 
         //Instanciar el personaje como hijo de la cinta
         DestroyImmediate(characterContainer.transform.GetChild(0).gameObject);
-        GameObject characterInstance = Instantiate(actualCharacter.prefab, Vector3.zero, Quaternion.identity, treadmill.transform);
+        GameObject characterInstance = Instantiate(actualCharacter.characterPrefab, Vector3.zero, Quaternion.identity, treadmill.transform);
         characterInstance.GetComponent<Animator>().SetBool("isRunning", true);
         characterInstance.GetComponent<Outline>().enabled = false;
 
@@ -64,7 +64,7 @@ public class InitialScreenCharacterLoad : MonoBehaviour
 
         foreach (ObjectItem shoeItem in shoes)
         {
-            if (shoeItem.id == i)
+            if (shoeItem.itemID == i)
             {
                 renderer.sharedMesh = shoeItem.mesh;
                 renderer.materials = shoeItem.materials;

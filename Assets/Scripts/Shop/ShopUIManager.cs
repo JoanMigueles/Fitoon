@@ -4,21 +4,27 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopManager : MonoBehaviour
+public class ShopUIManager : UIManager
 {
-    public static ShopManager Instance { get; private set; }
+    public static ShopUIManager Instance { get; private set; }
     [SerializeField] private GameObject confirmationMenu;
-    
+
+    [Header("Player Resources And Stats")]
+    [SerializeField] private TextMeshProUGUI coinsText;
+
+    [Header("Items")]
     private ShopSlot slotSelected;
-    public List<ShopElement> characterItems;
-    public List<ShopElement> shoeItems;
-    public List<ShopElement> colorItems;
+    public List<Item> characterItems;
+    public List<Item> shoeItems;
+    public List<Item> colorItems;
 
     public GameObject charactersContainer;
     public GameObject shoesContainer;
     public GameObject colorsContainer;
 
     public GameObject shopSlotPrefab;
+
+   
 
     public void Awake()
     {
@@ -27,8 +33,10 @@ public class ShopManager : MonoBehaviour
 
     void Start()
     {
+        SaveData.ReadFromJson();
         CleanShop();
         CreateShop();
+        UpdateCoins();
     }
 
     private void CleanShop()
@@ -40,11 +48,15 @@ public class ShopManager : MonoBehaviour
 
     private void CreateShop()
     {
-        SaveData.ReadFromJson();
         FillShopContainer(charactersContainer, characterItems);
         FillShopContainer(shoesContainer, shoeItems);
         FillShopContainer(colorsContainer, colorItems);
     }
+    public void UpdateCoins()
+    {
+        if (coinsText != null) coinsText.text = SaveData.player.normalCoins.ToString();
+    }
+
 
     private void EmptyShopContainer(GameObject container)
     {
@@ -53,10 +65,10 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    private void FillShopContainer(GameObject categoryContainer, List<ShopElement> categoryItems)
+    private void FillShopContainer(GameObject categoryContainer, List<Item> categoryItems)
     {
         for (int i = 0; i < categoryItems.Count; i++) {
-            ShopElement currentItem = categoryItems[i];
+            Item currentItem = categoryItems[i];
             GameObject slot = Instantiate(shopSlotPrefab, categoryContainer.transform);
             ShopSlot shopSlot = slot.GetComponent<ShopSlot>();
             shopSlot.SetShopItemData(currentItem);
@@ -85,7 +97,7 @@ public class ShopManager : MonoBehaviour
 
         //Update Money
         SaveData.player.normalCoins -= slotSelected.shopItemElement.itemPrice;
-        GetComponent<UIManager>().UpdateCoins();
+        UpdateCoins();
 
         //Save
         SaveData.SaveToJson();
@@ -96,7 +108,7 @@ public class ShopManager : MonoBehaviour
 
     public void ActivateConfirmPurchaseMenu(ShopSlot slot)
     {
-        GetComponent<UIManager>().OpenMenu(confirmationMenu);
+        OpenMenu(confirmationMenu);
         slotSelected = slot;
 
         //Read

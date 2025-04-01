@@ -8,7 +8,7 @@ using System;
 [Obsolete]
 public class Tienda : MonoBehaviour
 {
-    public List<ShopElement> itemsByCategory;
+    public List<Item> itemsByCategory;
     public GameObject iconPrefab;
     public GameObject gameManager;
     public GameObject container;
@@ -36,15 +36,15 @@ public class Tienda : MonoBehaviour
         for (int i = 0; i < itemsByCategory.Count; i++)
         {
             GameObject iconoCreado = Instantiate(iconPrefab, container.transform);
-            ShopElement iconTiendaActual = itemsByCategory[i];
+            Item iconTiendaActual = itemsByCategory[i];
             //Primer hijo: Boton. Hijos (en orden): Texto monedas y Icono monedas
             iconoCreado.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = iconTiendaActual.itemPrice.ToString();
-            iconoCreado.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = iconTiendaActual.coinType;
+            //iconoCreado.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = iconTiendaActual.coinType;
             //segundo hijo: icono 3D
             Transform iconTransform = iconoCreado.transform.GetChild(1).GetChild(0).transform;
             //destruir hijo que ya existe
             Destroy(iconoCreado.transform.GetChild(1).GetChild(0).gameObject);
-            Instantiate(iconTiendaActual.objectIcon, iconTransform.position, iconTransform.rotation, iconoCreado.transform.GetChild(1));
+            //Instantiate(iconTiendaActual.objectIcon, iconTransform.position, iconTransform.rotation, iconoCreado.transform.GetChild(1));
             //tercer hijo: nombre
             iconoCreado.transform.GetChild(2).gameObject.GetComponentInChildren<TextMeshProUGUI>().text = iconTiendaActual.itemName;
             //añadir id

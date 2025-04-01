@@ -1025,7 +1025,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2033128502}
+      - m_Target: {fileID: 2033128504}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 5
@@ -2646,9 +2646,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '123
-
-'
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 550bcf55fc514ae4e84a79caa07ae584, type: 2}
   m_sharedMaterial: {fileID: -5050920130155616559, guid: 550bcf55fc514ae4e84a79caa07ae584, type: 2}
@@ -2944,7 +2942,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2033128502}
+      - m_Target: {fileID: 2033128504}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: CloseMenu
         m_Mode: 2
@@ -3824,7 +3822,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2033128502}
+      - m_Target: {fileID: 2033128504}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: CloseMenu
         m_Mode: 2
@@ -4179,18 +4177,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2033128502}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: CloseMenu
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1806557322}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 2033128504}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
         m_MethodName: PurchaseItem
@@ -4198,6 +4184,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2033128504}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: CloseMenu
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1806557322}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4250,7 +4248,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2033128503}
-  - component: {fileID: 2033128502}
   - component: {fileID: 2033128504}
   m_Layer: 0
   m_Name: UIManager
@@ -4259,34 +4256,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2033128502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2033128501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cdd5e06845b8c749ad21ca2289708bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  darkenBackground: {fileID: 83805014}
-  passcodeField: {fileID: 0}
-  coinsText: {fileID: 1389800477}
-  expText: {fileID: 0}
-  levelText: {fileID: 0}
-  medalText: {fileID: 0}
-  medalSlider: {fileID: 0}
-  leagueText: {fileID: 0}
-  leagueImage: {fileID: 0}
-  streakText: {fileID: 0}
-  baseXP: 100
-  rankMedalInterval: 500
-  playerNameText: {fileID: 0}
-  playerNameField: {fileID: 0}
-  banner: {fileID: 0}
-  profileIconImage: {fileID: 0}
 --- !u!4 &2033128503
 Transform:
   m_ObjectHideFlags: 0
@@ -4311,19 +4280,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 2033128501}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21e64f39419fac943837693ccca3d5d2, type: 3}
+  m_Script: {fileID: 11500000, guid: 3375d59b5bc52f849b76675e9ab7184b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  darkenBackground: {fileID: 83805014}
   confirmationMenu: {fileID: 1806557322}
+  coinsText: {fileID: 1389800477}
   characterItems:
-  - {fileID: 11400000, guid: 9c6fab62b331384449170f53feda0a30, type: 2}
-  - {fileID: 11400000, guid: 6b510fa5f3d40ce4495d675b0063d903, type: 2}
-  - {fileID: 11400000, guid: bd794f9d9b6572849aa9fbc0fda92138, type: 2}
-  - {fileID: 11400000, guid: b5e5ff9c4d1802940a5b3c1fdca04a78, type: 2}
+  - {fileID: 11400000, guid: 3500b0f443d6c01438652ed81533ba29, type: 2}
+  - {fileID: 11400000, guid: 6f25130db9a5749408d3dd3f76d34610, type: 2}
+  - {fileID: 11400000, guid: 723b8df3ce551ec41a9cb8c6935dc3f5, type: 2}
+  - {fileID: 11400000, guid: 3dee8a9500c042247ab3598f63f10977, type: 2}
   shoeItems:
-  - {fileID: 11400000, guid: ec2a8eaee84a8fb47a8b3ad0bbb97032, type: 2}
-  - {fileID: 11400000, guid: 237df1b78122e9f4da23171d34e9c0a3, type: 2}
-  - {fileID: 11400000, guid: 28bc7507433341943af059e83df6d147, type: 2}
+  - {fileID: 11400000, guid: 2e4dcd7d6421e2b4d96e21aab24c80b1, type: 2}
+  - {fileID: 11400000, guid: 31139ce02ebf2dd4fac1bc77f8e4d3b2, type: 2}
+  - {fileID: 11400000, guid: 45e162a67199dbd46b847c1d9c3ddbe9, type: 2}
   colorItems:
   - {fileID: 11400000, guid: ace934455463c8c4faa17d8158e161f0, type: 2}
   charactersContainer: {fileID: 418534453}

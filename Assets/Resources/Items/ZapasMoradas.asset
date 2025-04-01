@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899e49938f2a5a04bbd844155717c132, type: 3}
   m_Name: ZapasMoradas
   m_EditorClassIdentifier: 
-  id: 3
+  itemID: 3
+  itemType: 2
+  itemName: Purple Shoes
+  itemPrice: 10
   icon: {fileID: 21300000, guid: 4dc8691c924d5cf4cad3edd96ac3c38a, type: 3}
   mesh: {fileID: -8344823704121574938, guid: 92e891d76552750479737996e2f444e0, type: 3}
   materials:

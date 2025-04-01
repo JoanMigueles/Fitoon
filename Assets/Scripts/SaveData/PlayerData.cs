@@ -11,6 +11,7 @@ public class PlayerData
     public int streak;
     public int runnedDistance;
     public int medals;
+    public int wins;
     public List<int> purchasedSkins;
     public List<int> purchasedShoes;
     public List<int> purchasedColors;

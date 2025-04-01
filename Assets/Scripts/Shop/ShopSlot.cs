@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ShopSlot : MonoBehaviour
 {
-    [HideInInspector] public ShopElement shopItemElement;
+    [HideInInspector] public Item shopItemElement;
     [SerializeField] private TextMeshProUGUI itemNameTag;
     [SerializeField] private Transform item3DPreview;
     [SerializeField] private GameObject priceButton;
@@ -17,7 +17,7 @@ public class ShopSlot : MonoBehaviour
     [SerializeField] private Sprite defaultPanel;
     [SerializeField] private Sprite ownedPanel;
 
-    public void SetShopItemData(ShopElement item)
+    public void SetShopItemData(Item item)
     {
         shopItemElement = item;
 
@@ -26,11 +26,13 @@ public class ShopSlot : MonoBehaviour
 
         // Icono 3D
         Destroy(item3DPreview.GetChild(0).gameObject);
-        Instantiate(item.objectIcon, item3DPreview);
+        if (item is CharacterItem) {
+            Instantiate((item as CharacterItem).characterPrefab, item3DPreview); 
+        }
+        
 
         // Precio
         priceTag.text = item.itemPrice.ToString();
-        currencyIcon.sprite = item.coinType;
 
         // Comprobar si está comprado mediante el ID y cambiar la apariencia
         if (IsAlreadyOwned(item)) {
@@ -38,7 +40,7 @@ public class ShopSlot : MonoBehaviour
         }
     }
 
-    private bool IsAlreadyOwned(ShopElement item)
+    private bool IsAlreadyOwned(Item item)
     {
         return (SaveData.player.purchasedSkins.Contains(item.itemID) && item.itemType.ToString() == "SKIN") ||
                 (SaveData.player.purchasedShoes.Contains(item.itemID) && item.itemType.ToString() == "SHOE") ||
@@ -59,6 +61,6 @@ public class ShopSlot : MonoBehaviour
 
     public void TryToPurchaseButton()
     {
-        ShopManager.Instance.ActivateConfirmPurchaseMenu(this);
+        ShopUIManager.Instance.ActivateConfirmPurchaseMenu(this);
     }
 }

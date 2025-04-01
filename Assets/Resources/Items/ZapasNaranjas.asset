@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899e49938f2a5a04bbd844155717c132, type: 3}
   m_Name: ZapasNaranjas
   m_EditorClassIdentifier: 
-  id: 4
+  itemID: 4
+  itemType: 2
+  itemName: Orange Shoes
+  itemPrice: 10
   icon: {fileID: 21300000, guid: 65f5d6ea57aa8644fa91a50aa9a850ed, type: 3}
   mesh: {fileID: 5982886046550509618, guid: e33d27a957c5e6d4a9055f17f8797c55, type: 3}
   materials:

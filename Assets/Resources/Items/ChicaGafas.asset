@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5833e8fa627d284482c8877a7b851a3, type: 3}
   m_Name: ChicaGafas
   m_EditorClassIdentifier: 
-  characterName: Paula
-  prefab: {fileID: 575796233090883486, guid: 919ff7ff0dc879f4b9427480db66be01, type: 3}
-  prefabId: 1
+  itemID: 2
+  itemType: 0
+  itemName: Glasses Girl
+  itemPrice: 30
+  characterPrefab: {fileID: 575796233090883486, guid: 919ff7ff0dc879f4b9427480db66be01, type: 3}
   hair: {fileID: 2100000, guid: 5257be0582fc0574f82a7ac30237d524, type: 2}
   skin: {fileID: 2100000, guid: bcbd4df7a9800c84eac2e8f2c9fbcc5e, type: 2}
   top: {fileID: 2100000, guid: 7f8ad64e5f9c1cc4a8180fe376ca16e0, type: 2}
