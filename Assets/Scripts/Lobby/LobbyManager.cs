@@ -4,30 +4,37 @@ using FishNet.Discovery;
 using FishNet.Managing.Scened;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using FishNet.Object.Synchronizing.Internal;
 using FishNet.Transporting;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LobbyManager : NetworkBehaviour
 {
-	public readonly SyncVar<int> readyCount = new SyncVar<int>();
-	class Entry
+	public class PlayerCard
 	{
-		public PlayerCard card;
-		public NetworkConnection connection;
+		public string name;
+		public bool ready;
 	}
-	[SerializeField] PlayerCard entryPrefab;
+
+	readonly SyncDictionary<NetworkConnection, PlayerCard> playerEntries = new SyncDictionary<NetworkConnection, PlayerCard>();
+
+	[SerializeField] GameObject cardPrefab;
 	[SerializeField] ScrollRect scrollRect;
 	[SerializeField] public GameObject content;
-	[SerializeField] LobbyHUD lobbyHud;
+	[SerializeField] TextMeshProUGUI countDownText;
+	[SerializeField] TextMeshProUGUI playerCountText;
+
+	List<GameObject> cardList = new List<GameObject>();
 
 	bool starting = false;
 	bool disconnectOnDisable = false;
-	List<Entry> entries = new List<Entry>();
+
 	public static LobbyManager Instance;
 
 	private void Awake()
@@ -38,6 +45,50 @@ public class LobbyManager : NetworkBehaviour
 			Destroy(gameObject);
 	}
 
+	void OnDisable()
+	{
+		if (!disconnectOnDisable)
+		{
+			return;
+		}
+		if (InstanceFinder.NetworkManager != null)
+		{
+			InstanceFinder.NetworkManager.ClientManager.StopConnection();
+			InstanceFinder.NetworkManager.ServerManager.StopConnection(true);
+			Destroy(InstanceFinder.NetworkManager.gameObject);
+		}
+		UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+	}
+
+	private void OnApplicationQuit()
+	{
+		InstanceFinder.NetworkManager.ClientManager.StopConnection();
+		InstanceFinder.NetworkManager.ServerManager.StopConnection(true);
+		Destroy(InstanceFinder.NetworkManager.gameObject);
+	}
+
+	private void Update()
+	{
+		Debug.Log(playerEntries.Keys.Count);
+		Debug.Log(playerEntries.Values.Count);
+		List<PlayerCard> playerCards = playerEntries.Values.ToList();
+		int i;
+		for(i = 0; i  < playerCards.Count; i++)
+		{
+			if(i >= cardList.Count)
+			{
+				cardList.Add(Instantiate(cardPrefab, content.transform));
+			}
+			cardList[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = playerCards[i].name;
+			cardList[i].transform.GetChild(1).GetComponent<Image>().enabled = playerCards[i].ready;
+		}
+		for(int j = cardList.Count - 1; j >= i; j--)
+		{
+			Destroy(cardList[j]);
+			cardList.RemoveAt(j);
+		}
+	}
+
 	public override void OnStartNetwork()
 	{
 		disconnectOnDisable = true;
@@ -45,95 +96,124 @@ public class LobbyManager : NetworkBehaviour
 
 	public override void OnStartServer()
 	{
-		readyCount.Value = 0;
-		readyCount.OnChange += CheckReady;
 		InstanceFinder.NetworkManager.ClientManager.StartConnection();
-		InstanceFinder.NetworkManager.ServerManager.OnRemoteConnectionState += OnClientDisconnect;
+		InstanceFinder.ServerManager.OnRemoteConnectionState += OnRemoteConnectionState;
+		playerEntries.OnChange += OnChangePlayerEntries;
 		Debug.Log("I'm a Server!");
 	}
 
-	private void CheckReady(int prev, int next, bool asServer)
+	private void OnRemoteConnectionState(NetworkConnection connection, RemoteConnectionStateArgs args)
 	{
-		if (starting)
-			return;
-		if(entries.Count == 0)
-			return;
-
-
-		starting = next / (float)entries.Count >= 0.6f;
-		Debug.Log("CheckReady: " + next.ToString() + "/" + entries.Count.ToString() + " = " + starting.ToString());
-		if(starting)
+		if(args.ConnectionState == RemoteConnectionState.Stopped)
 		{
-			Debug.Log("Start countdown");
-			InstanceFinder.NetworkManager.GetComponent<NetworkDiscovery>().StopSearchingOrAdvertising();
-			StartCoroutine(StartGameCountdown());
+			playerEntries.Remove(connection);
 		}
 	}
 
-	private void OnClientDisconnect(NetworkConnection connection, RemoteConnectionStateArgs args)
+	private void OnChangePlayerEntries(SyncDictionaryOperation op, NetworkConnection key, PlayerCard value, bool asServer)
 	{
-		if (!(args.ConnectionState == RemoteConnectionState.Stopped)) return;
-		GameManager.RemovePlayer();
-		lobbyHud.RemovePlayer();
-		Entry entry = entries.Find((entry) => entry.connection == connection);
-		if (entry.card.IsReady())
-			readyCount.Value--;
-		Despawn(entry.card.gameObject);
-	}
-
-	void OnDisable()
-	{
-		if (!disconnectOnDisable)
-		{
-			return;
-		}
-		
-		InstanceFinder.NetworkManager.ClientManager.StopConnection();
-		InstanceFinder.NetworkManager.ServerManager.StopConnection(true);
-		Destroy(InstanceFinder.NetworkManager.gameObject);
-		UnityEngine.SceneManagement.SceneManager.LoadScene(0);
-	}
-
-	public void AddPlayerCard(string name, NetworkConnection connection)
-    {
 		if(!IsServerInitialized)
 		{
 			return;
 		}
-		GameManager.AddPlayer();
-		lobbyHud.AddPlayer();
-        PlayerCard card = Instantiate(entryPrefab, content.transform);
-		InstanceFinder.NetworkManager.ServerManager.Spawn(card.gameObject, connection);
-		card.name = name;
-        card.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = name;
-		card.GetComponent<PlayerCard>().SetName(name);
-		Entry entry = new Entry();
-		entry.card = card;
-		entry.connection = connection;
-		entries.Add(entry);
-		Canvas.ForceUpdateCanvases();
-		//ScrollViewFocusFunctions.FocusOnItem(scrollRect, playerEntry);
-		StartCoroutine(ScrollViewFocusFunctions.FocusOnItemCoroutine(scrollRect, card.GetComponent<RectTransform>(), 0.5f));
+		SetPlayerNumber(playerEntries.Count);
+		CheckReady();
 	}
 
 	public void ReadyButton()
 	{
-		foreach(var entry in entries)
+		SetReady(InstanceFinder.ClientManager.Connection);
+	}
+
+	public void ExitButton()
+	{
+		if (InstanceFinder.NetworkManager != null)
 		{
-			if(entry.card.IsOwner)
+			InstanceFinder.NetworkManager.ClientManager.StopConnection();
+			InstanceFinder.NetworkManager.ServerManager.StopConnection(true);
+		}
+		Destroy(InstanceFinder.NetworkManager.gameObject);
+		UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+	}
+
+	[ServerRpc(RequireOwnership = false)]
+	public void AddPlayer(NetworkConnection key, string name)
+	{
+		PlayerCard card = new PlayerCard()
+		{
+			name = name,
+			ready = false
+		};
+		playerEntries.Add(key, card);
+		playerEntries.Dirty(key);
+	}
+
+	[ServerRpc(RequireOwnership = false)]
+	void SetReady(NetworkConnection connection)
+	{
+		PlayerCard card;
+		if (playerEntries.TryGetValue(connection, out card))
+			card.ready = !card.ready;
+		playerEntries.Dirty(connection);
+	}
+
+	[ServerRpc(RequireOwnership = false)]
+	public void CheckReady()
+	{
+		if (!IsServerInitialized)
+			return;
+		int ready = 0;
+		foreach (PlayerCard card in playerEntries.Values)
+		{
+			if (card.ready)
 			{
-				entry.card.ReadyUp();
+				ready++;
 			}
 		}
+		if (ready / (float)playerEntries.Count >= 0.6f)
+		{
+			if (starting)
+				return;
+
+			InstanceFinder.NetworkManager.GetComponent<NetworkDiscovery>().StopSearchingOrAdvertising();
+			starting = true;
+			disconnectOnDisable = false;
+			StartCoroutine(StartGameCountdown());
+		}
+		else
+		{
+			ChangeCountdownText("WAITING FOR PLAYERS");
+			InstanceFinder.NetworkManager.GetComponent<NetworkDiscovery>().AdvertiseServer();
+			starting = false;
+			disconnectOnDisable = true;
+		}
+	}
+
+	[ObserversRpc]
+	public void ChangeCountdownText(string s)
+	{
+		countDownText.text = s;
+	}
+
+	[ObserversRpc]
+	public void SetPlayerNumber(int i)
+	{
+		playerCountText.text = i.ToString() + "/32";
 	}
 
 	IEnumerator StartGameCountdown()
 	{
-		for(int i = 5; i >= 0; i--)
+		if (!starting)
+			yield break;
+		for (int i = 5; i >= 0; i--)
 		{
-			lobbyHud.ChangeCountdownText("STARTING IN " + i.ToString());
+
+
+			ChangeCountdownText("STARTING IN " + i.ToString());
 			Debug.Log("Countdown: " + i.ToString());
 			yield return new WaitForSeconds(1);
+			if (!starting)
+				yield break;
 		}
 		//Cambiar escena
 	}

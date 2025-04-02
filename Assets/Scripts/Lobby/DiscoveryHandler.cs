@@ -16,13 +16,14 @@ public class DiscoveryHandler : MonoBehaviour
 
 	void Start()
 	{
-		if(Passcode == null)
+        Debug.Log(Passcode);
+        netDiscovery = networkManager.GetComponent<NetworkDiscovery>();
+		if (Passcode != null)
 		{
-			Passcode = "qaszdfgbjhgfvgc12345WSYI/(UFYVCUfycfucr";
+			netDiscovery.ChangeSecret(Passcode);
 		}
-		netDiscovery = networkManager.GetComponent<NetworkDiscovery>();
-		netDiscovery.ChangeSecret(Passcode);
-		netDiscovery.ServerFoundCallback += ConnectToServer;
+        Debug.Log(Passcode);
+        netDiscovery.ServerFoundCallback += ConnectToServer;
 		if (Instance != null)
 		{
 			Destroy(gameObject);

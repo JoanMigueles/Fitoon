@@ -14,8 +14,7 @@ public static class SaveData
     {
         if (player == null)
         {
-            player = new PlayerData();
-            ReadFromJson();
+            ResetPlayerData();
         }
 
         string playerData = JsonUtility.ToJson(player);
@@ -60,7 +59,16 @@ public static class SaveData
             Debug.Log("No existe JSON: Creandolo buscando en la nube");
             GooglePlayServicesManager.instance.LoadGame();
         }
+    }
 
+    public static void ResetPlayerData()
+    {
+        player = new PlayerData() {
+            username = "Fitooner",
+            purchasedSkins = new List<int>(),
+            purchasedShoes = new List<int>(),
+            purchasedColors = new List<int>()
+        };
     }
 
     /// <summary>

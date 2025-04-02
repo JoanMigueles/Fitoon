@@ -5,25 +5,19 @@ using FishNet.Object;
 using FishNet.Transporting;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class LobbyPlayer : NetworkBehaviour
 {
-	string playerName;
 	public override void OnStartClient()
 	{
 		if (!IsOwner) return;
-
-		Debug.Log("I'm a Client! Owner: " + Owner);
 		SaveData.ReadFromJson();
-		playerName = SaveData.player.username;
-		AddPlayerToRaceRpc(playerName, InstanceFinder.ClientManager.Connection);
+		StartCoroutine(DelayHostConnection());
 	}
-
-	[ServerRpc]
-	void AddPlayerToRaceRpc(string name, NetworkConnection connection)
+	IEnumerator DelayHostConnection()
 	{
-		LobbyManager.Instance.AddPlayerCard(name, connection);
+		yield return new WaitForSeconds(0.1f);
+		LobbyManager.Instance.AddPlayer(InstanceFinder.ClientManager.Connection, SaveData.player.username);
 	}
 }

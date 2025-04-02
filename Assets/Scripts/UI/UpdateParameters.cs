@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[Obsolete]
 public class UpdateParameters : MonoBehaviour
 {
     public TextMeshProUGUI coinsText;
@@ -38,28 +40,28 @@ public class UpdateParameters : MonoBehaviour
         //A modo de testing, para subir puntos
         if (Input.GetKeyUp(KeyCode.P))
         {
-			SaveData.player.points += 50;
+			SaveData.player.expPoints += 50;
             UpdatePoints();
         }
         else if (Input.GetKeyUp(KeyCode.O))
         {
-			SaveData.player.points -= 50;
+			SaveData.player.expPoints -= 50;
             UpdatePoints();
         }
     }
     public void UpdatePoints()
     {
-        currentLevel = CalculateLevelForXP(SaveData.player.points);
+        currentLevel = CalculateLevelForXP(SaveData.player.expPoints);
         levelText.text = currentLevel.ToString();
 
         int totalXPNeededForNextLevel = CalculateTotalXPNeededForNextLevel(currentLevel);
-        int pointsNeededForNextLevel = totalXPNeededForNextLevel - SaveData.player.points;
+        int pointsNeededForNextLevel = totalXPNeededForNextLevel - SaveData.player.expPoints;
 
-        pointsText.text = $"{SaveData.player.points}/{totalXPNeededForNextLevel} xp";
+        pointsText.text = $"{SaveData.player.expPoints}/{totalXPNeededForNextLevel} xp";
         pointsLeftText.text = $"{pointsNeededForNextLevel} left";
 
         xpSlider.maxValue = totalXPNeededForNextLevel;
-        xpSlider.value = SaveData.player.points;
+        xpSlider.value = SaveData.player.expPoints;
     }
 
     //Ejemplo con base 100 y factor 1.5: Para llegar al nivel 1 hacen falta 0+100 puntos. Nivel 2: 100+150 puntos. Nivel 3: 100+150+225 puntos...

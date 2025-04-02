@@ -126,7 +126,7 @@ public class GoalController : MonoBehaviour
             {
                 //Ha perdido, vuelve al inicio
                 exitButton.gameObject.SetActive(true);
-                exitButton.onClick.AddListener(delegate { FindObjectOfType<ButtonFunctions>().LoadScene("YouLose"); });
+                //exitButton.onClick.AddListener(delegate { FindObjectOfType<ButtonFunctions>().LoadScene("YouLose"); });
                 StartCoroutine(NextLevel("You lost... Press exit or wait 2s", "YouLose"));
             }
         }
@@ -141,14 +141,14 @@ public class GoalController : MonoBehaviour
             //Ganó el jugador
             RaceManager.Instance.playerWon = true;
             exitButton.gameObject.SetActive(true);
-            exitButton.onClick.AddListener(delegate { FindObjectOfType<ButtonFunctions>().LoadScene("YouWin"); });
+            //exitButton.onClick.AddListener(delegate { FindObjectOfType<ButtonFunctions>().LoadScene("YouWin"); });
             StartCoroutine(NextLevel("You win!!!", "YouWin"));
         }
         else
         {
             //Perdió
             exitButton.gameObject.SetActive(true);
-            exitButton.onClick.AddListener(delegate { FindObjectOfType<ButtonFunctions>().LoadScene("YouLose"); });
+            //exitButton.onClick.AddListener(delegate { FindObjectOfType<ButtonFunctions>().LoadScene("YouLose"); });
             StartCoroutine(NextLevel("You lost...", "YouLose"));
         } 
     }
@@ -158,7 +158,7 @@ public class GoalController : MonoBehaviour
         infoText.text = textToInform;
         exitButton.gameObject.SetActive(false);
         yield return new WaitForSeconds(3f);
-        FindObjectOfType<ButtonFunctions>().LoadScene(sceneToGo);
+        //FindObjectOfType<ButtonFunctions>().LoadScene(sceneToGo);
     }
 
 

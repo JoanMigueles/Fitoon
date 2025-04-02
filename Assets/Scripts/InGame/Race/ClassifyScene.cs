@@ -24,7 +24,7 @@ public class ClassifyScene : MonoBehaviour
             countdown--;
             if (countdown == 0)
             {
-                GetComponent<ButtonFunctions>().LoadScene("FindingScenario");
+                //GetComponent<ButtonFunctions>().LoadScene("FindingScenario");
             }
             else
             {

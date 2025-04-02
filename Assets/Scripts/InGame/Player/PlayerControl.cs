@@ -64,7 +64,7 @@ public class PlayerControl : MonoBehaviour
         //Asignar personaje guardado
         GameObject playerContainer = GameObject.FindGameObjectWithTag("Player");
         GameObject characterInPrefab = GameObject.FindGameObjectWithTag("Character");
-        GameObject newCharacter = Instantiate(playerCharacter.prefab, characterInPrefab.transform.position, Quaternion.identity, playerContainer.transform);
+        GameObject newCharacter = Instantiate(playerCharacter.characterPrefab, characterInPrefab.transform.position, Quaternion.identity, playerContainer.transform);
         newCharacter.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
         playerContainer.GetComponent<PlayerControl>().anim = newCharacter.GetComponent<Animator>();
         Destroy(newCharacter.GetComponent<CapsuleCollider>());
@@ -129,7 +129,7 @@ public class PlayerControl : MonoBehaviour
         }
 
         //Buscar en qué índice de la lista de personajes está, segun el NOMBRE de la skin
-        int characterActive = charactersList.FindIndex(character => character.characterName == savedSkin);
+        int characterActive = charactersList.FindIndex(character => character.itemName == savedSkin);
         actualCharacter = charactersList[characterActive];
 
         playerCharacter = actualCharacter;
@@ -145,7 +145,7 @@ public class PlayerControl : MonoBehaviour
 
         foreach (ObjectItem shoeItem in shoes)
         {
-            if (shoeItem.id == i)
+            if (shoeItem.itemID == i)
             {
                 renderer.sharedMesh = shoeItem.mesh;
                 renderer.materials = shoeItem.materials;

@@ -36,14 +36,14 @@ public class GameOver : MonoBehaviour
             if (RaceManager.Instance.playerWon)
             {
 				//Primer puesto
-				SaveData.player.points += goldPoints;
+				SaveData.player.expPoints += goldPoints;
 				SaveData.player.normalCoins += goldMoney;
                 rewardText.text = $"#1 position!\nYou won {goldPoints} points!";
                 moneyText.text = $"+{goldMoney}";
             }
             else
             {
-				SaveData.player.points += silverPoints;
+				SaveData.player.expPoints += silverPoints;
 				SaveData.player.normalCoins += silverMoney;
                 rewardText.text = $"You won {silverPoints} points!";
                 moneyText.text = $"+{silverMoney}";
@@ -52,14 +52,14 @@ public class GameOver : MonoBehaviour
         }
         else if (RaceManager.Instance.numberOfRace == 2)
         {
-			SaveData.player.points += bronzePoints;
+			SaveData.player.expPoints += bronzePoints;
 			SaveData.player.normalCoins += bronzeMoney;
             rewardText.text = $"You won {bronzePoints} points!";
             moneyText.text = $"+{bronzeMoney}";
         }
         else if (RaceManager.Instance.numberOfRace == 1)
         {
-			SaveData.player.points += loserPoints;
+			SaveData.player.expPoints += loserPoints;
             rewardText.text = $"You won {loserPoints} points!";
             moneyText.text = "+0";
         }
@@ -72,6 +72,6 @@ public class GameOver : MonoBehaviour
     public void PlayAgain()
     {
         RaceManager.Instance.Reset();
-        GetComponent<ButtonFunctions>().LoadScene("FindingScenario");
+        //GetComponent<ButtonFunctions>().LoadScene("FindingScenario");
     }
 }

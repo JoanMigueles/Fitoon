@@ -38,15 +38,15 @@ public class ChangeCharacter : MonoBehaviour
         }
 
         //Buscar en qué índice de la lista de personajes está, segun el NOMBRE de la skin
-        characterActive = characters.FindIndex(character => character.characterName == skinName);
+        characterActive = characters.FindIndex(character => character.itemName == skinName);
         actualCharacter = characters[characterActive];
 
         //Actualizar el personaje en pantalla
         DestroyImmediate(container.transform.GetChild(0).gameObject);
-        GameObject instance = Instantiate(actualCharacter.prefab, Vector3.zero, Quaternion.identity, container.transform);
+        GameObject instance = Instantiate(actualCharacter.characterPrefab, Vector3.zero, Quaternion.identity, container.transform);
         instance.GetComponent<RotateCharacter>().enabled = true;
         instance.GetComponent<Outline>().enabled = false;
-        nameText.text = actualCharacter.characterName;
+        nameText.text = actualCharacter.itemName;
 
         UpdateShoes();
     }
@@ -82,10 +82,10 @@ public class ChangeCharacter : MonoBehaviour
             }
         }
 
-        GameObject instance = Instantiate(characters[characterActive].prefab, Vector3.zero, Quaternion.identity, container.transform);
+        GameObject instance = Instantiate(characters[characterActive].characterPrefab, Vector3.zero, Quaternion.identity, container.transform);
         instance.GetComponent<RotateCharacter>().enabled = true;
         instance.GetComponent<Outline>().enabled = false;
-        nameText.text = characters[characterActive].characterName;
+        nameText.text = characters[characterActive].itemName;
 
         actualCharacter = characters[characterActive];
 
@@ -120,7 +120,7 @@ public class ChangeCharacter : MonoBehaviour
             return;
         }
         //Buscar en qué índice de la lista de personajes está, segun el NOMBRE de la skin
-        characterActive = characters.FindIndex(character => character.characterName == savedSkin);
+        characterActive = characters.FindIndex(character => character.itemName == savedSkin);
         actualCharacter = characters[characterActive];
 
         //Actualizar el personaje en pantalla
@@ -129,10 +129,10 @@ public class ChangeCharacter : MonoBehaviour
             DestroyImmediate(container.transform.GetChild(0).gameObject);
         }
         
-        GameObject instance = Instantiate(actualCharacter.prefab, Vector3.zero, Quaternion.identity, container.transform);
+        GameObject instance = Instantiate(actualCharacter.characterPrefab, Vector3.zero, Quaternion.identity, container.transform);
         instance.GetComponent<RotateCharacter>().enabled = true;
         instance.GetComponent<Outline>().enabled = false;
-        nameText.text = actualCharacter.characterName;
+        nameText.text = actualCharacter.itemName;
 
         UpdateShoes();
         UpdateColors();
@@ -182,7 +182,7 @@ public class ChangeCharacter : MonoBehaviour
 
         foreach (ObjectItem shoeItem in shoes)
         {
-            if (shoeItem.id == i)
+            if (shoeItem.itemID == i)
             {
                 renderer.sharedMesh = shoeItem.mesh;
                 renderer.materials = shoeItem.materials;
@@ -226,12 +226,12 @@ public class ChangeCharacter : MonoBehaviour
             }
         }
 
-        SaveData.player.playerCharacterData.characterName = actualCharacter.characterName;
+        SaveData.player.playerCharacterData.characterName = actualCharacter.itemName;
         SaveData.player.playerCharacterData.hairColor = ColorToHex(actualCharacter.hair.color);
         SaveData.player.playerCharacterData.skinColor = ColorToHex(actualCharacter.skin.color);
         SaveData.player.playerCharacterData.topColor = ColorToHex(actualCharacter.top.color);
         SaveData.player.playerCharacterData.bottomColor = ColorToHex(actualCharacter.bottom.color);
-        SaveData.player.playerCharacterData.shoes = actualShoes.id;
+        SaveData.player.playerCharacterData.shoes = actualShoes.itemID;
         SaveData.SaveToJson();
         //saveData.ReadFromJson();
         ReadCharacter();
