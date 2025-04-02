@@ -5,19 +5,19 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/_UNUSED/PRUEBA1.unity
-    guid: ab4d5c673f2b86b419bbc55b675ef850
-  - enabled: 0
-    path: Assets/Scenes/ANTIGUA UI/InicialAntiguo.unity
+  - enabled: 1
+    path: Assets/Scenes/LoggingIn.unity
+    guid: e097bc44fcede01438132e044eb2b461
+  - enabled: 1
+    path: Assets/Scenes/Inicial.unity
     guid: 637bfc521f159a442bdf6009e5d3ad12
   - enabled: 0
-    path: Assets/Scenes/ANTIGUA UI/CharacterCreatorAntiguo.unity
+    path: Assets/Scenes/CharacterCreator.unity
     guid: a21a597e524912b41993821a16f98613
   - enabled: 0
     path: Assets/Scenes/ANTIGUA UI/TiendaAntigua.unity
     guid: ed99ad9ac867ef947a0ff16156d613cc
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/LobbyScene.unity
     guid: c78f77aef35cdec458af96d9d51d93c3
   - enabled: 1
