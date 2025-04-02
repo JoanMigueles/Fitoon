@@ -14,7 +14,7 @@ public class InitialScreenCharacterLoad : MonoBehaviour
 
     private void Start()
     {
-		SaveData.ReadFromJson();
+		ReadUsername();
         ReadCharacter();
     }
 
@@ -77,7 +77,7 @@ public class InitialScreenCharacterLoad : MonoBehaviour
 
     void UpdateColors()
     {
-        Color color = Color.black; //si falla saldrá negro
+        Color color = Color.black; //si falla saldrï¿½ negro
         if (ColorUtility.TryParseHtmlString(SaveData.player.playerCharacterData.hairColor, out color))
         {
             actualCharacter.hair.color = color;

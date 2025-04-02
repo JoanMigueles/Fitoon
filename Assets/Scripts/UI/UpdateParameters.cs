@@ -22,7 +22,6 @@ public class UpdateParameters : MonoBehaviour
 
     private void Start()
     {
-		SaveData.ReadFromJson();
         UpdateMoneyText();
         UpdatePoints();
     }
@@ -30,7 +29,6 @@ public class UpdateParameters : MonoBehaviour
     public void UpdateMoneyText()
     {
         coinsText.text = SaveData.player.normalCoins.ToString();
-        
     }
 
     //Progresion de puntos
