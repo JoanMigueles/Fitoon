@@ -86,7 +86,7 @@ public class GooglePlayServicesManager : MonoBehaviour
 
     private void OnSavedGameDataRead(SavedGameRequestStatus status, byte[] data)
     {
-        if(status == SavedGameRequestStatus.Success)
+        if(status == SavedGameRequestStatus.Success && data != null && data.Length != 0)
         {
             string savedData = System.Text.ASCIIEncoding.Default.GetString(data);
             SaveData.ReceiveData(savedData);
@@ -96,6 +96,7 @@ public class GooglePlayServicesManager : MonoBehaviour
         {
             Debug.Log("Error reading saved game data: " + status);
             SaveData.ReceiveData(null);
+            SceneManager.LoadScene("Inicial");
         }
     }
 

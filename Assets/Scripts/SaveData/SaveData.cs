@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,14 +15,13 @@ public static class SaveData
     {
         if (player == null)
         {
-            ResetPlayerData();
+            ReadFromJson();
         }
 
-        string playerData = JsonUtility.ToJson(player);
-        System.IO.File.WriteAllText(filePath, playerData);
         //Si est� vac�o poner un personaje default
         if (player.playerCharacterData is null)
         {
+            player.username = GooglePlayServicesManager.instance.GetPlayerUsername();
             player.playerCharacterData = new CharacterData();
             player.playerCharacterData.characterName = "Juan";
             player.playerCharacterData.hairColor = "#4D2413";
@@ -30,12 +30,9 @@ public static class SaveData
             player.playerCharacterData.bottomColor = "#4F2F12";
             player.playerCharacterData.shoes = 0;
             player.playerCharacterData.prefabId = 0;
-            playerData = JsonUtility.ToJson(player);
             Debug.Log("No hab�a datos. Creando personaje por defecto.");
         }
-        player.username = GooglePlayServicesManager.instance.GetPlayerUsername();
-        player.normalCoins = 0;
-        player.points = 0;
+        string playerData = JsonUtility.ToJson(player);
         System.IO.File.WriteAllText(filePath, playerData);
         GooglePlayServicesManager.instance.SaveGame(playerData);
         Debug.Log("[SAVE] Datos guardados en " + filePath);
@@ -46,29 +43,25 @@ public static class SaveData
     /// </summary>
     public static void ReadFromJson()
     {
+        if(SceneManager.GetActiveScene().name == "LoggingIn")
+        {
+            GooglePlayServicesManager.instance.LoadGame();
+            return;
+        }
+
         try
         {
             string playerData = System.IO.File.ReadAllText(filePath);
 
             player = JsonUtility.FromJson<PlayerData>(playerData);
             Debug.Log("[SAVE] Datos leidos");
-            GooglePlayServicesManager.instance.SaveGame(playerData);
+            if(SceneManager.GetActiveScene().name == "LoggingIn") SceneManager.LoadScene("Inicial");
         }
         catch (System.Exception)
         {
             Debug.Log("No existe JSON: Creandolo buscando en la nube");
             GooglePlayServicesManager.instance.LoadGame();
         }
-    }
-
-    public static void ResetPlayerData()
-    {
-        player = new PlayerData() {
-            username = "Fitooner",
-            purchasedSkins = new List<int>(),
-            purchasedShoes = new List<int>(),
-            purchasedColors = new List<int>()
-        };
     }
 
     /// <summary>
@@ -81,13 +74,12 @@ public static class SaveData
         {
             player = JsonUtility.FromJson<PlayerData>(playerData);
             Debug.Log("[LOAD] Datos recibidos desde la nube");
-            ReadFromJson();
+            SaveToJson();
         }
         else
         {
             player = new PlayerData();
             SaveToJson();
-            ReadFromJson();
         }
     }
 }

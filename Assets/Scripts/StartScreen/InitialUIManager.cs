@@ -38,36 +38,34 @@ public class InitialUIManager : UIManager
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Delete)) {
-            Debug.Log("Erased");
-            SaveData.ResetPlayerData();
-            SaveData.SaveToJson();
-            UpdateAllUI();
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad2)) {
-            SaveData.player.normalCoins += 20;
-            SaveData.SaveToJson();
-            UpdateCoins();
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad1)) {
+        // if (Input.GetKeyDown(KeyCode.Delete)) {
+        //     Debug.Log("Erased");
+        //     SaveData.SaveToJson();
+        //     UpdateAllUI();
+        // }
+        // if (Input.GetKeyDown(KeyCode.Keypad2)) {
+        //     SaveData.player.normalCoins += 20;
+        //     SaveData.SaveToJson();
+        //     UpdateCoins();
+        // }
+        // if (Input.GetKeyDown(KeyCode.Keypad1)) {
 
-            SaveData.player.expPoints += 50;
-            SaveData.SaveToJson();
-            UpdateExp();
-        }
-        if (Input.GetKeyDown(KeyCode.UpArrow)) {
+        //     SaveData.player.expPoints += 50;
+        //     SaveData.SaveToJson();
+        //     UpdateExp();
+        // }
+        // if (Input.GetKeyDown(KeyCode.UpArrow)) {
 
-            SaveData.player.medals += 50;
-            SaveData.SaveToJson();
-            UpdateMedals();
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow)) {
+        //     SaveData.player.medals += 50;
+        //     SaveData.SaveToJson();
+        //     UpdateMedals();
+        // }
+        // if (Input.GetKeyDown(KeyCode.DownArrow)) {
 
-            SaveData.player.medals -= 50;
-            SaveData.SaveToJson();
-            UpdateMedals();
-        }
-
+        //     SaveData.player.medals -= 50;
+        //     SaveData.SaveToJson();
+        //     UpdateMedals();
+        // }
     }
 
     // --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -108,8 +106,6 @@ public class InitialUIManager : UIManager
 
             expText.text = $"{SaveData.player.expPoints}/{totalXPNeededForNextLevel}";
         }
-
-        
     }
 
     public void UpdateMedals()

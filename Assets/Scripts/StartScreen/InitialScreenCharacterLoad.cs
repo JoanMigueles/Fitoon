@@ -14,7 +14,6 @@ public class InitialScreenCharacterLoad : MonoBehaviour
 
     private void Start()
     {
-		ReadUsername();
         ReadCharacter();
     }
 

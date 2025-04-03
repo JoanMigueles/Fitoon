@@ -16,6 +16,13 @@ public class PlayerData
     public List<int> purchasedShoes;
     public List<int> purchasedColors;
     public CharacterData playerCharacterData;
+
+    public PlayerData()
+    {
+        purchasedSkins = new List<int>();
+        purchasedShoes = new List<int>();
+        purchasedColors = new List<int>();
+    }
 }
 
 [System.Serializable]
