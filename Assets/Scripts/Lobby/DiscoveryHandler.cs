@@ -8,7 +8,6 @@ using UnityEngine;
 
 public class DiscoveryHandler : MonoBehaviour
 {
-	public static DiscoveryHandler Instance;
 	public static string Passcode;
 	NetworkDiscovery netDiscovery;
 	[SerializeField] NetworkManager networkManager;
@@ -16,21 +15,18 @@ public class DiscoveryHandler : MonoBehaviour
 
 	void Start()
 	{
-        Debug.Log(Passcode);
-        netDiscovery = networkManager.GetComponent<NetworkDiscovery>();
+		if (!SessionDataHolder.lookForLobby)
+		{
+			return;
+		}
+
+		netDiscovery = networkManager.GetComponent<NetworkDiscovery>();
 		if (Passcode != null)
 		{
 			netDiscovery.ChangeSecret(Passcode);
 		}
-        Debug.Log(Passcode);
-        netDiscovery.ServerFoundCallback += ConnectToServer;
-		if (Instance != null)
-		{
-			Destroy(gameObject);
-			return;
-		}
-
-		Instance = this;
+		Debug.Log(Passcode);
+		netDiscovery.ServerFoundCallback += ConnectToServer;
 		BeginSearch();
 	}
 

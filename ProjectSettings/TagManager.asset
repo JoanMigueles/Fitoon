@@ -11,14 +11,13 @@ TagManager:
   - Goal
   - POI
   - EffectArea
-  - Hair
-  - Skin
-  - Top
-  - Bottom
   - Shoes
   - Character
   - Obstacle
   - StuckPoint
+  - Hair
+  - Top
+  - Skin
   layers:
   - Default
   - TransparentFX

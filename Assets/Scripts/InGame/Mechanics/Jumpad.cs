@@ -23,10 +23,6 @@ public class Jumpad : MonoBehaviour
             Vector3 directionToPlayer = new Vector3(playerPosition.x - transform.position.x, 0, playerPosition.z - transform.position.z);
             //directionToPlayer.Normalize();
 
-            if (other.GetComponent<PlayerControl>() != null) other.GetComponent<PlayerControl>().LockMovement(true);
-            if (other.GetComponent<BotNoNetwork>() != null) other.GetComponent<BotNoNetwork>().LockMovement(true);
-            if (other.GetComponent<NPCController>() != null) other.GetComponent<NPCController>().LockMovement(true);
-
             playerRigidbody.velocity = Vector3.zero;
             playerRigidbody.angularVelocity = Vector3.zero;
 

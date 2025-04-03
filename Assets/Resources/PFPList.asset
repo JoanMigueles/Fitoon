@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bf5dc417e9ee6e47b15ea19be2283ae, type: 3}
+  m_Name: PFPList
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 28a2b964ffa9095408b1f400fef25d29, type: 3}
+  - {fileID: 21300000, guid: 00d9cc0a699892143b59bd136b5bc761, type: 3}
+  - {fileID: 21300000, guid: 4cef5e511e0f5384d913526716d910aa, type: 3}
+  - {fileID: 21300000, guid: e3d1bbeea6da12f4bb847f2ab90c0cc2, type: 3}

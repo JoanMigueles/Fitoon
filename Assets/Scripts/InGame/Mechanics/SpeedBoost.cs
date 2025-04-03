@@ -1,10 +1,11 @@
+using FishNet.Object;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpeedBoost : MonoBehaviour
+public class SpeedBoost : NetworkBehaviour
 {
-    public float speedBoost = 1f;
+    public float speedBoost = 2;
     public Material matFade;
     public List<MeshRenderer> mrBoost;
     public bool isTemporary = true;
@@ -17,8 +18,8 @@ public class SpeedBoost : MonoBehaviour
     private float timer = 0f;
     private float timerMax = 200f;
 
-    private void Start()
-    {
+    public override void OnStartNetwork()
+	{
         coll = GetComponent<Collider>();
 
         defaultMaterials.Capacity = mrBoost.Count;
@@ -31,7 +32,9 @@ public class SpeedBoost : MonoBehaviour
 
     private void Update()
     {
-        if (isRespawning)
+        if(!IsServerInitialized) return;
+
+		if (isRespawning)
         {
             if (timer < timerMax)
             {
@@ -39,31 +42,39 @@ public class SpeedBoost : MonoBehaviour
             }
             else
             {
-                for (int i = 0; i < mrBoost.Count; i++)
-                {
-                    mrBoost[i].material = defaultMaterials[i];
-                }
-
-                coll.enabled = true;
-                timer = 0f;
-                isRespawning = false;
-            }
+                Respawn();
+				timer = 0f;
+				isRespawning = false;
+			}
         }
         
     }
 
-    public void FadeAndRespawn()
+    [ObserversRpc]
+    void Respawn()
+    {
+		for (int i = 0; i < mrBoost.Count; i++)
+		{
+			mrBoost[i].material = defaultMaterials[i];
+		}
+		coll.enabled = true;
+	}
+
+    [ServerRpc(RequireOwnership = false)]
+	public void FadeAndRespawn()
     {
         if (!isTemporary) return;
-
-        for (int i = 0; i < mrBoost.Count; i++)
-        {
-            mrBoost[i].material = matFade;
-        }
-
-        coll.enabled = false;
-        isRespawning = true;
+        Despawn();
+		isRespawning = true;
     }
 
-
+    [ObserversRpc]
+    void Despawn()
+    {
+		for (int i = 0; i < mrBoost.Count; i++)
+		{
+			mrBoost[i].material = matFade;
+		}
+		coll.enabled = false;
+	}
 }

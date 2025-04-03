@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5874278364363414034}
   m_Layer: 3
   m_Name: nariz
-  m_TagString: Skin
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 8451520032921976994}
   m_Layer: 3
   m_Name: orejas
-  m_TagString: Skin
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -408,7 +408,7 @@ GameObject:
   - component: {fileID: 4319784771974910946}
   m_Layer: 3
   m_Name: pelo_degradado
-  m_TagString: Hair
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -926,7 +926,7 @@ GameObject:
   - component: {fileID: 6940656434348687709}
   m_Layer: 3
   m_Name: Camiseta
-  m_TagString: Top
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1095,7 +1095,7 @@ GameObject:
   - component: {fileID: 5063357526057109461}
   m_Layer: 3
   m_Name: pantalonDeporte
-  m_TagString: Bottom
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1224,7 +1224,7 @@ GameObject:
   - component: {fileID: 1045885633247887634}
   m_Layer: 3
   m_Name: barba
-  m_TagString: Hair
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1346,7 +1346,7 @@ GameObject:
   - component: {fileID: 4972589509827370406}
   m_Layer: 3
   m_Name: brazos
-  m_TagString: Skin
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1702,7 +1702,7 @@ GameObject:
   - component: {fileID: 7389158891146329083}
   m_Layer: 3
   m_Name: cabeza
-  m_TagString: Skin
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2036,6 +2036,39 @@ Transform:
   m_Father: {fileID: 2905334147097385502}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6179563459818280977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2187893679372843790}
+  m_Layer: 0
+  m_Name: MeshHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2187893679372843790
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6179563459818280977}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4158895469522372770}
+  - {fileID: 8245447517443722387}
+  m_Father: {fileID: 8495776443619518518}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6193961909092732368
 GameObject:
   m_ObjectHideFlags: 0
@@ -2112,7 +2145,7 @@ GameObject:
   - component: {fileID: 5952192748291855641}
   m_Layer: 3
   m_Name: bigote
-  m_TagString: Hair
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2607,7 +2640,7 @@ GameObject:
   - component: {fileID: 3152418410423798468}
   m_Layer: 3
   m_Name: cejas
-  m_TagString: Hair
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2908,7 +2941,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8245447517443722386}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2928,7 +2961,7 @@ Transform:
   - {fileID: 1415441890938666056}
   - {fileID: 8841747866022778197}
   - {fileID: 5371541872990794168}
-  m_Father: {fileID: 8495776443619518518}
+  m_Father: {fileID: 2187893679372843790}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8936223775059863208
@@ -2993,7 +3026,7 @@ Transform:
   - {fileID: 5902493141745529310}
   - {fileID: 230471636002766749}
   - {fileID: 4458463240922774321}
-  m_Father: {fileID: 8495776443619518518}
+  m_Father: {fileID: 2187893679372843790}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9127915758140191372
@@ -3006,10 +3039,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8495776443619518518}
   - component: {fileID: 9127915758140191373}
-  - component: {fileID: 7900846623942459669}
   - component: {fileID: -8558730663994592167}
   - component: {fileID: -8169378211349215076}
   - component: {fileID: 3482837112525271166}
+  - component: {fileID: 6175235807796855818}
   m_Layer: 3
   m_Name: ChicoBarba
   m_TagString: Character
@@ -3025,12 +3058,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9127915758140191372}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.53096, y: 3, z: 416.6304}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4158895469522372770}
-  - {fileID: 8245447517443722387}
+  - {fileID: 2187893679372843790}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3055,20 +3087,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!136 &7900846623942459669
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9127915758140191372}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 1.1951878
-  m_Height: 6.827899
-  m_Direction: 1
-  m_Center: {x: 0.07862592, y: 3.4098487, z: 0}
 --- !u!114 &-8558730663994592167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3111,3 +3129,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 458509c24db04f2409fbde8b0019fdd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6175235807796855818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9127915758140191372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28192331b2bb028488045ddd994b98ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shader: {fileID: 4800000, guid: 8fa84e1c8f3a97b4bb416e8eb087630e, type: 3}
+  hairMaterial: {fileID: 2100000, guid: 0cf5af9238bfa104aba0cce1a5196b0b, type: 2}
+  skinMaterial: {fileID: 2100000, guid: 80deed9702f0b0e4fb320ec14b19e7e5, type: 2}
+  topMaterial: {fileID: 2100000, guid: 04e9773d702c5b044bbf0d76e74f5ed6, type: 2}
+  bottomMaterial: {fileID: 2100000, guid: 6a5ebd72fa653794cb4367b9c687e077, type: 2}
+  shoe: {fileID: 6934215225140282908}

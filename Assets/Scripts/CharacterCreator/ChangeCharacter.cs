@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEditor;
+using System.Drawing;
 
 public class ChangeCharacter : MonoBehaviour
 {
@@ -37,7 +38,7 @@ public class ChangeCharacter : MonoBehaviour
             }
         }
 
-        //Buscar en qué índice de la lista de personajes está, segun el NOMBRE de la skin
+        //Buscar en quï¿½ ï¿½ndice de la lista de personajes estï¿½, segun el NOMBRE de la skin
         characterActive = characters.FindIndex(character => character.itemName == skinName);
         actualCharacter = characters[characterActive];
 
@@ -119,7 +120,7 @@ public class ChangeCharacter : MonoBehaviour
             Debug.LogError("Error: No hay personaje guardado");
             return;
         }
-        //Buscar en qué índice de la lista de personajes está, segun el NOMBRE de la skin
+        //Buscar en quï¿½ ï¿½ndice de la lista de personajes estï¿½, segun el NOMBRE de la skin
         characterActive = characters.FindIndex(character => character.itemName == savedSkin);
         actualCharacter = characters[characterActive];
 
@@ -139,7 +140,7 @@ public class ChangeCharacter : MonoBehaviour
         
 
         //Asignar colores guardados (cuando haga reset deben salir estos)
-        /* Color color = Color.black; //si falla saldrá negro
+        /* Color color = Color.black; //si falla saldrï¿½ negro
          if (ColorUtility.TryParseHtmlString(saveData.player.playerCharacterData.hairColor, out color))
          {
              actualCharacter.hairColor = color;
@@ -184,8 +185,8 @@ public class ChangeCharacter : MonoBehaviour
         {
             if (shoeItem.itemID == i)
             {
-                renderer.sharedMesh = shoeItem.mesh;
-                renderer.materials = shoeItem.materials;
+                renderer.sharedMesh = ShoeLoader.GetMesh(shoeItem.mesh);
+                renderer.materials = ShoeLoader.getMaterials(shoeItem.materials);
                 zapatos.GetComponent<WhatShoeIHave>().myShoe = shoeItem;
                 actualShoes = zapatos.GetComponent<WhatShoeIHave>().myShoe;
                 break;
@@ -197,23 +198,10 @@ public class ChangeCharacter : MonoBehaviour
 
     void UpdateColors()
     {
-        Color color = Color.black; //si falla saldrá negro
-        if (ColorUtility.TryParseHtmlString(SaveData.player.playerCharacterData.hairColor, out color))
-        {
-            actualCharacter.hair.color = color;
-        }
-        if (ColorUtility.TryParseHtmlString(SaveData.player.playerCharacterData.skinColor, out color))
-        {
-            actualCharacter.skin.color = color;
-        }
-        if (ColorUtility.TryParseHtmlString(SaveData.player.playerCharacterData.bottomColor, out color))
-        {
-            actualCharacter.bottom.color = color;
-        }
-        if (ColorUtility.TryParseHtmlString(SaveData.player.playerCharacterData.topColor, out color))
-        {
-            actualCharacter.top.color = color;
-        }
+		actualCharacter.hair.color = SaveData.player.playerCharacterData.hairColor;
+		actualCharacter.skin.color = SaveData.player.playerCharacterData.skinColor;
+		actualCharacter.bottom.color = SaveData.player.playerCharacterData.bottomColor;
+		actualCharacter.top.color = SaveData.player.playerCharacterData.topColor;
     }
 
     public void SaveCharacter()
@@ -226,12 +214,12 @@ public class ChangeCharacter : MonoBehaviour
             }
         }
 
-        SaveData.player.playerCharacterData.characterName = actualCharacter.itemName;
-        SaveData.player.playerCharacterData.hairColor = ColorToHex(actualCharacter.hair.color);
-        SaveData.player.playerCharacterData.skinColor = ColorToHex(actualCharacter.skin.color);
-        SaveData.player.playerCharacterData.topColor = ColorToHex(actualCharacter.top.color);
-        SaveData.player.playerCharacterData.bottomColor = ColorToHex(actualCharacter.bottom.color);
-        SaveData.player.playerCharacterData.shoes = actualShoes.itemID;
+        SaveData.player.playerCharacterData.characterName = actualCharacter.characterName;
+        SaveData.player.playerCharacterData.hairColor = actualCharacter.hair.color;
+        SaveData.player.playerCharacterData.skinColor = actualCharacter.skin.color;
+        SaveData.player.playerCharacterData.topColor = actualCharacter.top.color;
+        SaveData.player.playerCharacterData.bottomColor = actualCharacter.bottom.color;
+        SaveData.player.playerCharacterData.shoes = actualShoes.id;
         SaveData.SaveToJson();
         //saveData.ReadFromJson();
         ReadCharacter();
@@ -256,19 +244,6 @@ public class ChangeCharacter : MonoBehaviour
             character.topColor = character.top.color;
             character.bottomColor = character.bottom.color;
         }
-    }
-
-    public static string ColorToHex(Color color)
-    {
-        // Convert RGB values to hexadecimal format
-        int r = (int)(color.r * 255f);
-        int g = (int)(color.g * 255f);
-        int b = (int)(color.b * 255f);
-
-        // Format the hexadecimal string
-        string hex = string.Format("#{0:X2}{1:X2}{2:X2}", r, g, b);
-
-        return hex;
     }
 
 }

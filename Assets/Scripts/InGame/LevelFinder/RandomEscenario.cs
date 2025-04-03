@@ -1,15 +1,15 @@
 using FishNet;
 using FishNet.Managing.Scened;
+using FishNet.Object;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RandomEscenario : MonoBehaviour
+public class RandomEscenario : NetworkBehaviour
 {
-    [SerializeField] List<EscenarioItem> escenarios;
-    [SerializeField] List<EscenarioItem> escenariosDisponibles;
+    [SerializeField] List<EscenarioItem> escenarios = new List<EscenarioItem>();
     [SerializeField] GameObject container;
     [SerializeField] TextMeshProUGUI countdownText;
     [SerializeField] int countdown = 5;
@@ -26,8 +26,6 @@ public class RandomEscenario : MonoBehaviour
     {
         image = container.GetComponentInChildren<Image>();
         text = container.GetComponentInChildren<TextMeshProUGUI>();
-        escenariosDisponibles = new List<EscenarioItem>(escenarios);
-        GetAvaliableScenarios();
         StartCoroutine(CambiarImagenAleatoria());
     }
 
@@ -36,52 +34,54 @@ public class RandomEscenario : MonoBehaviour
         if(timerActive) timer += Time.deltaTime;
     }
 
+    [ObserversRpc]
+    void SetFinalMap(int i)
+    {
+        StopAllCoroutines();
+
+        EscenarioItem escenario = escenarios[i];
+		image.sprite = escenario.imagenEscenario;
+		text.text = escenario.nombreEscenario;
+		escenarios.Remove(escenario);
+
+		timerActive = false;
+		countdownText.text = countdown.ToString();
+		StartCoroutine(Countdown());
+	}
+
     IEnumerator CambiarImagenAleatoria()
     {
+        int index = 0;
         while (timer < totalSeconds) 
         {
             yield return new WaitForSeconds(secondsToChange);
-            int index = Random.Range(0, escenariosDisponibles.Count);
-			escenarioElegido = escenariosDisponibles[index];
+            index = Random.Range(0, escenarios.Count);
+			escenarioElegido = escenarios[index];
             image.sprite = escenarioElegido.imagenEscenario;
             text.text = escenarioElegido.nombreEscenario;
         }
 
-		//timer = 0;
-		// SaveData.player.scenesPlayed.Add(escenarioElegido);
-		SaveData.SaveToJson();
+        if (!IsServerInitialized)
+            yield break;
 
-        timerActive = false;
-        countdownText.text = countdown.ToString();
-        StartCoroutine(Countdown());
+        SetFinalMap(index) ;
+		//timer = 0;
     }
 
     IEnumerator Countdown()
-    {       
-        while (countdown != 0)
-        {
-            yield return new WaitForSeconds(1f);
-            countdown--;
-            if (countdown == 0)
-            {
-                SceneLoadData sceneData = new SceneLoadData(escenarioElegido.nombreEscenario);
-                InstanceFinder.SceneManager.LoadGlobalScenes(sceneData);
-                UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("FindingScenario");
-			}
-            else
-            {
-                countdownText.text = countdown.ToString();
-            }
-        }
-    }
-
-    private void GetAvaliableScenarios()
     {
-        /*
-		SaveData.ReadFromJson();
-        foreach (EscenarioItem item in SaveData.player.scenesPlayed)
+		countdownText.text = countdown.ToString();
+		while (countdown-- != 0)
         {
-            escenariosDisponibles.Remove(item);
-        }*/
+			yield return new WaitForSeconds(1f);
+			countdownText.text = countdown.ToString();
+			if (countdown == 0 && IsServerInitialized)
+            {
+                SceneLoadData sld = new SceneLoadData(escenarioElegido.nombreEscenario);
+                SceneManager.LoadGlobalScenes(sld);
+                SceneUnloadData sud = new SceneUnloadData("FindingScenario");
+                SceneManager.UnloadGlobalScenes(sud);
+			}
+        }
     }
 }

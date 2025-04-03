@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 3423515750327424132}
   - component: {fileID: 3423515750327424135}
   - component: {fileID: 3011126097019796572}
-  - component: {fileID: 6208501299544083733}
   m_Layer: 0
   m_Name: Pivot
   m_TagString: Untagged
@@ -165,20 +164,6 @@ MonoBehaviour:
   randomizeDirection: 0
   randomizeSpeed: 0
   randomSpeed: 5
---- !u!114 &6208501299544083733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 947477361754714558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdffcc51f538bef4c8abd3b5bbb6ff17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  force: 30
-  stunTime: 0.5
 --- !u!1 &2541064548049828430
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Drawing;
 
 public class InitialScreenCharacterLoad : MonoBehaviour
 {
@@ -41,11 +42,11 @@ public class InitialScreenCharacterLoad : MonoBehaviour
         characterInstance.GetComponent<Outline>().enabled = false;
 
         UpdateShoes();
-        UpdateColors();
+       // UpdateColors();
 
         //Colocar a personaje adecuadamente en la cinta
         characterInstance.transform.Rotate(transform.up, 180f);
-        characterInstance.transform.position = new Vector3(0, 0.54f, 1.6f);
+        characterInstance.transform.position = new Vector3(0, 2.54f, 1.6f);
 
         //Para alejarlo un poco de la camara
         characterContainer.transform.position = new Vector3(0, 0, -2.91f);
@@ -65,8 +66,8 @@ public class InitialScreenCharacterLoad : MonoBehaviour
         {
             if (shoeItem.itemID == i)
             {
-                renderer.sharedMesh = shoeItem.mesh;
-                renderer.materials = shoeItem.materials;
+                renderer.sharedMesh = ShoeLoader.GetMesh(shoeItem.mesh);
+                renderer.materials = ShoeLoader.getMaterials(shoeItem.materials);
                 break;
             }
         }
@@ -76,22 +77,28 @@ public class InitialScreenCharacterLoad : MonoBehaviour
 
     void UpdateColors()
     {
-        Color color = Color.black; //si falla saldr� negro
-        if (ColorUtility.TryParseHtmlString(SaveData.player.playerCharacterData.hairColor, out color))
-        {
-            actualCharacter.hair.color = color;
-        }
-        if (ColorUtility.TryParseHtmlString(SaveData.player.playerCharacterData.skinColor, out color))
-        {
-            actualCharacter.skin.color = color;
-        }
-        if (ColorUtility.TryParseHtmlString(SaveData.player.playerCharacterData.bottomColor, out color))
-        {
-            actualCharacter.bottom.color = color;
-        }
-        if (ColorUtility.TryParseHtmlString(SaveData.player.playerCharacterData.topColor, out color))
-        {
-            actualCharacter.top.color = color;
-        }
+        actualCharacter.hair.color = SaveData.player.playerCharacterData.hairColor;
+        actualCharacter.skin.color = SaveData.player.playerCharacterData.skinColor;
+        actualCharacter.bottom.color = SaveData.player.playerCharacterData.bottomColor;
+		actualCharacter.top.color = SaveData.player.playerCharacterData.topColor;
     }
+
+    public void SaveUsername(string value)
+    {
+        SaveData.player.username = value;
+        SaveData.SaveToJson();
+    }
+
+    public void ResetScenesPlayed()
+    {
+        SaveData.player.scenesPlayed.Clear();
+        SaveData.SaveToJson();
+    }
+
+    public void StartGame()
+    {
+        DiscoveryHandler.Passcode = null;
+        SessionDataHolder.Reset();
+		SceneManager.LoadScene("LobbyScene");
+	}
 }

@@ -13,12 +13,12 @@ public class MoveToTargetPlay : Agent
     public Vector3 spawnpoint;
     [SerializeField] private List<GameObject> checkpointsPassedList;
 
-    private BotController controller;
+    private BotRunner controller;
     private Vector3 diff;
 
     public override void Initialize()
     {
-        controller = GetComponent<BotController>();
+        controller = GetComponent<BotRunner>();
     }
 
     public override void OnEpisodeBegin()

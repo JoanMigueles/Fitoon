@@ -23,7 +23,7 @@ public class CharacterLoader : Object
 		}
         foreach(CharacterItem character in characterDataList.characters)
         {
-            if(character.itemID == data.prefabId)
+            if(character.characterName == data.characterName)
             {
                 characterStruct.prefab = character.characterPrefab;
             }
@@ -34,24 +34,32 @@ public class CharacterLoader : Object
         }
         characterStruct.name = data.characterName;
 
-        ColorUtility.TryParseHtmlString(data.hairColor, out characterStruct.hairColor);
-        ColorUtility.TryParseHtmlString(data.skinColor, out characterStruct.skinColor);
-        ColorUtility.TryParseHtmlString(data.topColor, out characterStruct.topColor);
-		ColorUtility.TryParseHtmlString(data.bottomColor, out characterStruct.bottomColor);
+        //Debug.Log("COLOR TEST COLOR TEST COLOR TEST");
+        //Debug.Log(data.topColor + " " + data.bottomColor);
+        //Debug.Log(characterStruct.topColor + " " + characterStruct.bottomColor);
+
+
+        characterStruct.hairColor = data.hairColor;
+        characterStruct.skinColor = data.skinColor;
+        characterStruct.topColor = data.topColor;
+        characterStruct.bottomColor = data.bottomColor;
 
 		return characterStruct;
     }
-    public static Character CreateRandomCharacter()
+    public static CharacterData CreateRandomCharacterData()
     {
-        Character character = new Character();
-        character.prefab = characterDataList.characters[Random.Range(0, characterDataList.characters.Length)].characterPrefab;
-        character.name = "";
-        character.skinColor = Random.ColorHSV(0.08f, 0.1f, 0.25f, 0.5f, 0.4f, 1f);
-        character.hairColor = Random.ColorHSV(0, 1, 0.25f, 0.75f, 0f, 1f);
-        character.topColor = Random.ColorHSV();
-        character.bottomColor = Random.ColorHSV();
-        character.shoes = characterDataList.characters[Random.Range(0, characterDataList.characters.Length)].shoes;
-        return character;
+        if(characterDataList == null)
+        {
+            characterDataList = Resources.Load<CharacterDataList>("CharacterDataList");
+        }
+        CharacterData characterData = new CharacterData();
+        characterData.characterName = characterDataList.characters[Random.Range(0, characterDataList.characters.Length)].characterName;
+        characterData.skinColor = Random.ColorHSV(0.08f, 0.1f, 0.25f, 0.5f, 0.4f, 1f);
+        characterData.hairColor = Random.ColorHSV(0, 1, 0.25f, 0.75f, 0f, 1f);
+        characterData.topColor = Random.ColorHSV();
+        characterData.bottomColor = Random.ColorHSV();
+        characterData.shoes = characterDataList.characters[Random.Range(0, characterDataList.characters.Length)].shoes.id;
+        return characterData;
 	}
 }
 public struct Character

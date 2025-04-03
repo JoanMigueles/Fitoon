@@ -12,13 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899e49938f2a5a04bbd844155717c132, type: 3}
   m_Name: ZapasConverse
   m_EditorClassIdentifier: 
-  itemID: 0
+  id: 0
+  icon: 0
+  mesh: 0
+  materials: 060000000100000005000000
   itemType: 2
   itemName: Red Shoes
   itemPrice: 10
-  icon: {fileID: 21300000, guid: f7eb72b7c065db14e859782969f5acbd, type: 3}
-  mesh: {fileID: 7956967809204324892, guid: 0e531daf06a37c243a4b448bddd22f8d, type: 3}
-  materials:
-  - {fileID: 2100000, guid: 22bbf7715a03fb14485832e4bd1473b8, type: 2}
-  - {fileID: 2100000, guid: 52f38cb3478c04a4f94b4547d122fc29, type: 2}
-  - {fileID: 2100000, guid: 0d3f77f76a6e8504ebf5829a81f77763, type: 2}

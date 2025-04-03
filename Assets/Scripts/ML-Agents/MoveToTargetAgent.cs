@@ -13,19 +13,18 @@ public class MoveToTargetAgent : Agent
     [SerializeField] private List<GameObject> spawnpointsList;
     [SerializeField] private List<GameObject> checkpointsPassedList;
 
-    private BotController controller;
+    private BotRunner controller;
     private Vector3 diff;
     private Vector3 lastDiff;
 
     public override void Initialize()
     {
-        controller = GetComponent<BotController>();
+        controller = GetComponent<BotRunner>();
     }
 
     public override void OnEpisodeBegin()
     {
         controller.enabled = true;
-        controller.SetBoost(1f);
         target.GetComponent<Collider>().enabled = true;
         checkpointsPassedList.Clear();
 

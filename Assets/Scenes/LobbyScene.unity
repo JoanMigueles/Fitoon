@@ -681,22 +681,6 @@ MonoBehaviour:
     Rotation: {x: 0, y: 0, z: 0, w: 0}
     Scale: {x: 0, y: 0, z: 0}
     IsValid: 0
---- !u!114 &583794870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7443408888395827735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d015fd287cafd54997647aa0069e549, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  secret: The Mystery of Fitoons Fault
-  port: 40000
-  searchTimeout: 2
-  automatic: 1
 --- !u!1 &791212035
 GameObject:
   m_ObjectHideFlags: 0
@@ -1569,6 +1553,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1060374595}
   m_CullTransparentMesh: 1
+--- !u!1 &1091185195
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1091185197}
+  - component: {fileID: 1091185196}
+  m_Layer: 0
+  m_Name: PlayerSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1091185196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091185195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211a9f6ec51ddc14f908f5acc0cd0423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerPrefab: {fileID: 2082762476636234298, guid: bd73feb115f57824989df12b7bf79db3, type: 3}
+  _addToDefaultScene: 1
+  Spawns:
+  - {fileID: 1832336674}
+--- !u!4 &1091185197
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091185195}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1534.0376, y: 662.88214, z: -139.83676}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1461832225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1803,6 +1835,7 @@ MonoBehaviour:
   content: {fileID: 992174652}
   countDownText: {fileID: 880853876}
   playerCountText: {fileID: 537252475}
+  lobbyPlayerPrefab: {fileID: 7519999625906144105, guid: bd73feb115f57824989df12b7bf79db3, type: 3}
 --- !u!1 &1571964603
 GameObject:
   m_ObjectHideFlags: 0
@@ -2384,9 +2417,8 @@ GameObject:
   - component: {fileID: 7443408888395827733}
   - component: {fileID: 7443408888395827734}
   - component: {fileID: 360213296}
-  - component: {fileID: 583794870}
-  - component: {fileID: 7443408888395827736}
   - component: {fileID: 7443408888395827737}
+  - component: {fileID: 7443408888395827738}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -2394,22 +2426,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &7443408888395827736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7443408888395827735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 211a9f6ec51ddc14f908f5acc0cd0423, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerPrefab: {fileID: 2082762476636234298, guid: bd73feb115f57824989df12b7bf79db3, type: 3}
-  _addToDefaultScene: 1
-  Spawns:
-  - {fileID: 7443408888395827733}
 --- !u!114 &7443408888395827737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2427,3 +2443,19 @@ MonoBehaviour:
   _offlineScene: Assets/Scenes/Inicial.unity
   _onlineScene: 
   _replaceScenes: 0
+--- !u!114 &7443408888395827738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7443408888395827735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d015fd287cafd54997647aa0069e549, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  secret: The Mystery of Fitoons Fault
+  port: 40000
+  searchTimeout: 2
+  automatic: 1
