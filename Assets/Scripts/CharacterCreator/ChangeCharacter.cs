@@ -38,16 +38,16 @@ public class ChangeCharacter : MonoBehaviour
             }
         }
 
-        //Buscar en qué índice de la lista de personajes está, segun el NOMBRE de la skin
-        characterActive = characters.FindIndex(character => character.characterName == skinName);
+        //Buscar en quï¿½ ï¿½ndice de la lista de personajes estï¿½, segun el NOMBRE de la skin
+        characterActive = characters.FindIndex(character => character.itemName == skinName);
         actualCharacter = characters[characterActive];
 
         //Actualizar el personaje en pantalla
         DestroyImmediate(container.transform.GetChild(0).gameObject);
-        GameObject instance = Instantiate(actualCharacter.prefab, Vector3.zero, Quaternion.identity, container.transform);
+        GameObject instance = Instantiate(actualCharacter.characterPrefab, Vector3.zero, Quaternion.identity, container.transform);
         instance.GetComponent<RotateCharacter>().enabled = true;
         instance.GetComponent<Outline>().enabled = false;
-        nameText.text = actualCharacter.characterName;
+        nameText.text = actualCharacter.itemName;
 
         UpdateShoes();
     }
@@ -83,10 +83,10 @@ public class ChangeCharacter : MonoBehaviour
             }
         }
 
-        GameObject instance = Instantiate(characters[characterActive].prefab, Vector3.zero, Quaternion.identity, container.transform);
+        GameObject instance = Instantiate(characters[characterActive].characterPrefab, Vector3.zero, Quaternion.identity, container.transform);
         instance.GetComponent<RotateCharacter>().enabled = true;
         instance.GetComponent<Outline>().enabled = false;
-        nameText.text = characters[characterActive].characterName;
+        nameText.text = characters[characterActive].itemName;
 
         actualCharacter = characters[characterActive];
 
@@ -120,8 +120,8 @@ public class ChangeCharacter : MonoBehaviour
             Debug.LogError("Error: No hay personaje guardado");
             return;
         }
-        //Buscar en qué índice de la lista de personajes está, segun el NOMBRE de la skin
-        characterActive = characters.FindIndex(character => character.characterName == savedSkin);
+        //Buscar en quï¿½ ï¿½ndice de la lista de personajes estï¿½, segun el NOMBRE de la skin
+        characterActive = characters.FindIndex(character => character.itemName == savedSkin);
         actualCharacter = characters[characterActive];
 
         //Actualizar el personaje en pantalla
@@ -130,17 +130,17 @@ public class ChangeCharacter : MonoBehaviour
             DestroyImmediate(container.transform.GetChild(0).gameObject);
         }
         
-        GameObject instance = Instantiate(actualCharacter.prefab, Vector3.zero, Quaternion.identity, container.transform);
+        GameObject instance = Instantiate(actualCharacter.characterPrefab, Vector3.zero, Quaternion.identity, container.transform);
         instance.GetComponent<RotateCharacter>().enabled = true;
         instance.GetComponent<Outline>().enabled = false;
-        nameText.text = actualCharacter.characterName;
+        nameText.text = actualCharacter.itemName;
 
         UpdateShoes();
         UpdateColors();
         
 
         //Asignar colores guardados (cuando haga reset deben salir estos)
-        /* Color color = Color.black; //si falla saldrá negro
+        /* Color color = Color.black; //si falla saldrï¿½ negro
          if (ColorUtility.TryParseHtmlString(saveData.player.playerCharacterData.hairColor, out color))
          {
              actualCharacter.hairColor = color;
@@ -183,7 +183,7 @@ public class ChangeCharacter : MonoBehaviour
 
         foreach (ObjectItem shoeItem in shoes)
         {
-            if (shoeItem.id == i)
+            if (shoeItem.itemID == i)
             {
                 renderer.sharedMesh = ShoeLoader.GetMesh(shoeItem.mesh);
                 renderer.materials = ShoeLoader.getMaterials(shoeItem.materials);

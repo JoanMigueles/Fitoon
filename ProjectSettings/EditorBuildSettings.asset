@@ -5,24 +5,30 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/LoggingIn.unity
+    guid: e097bc44fcede01438132e044eb2b461
   - enabled: 0
-    path: Assets/Scenes/_UNUSED/PRUEBA1.unity
-    guid: ab4d5c673f2b86b419bbc55b675ef850
-  - enabled: 1
-    path: Assets/Scenes/Inicial.unity
-    guid: 637bfc521f159a442bdf6009e5d3ad12
-  - enabled: 1
-    path: Assets/Scenes/CharacterCreator.unity
-    guid: a21a597e524912b41993821a16f98613
-  - enabled: 1
-    path: Assets/Scenes/Tienda.unity
-    guid: ed99ad9ac867ef947a0ff16156d613cc
-  - enabled: 1
     path: Assets/Scenes/LobbyScene.unity
     guid: c78f77aef35cdec458af96d9d51d93c3
   - enabled: 1
+    path: Assets/Scenes/Inicial.unity
+    guid: 38d98da939f25534d986240af11457d3
+  - enabled: 1
+    path: Assets/Scenes/CharacterCreator.unity
+    guid: 70d0b91a1faab3342be8e1102bc15e1b
+  - enabled: 1
+    path: Assets/Scenes/Profile.unity
+    guid: da520afbcf2420b4e8feeb2f1fe197b8
+  - enabled: 1
     path: Assets/Scenes/FindingScenario.unity
     guid: e2519767f6c1f0b4c9c101aea80a6b19
+  - enabled: 1
+    path: Assets/Scenes/Shop.unity
+    guid: f49e5f5cd26cb444aa96557f383e9ece
+  - enabled: 1
+    path: Assets/Scenes/Settings.unity
+    guid: 0d313f104548883488e8764fbeb8d844
   - enabled: 0
     path: Assets/Scenes/NivelesAR/DizzyHeightAR.unity
     guid: af7a35b810b667f44beb5fd39b3733f2
@@ -36,29 +42,14 @@ EditorBuildSettings:
     path: Assets/Scenes/NivelesAR/SpaceTravelAR.unity
     guid: e542ea5018f962e4a9e8558de3f81380
   - enabled: 0
-    path: Assets/Scenes/YouLose.unity
-    guid: 8146d4752f8b207499ef242e5797d501
-  - enabled: 0
     path: Assets/Scenes/Tests/Ajustes.unity
     guid: aecf587b8151a2a42ac9b5f93f5eae09
   - enabled: 0
     path: Assets/Scenes/Tests/Pointer/PUNTERO.unity
     guid: afed212571a198c4396a5272993ff0da
   - enabled: 0
-    path: Assets/Scenes/Classified.unity
-    guid: 2ba823a149c4a6744b15e1ef3c092ba4
-  - enabled: 0
-    path: Assets/Scenes/YouWin.unity
-    guid: 4bd9bba55e7aa5847973b45d031e5f48
-  - enabled: 1
     path: Assets/Scenes/NivelesAR/DizzyHeightAR 1.unity
     guid: c9e136f19b5601641bb65eb56c431685
-  - enabled: 0
-    path: Assets/Scenes/Settings.unity
-    guid: 690dfcb43e70f8440bd87521443c1e3e
-  - enabled: 0
-    path: Assets/TEST/TEST.unity
-    guid: cc971f2b855566340aa8798e2d619c40
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: c175f3a20621136409bd2d6e59083b3e, type: 2}
     com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: 72baa23c2ed28534ca0d90b538ce552a, type: 2}

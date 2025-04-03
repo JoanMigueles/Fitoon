@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 899e49938f2a5a04bbd844155717c132, type: 3}
+  m_Name: ZapasNaranjas
+  m_EditorClassIdentifier: 
+  id: 4
+  icon: 1
+  mesh: 4
+  materials: 08000000010000000400000009000000
+  itemType: 2
+  itemName: Orange Shoes
+  itemPrice: 10

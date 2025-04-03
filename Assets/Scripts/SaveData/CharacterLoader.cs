@@ -25,9 +25,9 @@ public class CharacterLoader : Object
         {
             if(character.characterName == data.characterName)
             {
-                characterStruct.prefab = character.prefab;
+                characterStruct.prefab = character.characterPrefab;
             }
-            if(character.shoes.id == data.shoes)
+            if(character.shoes.itemID == data.shoes)
             {
                 characterStruct.shoes = character.shoes;
             }
