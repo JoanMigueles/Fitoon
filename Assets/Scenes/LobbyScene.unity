@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1273174, g: 0.13414761, b: 0.12107885, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2145,7 +2145,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 344307116}
   m_HandleRect: {fileID: 344307115}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2452,10 +2452,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7443408888395827735}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d015fd287cafd54997647aa0069e549, type: 3}
+  m_Script: {fileID: 11500000, guid: c0f8e3b1814c0b64d80c2bc0f38ff08a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secret: The Mystery of Fitoons Fault
-  port: 40000
-  searchTimeout: 2
-  automatic: 1
+  secret: apostoles de la santa fe de chover
+  port: 7778
+  searchTimeout: 0
+  automatic: 0

@@ -8,12 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LoggingIn.unity
     guid: e097bc44fcede01438132e044eb2b461
-  - enabled: 0
-    path: Assets/Scenes/LobbyScene.unity
-    guid: c78f77aef35cdec458af96d9d51d93c3
   - enabled: 1
     path: Assets/Scenes/Inicial.unity
     guid: 38d98da939f25534d986240af11457d3
+  - enabled: 1
+    path: Assets/Scenes/LobbyScene.unity
+    guid: c78f77aef35cdec458af96d9d51d93c3
   - enabled: 1
     path: Assets/Scenes/CharacterCreator.unity
     guid: 70d0b91a1faab3342be8e1102bc15e1b
@@ -47,7 +47,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Tests/Pointer/PUNTERO.unity
     guid: afed212571a198c4396a5272993ff0da
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/NivelesAR/DizzyHeightAR 1.unity
     guid: c9e136f19b5601641bb65eb56c431685
   m_configObjects:

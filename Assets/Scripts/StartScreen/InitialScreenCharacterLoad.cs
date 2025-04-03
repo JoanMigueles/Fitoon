@@ -7,11 +7,11 @@ using System.Drawing;
 
 public class InitialScreenCharacterLoad : MonoBehaviour
 {
-    [SerializeField] GameObject characterContainer;
     [SerializeField] List<CharacterItem> characters;
-    CharacterItem actualCharacter;
+    Character actualCharacter;
     [SerializeField] List<ObjectItem> shoes;
     [SerializeField] GameObject treadmillPrefab;
+    GameObject treadmill;
 
     private void Start()
     {
@@ -20,37 +20,35 @@ public class InitialScreenCharacterLoad : MonoBehaviour
 
     void ReadCharacter()
     {
+        SaveData.ReadFromJson();
         //Leer la skin
-        string savedSkin = SaveData.player.playerCharacterData.characterName;
-        if (savedSkin == null)
+        CharacterData characterData = SaveData.player.playerCharacterData;
+        if (characterData == null)
         {
             print("Error: No hay personaje guardado");
             //instanciar a juan
-            Instantiate(characters[0].characterPrefab, Vector3.zero, Quaternion.identity, characterContainer.transform);
             return;
         }
-        //Buscar personaje
-        actualCharacter = characters.Find(character => character.itemName == savedSkin);
 
         //Instanciar la cinta de correr
-        GameObject treadmill = Instantiate(treadmillPrefab, Vector3.zero, Quaternion.identity, characterContainer.transform);
+        treadmill = Instantiate(treadmillPrefab, new Vector3(0, 2, 0), Quaternion.Euler(0, -220, 0));
 
-        //Instanciar el personaje como hijo de la cinta
-        DestroyImmediate(characterContainer.transform.GetChild(0).gameObject);
-        GameObject characterInstance = Instantiate(actualCharacter.characterPrefab, Vector3.zero, Quaternion.identity, treadmill.transform);
-        characterInstance.GetComponent<Animator>().SetBool("isRunning", true);
-        characterInstance.GetComponent<Outline>().enabled = false;
+        Character character = CharacterLoader.GetCharacter(characterData);
 
-        UpdateShoes();
-       // UpdateColors();
+		if (character.prefab == null)
+		{
+			Debug.LogError("Character Data is Null");
+			return;
+		}
 
-        //Colocar a personaje adecuadamente en la cinta
-        characterInstance.transform.Rotate(transform.up, 180f);
-        characterInstance.transform.position = new Vector3(0, 2.54f, 1.6f);
+		GameObject characterObject = Instantiate(character.prefab, new Vector3(0, .9f, 0), Quaternion.identity, treadmill.transform);
 
-        //Para alejarlo un poco de la camara
-        characterContainer.transform.position = new Vector3(0, 0, -2.91f);
-        characterContainer.transform.Rotate(transform.up, 120f);
+        characterObject.transform.localRotation = Quaternion.Euler(0, 180, 0);
+
+		characterObject.GetComponent<CharacterPrefabColorChanger>().ChangeColors(character.hairColor, character.skinColor, character.topColor, character.bottomColor);
+		characterObject.GetComponent<CharacterPrefabColorChanger>().ChangeShoe(ShoeLoader.GetMesh(character.shoes.id), ShoeLoader.getMaterials(character.shoes.materials));
+
+        characterObject.GetComponent<Animator>().SetBool("isRunning", true);
     }
 
     void UpdateShoes()
@@ -75,23 +73,9 @@ public class InitialScreenCharacterLoad : MonoBehaviour
         //  Debug.Log($"DESPUES: Zapato GO: {zapatos.name}. Mesh rendered: {renderer.sharedMesh}. ActualShoe id: {i}");
     }
 
-    void UpdateColors()
-    {
-        actualCharacter.hair.color = SaveData.player.playerCharacterData.hairColor;
-        actualCharacter.skin.color = SaveData.player.playerCharacterData.skinColor;
-        actualCharacter.bottom.color = SaveData.player.playerCharacterData.bottomColor;
-		actualCharacter.top.color = SaveData.player.playerCharacterData.topColor;
-    }
-
     public void SaveUsername(string value)
     {
         SaveData.player.username = value;
-        SaveData.SaveToJson();
-    }
-
-    public void ResetScenesPlayed()
-    {
-        SaveData.player.scenesPlayed.Clear();
         SaveData.SaveToJson();
     }
 

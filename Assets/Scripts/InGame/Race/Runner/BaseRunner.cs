@@ -47,6 +47,8 @@ public class BaseRunner : NetworkBehaviour
 	[ServerRpc]
 	protected void SetCharacter(CharacterData characterData, string playerName)
 	{
+				Debug.Log("[CHARLOAD] Server" + characterData.hairColor + " " + characterData.skinColor + " " + characterData.topColor + " " + characterData.bottomColor);
+
 		LoadCharacter(characterData);
 		SetNameTag(playerName);
 	}
@@ -61,6 +63,7 @@ public class BaseRunner : NetworkBehaviour
 	void LoadCharacter(CharacterData characterData)
 	{
 		Debug.Log("Loading: " + characterData.characterName);
+		Debug.Log("[CHARLOAD] Observers" + characterData.hairColor + " " + characterData.skinColor + " " + characterData.topColor + " " + characterData.bottomColor);
 		Character character = CharacterLoader.GetCharacter(characterData);
 
 		if (character.prefab == null)
@@ -72,7 +75,7 @@ public class BaseRunner : NetworkBehaviour
 		if (characterObject != null)
 			Destroy(characterObject);
 
-		characterObject = Instantiate(character.prefab, transform);
+		characterObject = Instantiate(character.prefab, transform.position - Vector3.up, Quaternion.identity, transform);
 
 		characterObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 

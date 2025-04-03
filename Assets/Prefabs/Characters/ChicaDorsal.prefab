@@ -617,8 +617,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1465933059098631761}
-  m_LocalRotation: {x: 0.000000011187143, y: 0.0000002790731, z: -0.000014260703, w: 1}
-  m_LocalPosition: {x: 0.000013932586, y: 2.098721, z: 0.008313298}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -878,10 +878,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1701343700689534218}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28192331b2bb028488045ddd994b98ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ee0993d092afb544819d3901d49ce56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shader: {fileID: 4800000, guid: 8fa84e1c8f3a97b4bb416e8eb087630e, type: 3}
   hairMaterial: {fileID: 2100000, guid: 0d761a28982457245a03cd3df080cd55, type: 2}
   skinMaterial: {fileID: 2100000, guid: 0f01802839464354894880d66b0ea9f2, type: 2}
   topMaterial: {fileID: 2100000, guid: 631885d011ecf6449b9a195e1fccbc2e, type: 2}
@@ -1061,7 +1060,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2000447063369239172}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

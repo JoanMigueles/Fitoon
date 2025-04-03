@@ -22,6 +22,8 @@ public class PlayerController : BaseRunner
 		{
 			Camera.main.GetComponent<CameraFollowPlayer>().target = transform;
 			SaveData.ReadFromJson();
+					Debug.Log("[CHARLOAD] Client" + SaveData.player.playerCharacterData.hairColor + " " + SaveData.player.playerCharacterData.skinColor + " " + SaveData.player.playerCharacterData.topColor + " " + SaveData.player.playerCharacterData.bottomColor);
+
 			SetCharacter(SaveData.player.playerCharacterData, SaveData.player.username);
 		}
 		else

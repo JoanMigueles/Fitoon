@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 0
   itemType: 0
-  itemName: Juan
+  itemName: Cap Guy
   itemPrice: 30
+  characterName: 
   characterPrefab: {fileID: 2399034774071457521, guid: 9e8509871f06db943a76ba79219c56a3, type: 3}
   hair: {fileID: 2100000, guid: 5d0185f5b180b9440a5c5a9d26c1a2b1, type: 2}
   skin: {fileID: 2100000, guid: 073b48346f09f774aa583a315c7eed2e, type: 2}

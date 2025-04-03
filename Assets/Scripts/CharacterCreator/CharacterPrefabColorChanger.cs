@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class CharacterPrefabColorChanger : MonoBehaviour
 {
-    [SerializeField] Shader shader;
     [SerializeField] Material hairMaterial;
     [SerializeField] Material skinMaterial;
     [SerializeField] Material topMaterial;
@@ -24,6 +23,7 @@ public class CharacterPrefabColorChanger : MonoBehaviour
 	}
 	public void ChangeColors(Color hairColor, Color skinColor, Color topColor, Color bottomColor)
     {
+        Debug.Log($"[CHARLOAD]Cambiando colores: {hairColor} {skinColor} {topColor} {bottomColor}");
         List<GameObject> children = GetAllChildrenRecursive(gameObject);
         foreach(GameObject child in children)
         {

@@ -133,7 +133,7 @@ public class LobbyManager : NetworkBehaviour
 			InstanceFinder.NetworkManager.ServerManager.StopConnection(true);
 		}
 		Destroy(InstanceFinder.NetworkManager.gameObject);
-		UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+		UnityEngine.SceneManagement.SceneManager.LoadScene(1);
 	}
 
 	[ServerRpc(RequireOwnership = false)]

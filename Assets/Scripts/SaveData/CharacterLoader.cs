@@ -23,7 +23,7 @@ public class CharacterLoader : Object
 		}
         foreach(CharacterItem character in characterDataList.characters)
         {
-            if(character.characterName == data.characterName)
+            if(character.itemName == data.characterName)
             {
                 characterStruct.prefab = character.characterPrefab;
             }
@@ -53,7 +53,7 @@ public class CharacterLoader : Object
             characterDataList = Resources.Load<CharacterDataList>("CharacterDataList");
         }
         CharacterData characterData = new CharacterData();
-        characterData.characterName = characterDataList.characters[Random.Range(0, characterDataList.characters.Length)].characterName;
+        characterData.characterName = characterDataList.characters[Random.Range(0, characterDataList.characters.Length)].itemName;
         characterData.skinColor = Random.ColorHSV(0.08f, 0.1f, 0.25f, 0.5f, 0.4f, 1f);
         characterData.hairColor = Random.ColorHSV(0, 1, 0.25f, 0.75f, 0f, 1f);
         characterData.topColor = Random.ColorHSV();

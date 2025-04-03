@@ -209,6 +209,7 @@ public class InitialUIManager : UIManager
     {
         if (!privateLobby) DiscoveryHandler.Passcode = null;
         Debug.Log("Passcode: " + DiscoveryHandler.Passcode);
+        SessionDataHolder.Reset();
         SceneManager.LoadScene("LobbyScene");
     }
 }

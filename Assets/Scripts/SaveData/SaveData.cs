@@ -23,13 +23,12 @@ public static class SaveData
         {
             player.username = GooglePlayServicesManager.instance.GetPlayerUsername();
             player.playerCharacterData = new CharacterData();
-            player.playerCharacterData.characterName = "Juan";
-            player.playerCharacterData.hairColor = new Color(77, 36, 19);
-            player.playerCharacterData.skinColor = new Color(168, 116, 88);
-            player.playerCharacterData.topColor = new Color(180, 102, 0);
-            player.playerCharacterData.bottomColor = new Color(79, 47, 18);
+            player.playerCharacterData.characterName = "Cap Guy";
+            player.playerCharacterData.hairColor = new Color(77/255.0f, 36/255.0f, 19/255.0f);
+            player.playerCharacterData.skinColor = new Color(168/255.0f, 116/255.0f, 88/255.0f);
+            player.playerCharacterData.topColor = new Color(180/255.0f, 102/255.0f, 0/255.0f);
+            player.playerCharacterData.bottomColor = new Color(79/255.0f, 47/255.0f, 18/255.0f);
             player.playerCharacterData.shoes = 0;
-            player.playerCharacterData.prefabId = 0;
             Debug.Log("No hab�a datos. Creando personaje por defecto.");
         }
         string playerData = JsonUtility.ToJson(player);
@@ -54,7 +53,24 @@ public static class SaveData
             string playerData = System.IO.File.ReadAllText(filePath);
 
             player = JsonUtility.FromJson<PlayerData>(playerData);
+            if(player.playerCharacterData.hairColor.r > 1 || player.playerCharacterData.hairColor.g > 1 || player.playerCharacterData.hairColor.b > 1)
+            {
+                player.playerCharacterData.hairColor = new Color(player.playerCharacterData.hairColor.r / 255.0f, player.playerCharacterData.hairColor.g / 255.0f, player.playerCharacterData.hairColor.b / 255.0f);
+            }
+            if(player.playerCharacterData.skinColor.r > 1 || player.playerCharacterData.skinColor.g > 1 || player.playerCharacterData.skinColor.b > 1)
+            {
+                player.playerCharacterData.skinColor = new Color(player.playerCharacterData.skinColor.r / 255.0f, player.playerCharacterData.skinColor.g / 255.0f, player.playerCharacterData.skinColor.b / 255.0f);
+            }
+            if(player.playerCharacterData.topColor.r > 1 || player.playerCharacterData.topColor.g > 1 || player.playerCharacterData.topColor.b > 1)
+            {
+                player.playerCharacterData.topColor = new Color(player.playerCharacterData.topColor.r / 255.0f, player.playerCharacterData.topColor.g / 255.0f, player.playerCharacterData.topColor.b / 255.0f);
+            }
+            if(player.playerCharacterData.bottomColor.r > 1 || player.playerCharacterData.bottomColor.g > 1 || player.playerCharacterData.bottomColor.b > 1)
+            {
+                player.playerCharacterData.bottomColor = new Color(player.playerCharacterData.bottomColor.r / 255.0f, player.playerCharacterData.bottomColor.g / 255.0f, player.playerCharacterData.bottomColor.b / 255.0f);
+            }
             Debug.Log("[SAVE] Datos leidos");
+            Debug.Log("[CHAR]" + player.playerCharacterData.hairColor + " " + player.playerCharacterData.skinColor + " " + player.playerCharacterData.topColor + " " + player.playerCharacterData.bottomColor);
             if(SceneManager.GetActiveScene().name == "LoggingIn") SceneManager.LoadScene("Inicial");
         }
         catch (System.Exception)
@@ -74,6 +90,7 @@ public static class SaveData
         {
             player = JsonUtility.FromJson<PlayerData>(playerData);
             Debug.Log("[LOAD] Datos recibidos desde la nube");
+            Debug.Log("[CHAR]" + player.playerCharacterData.hairColor + " " + player.playerCharacterData.skinColor + " " + player.playerCharacterData.topColor + " " + player.playerCharacterData.bottomColor);
             SaveToJson();
         }
         else

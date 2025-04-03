@@ -214,7 +214,7 @@ public class ChangeCharacter : MonoBehaviour
             }
         }
 
-        SaveData.player.playerCharacterData.characterName = actualCharacter.characterName;
+        SaveData.player.playerCharacterData.characterName = actualCharacter.itemName;
         SaveData.player.playerCharacterData.hairColor = actualCharacter.hair.color;
         SaveData.player.playerCharacterData.skinColor = actualCharacter.skin.color;
         SaveData.player.playerCharacterData.topColor = actualCharacter.top.color;
