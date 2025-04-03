@@ -34,10 +34,16 @@ public class LobbyManager : NetworkBehaviour
 	[SerializeField] public GameObject content;
 	[SerializeField] TextMeshProUGUI countDownText;
 	[SerializeField] TextMeshProUGUI playerCountText;
+	[SerializeField] GameObject lobbyPlayerPrefab;
 
 	List<GameObject> cardList = new List<GameObject>();
 
 	bool starting = false;
+
+	private void Awake()
+	{
+		runnerData.Clear();
+	}
 
 	private void OnApplicationQuit()
 	{
@@ -49,7 +55,7 @@ public class LobbyManager : NetworkBehaviour
 	private void Update()
 	{
 		List<PlayerCard> playerCards = playerEntries.Values.ToList();
-		playerCards = playerCards.OrderByDescending(p => p.score).ThenBy(p => p.ready).ToList();
+		playerCards = playerCards.OrderByDescending(p => p.score).ToList();
 		int i;
 		for(i = 0; i  < playerCards.Count; i++)
 		{
@@ -75,6 +81,24 @@ public class LobbyManager : NetworkBehaviour
 		InstanceFinder.ServerManager.OnRemoteConnectionState += OnRemoteConnectionState;
 		playerEntries.OnChange += OnChangePlayerEntries;
 		Debug.Log("I'm a Server!");
+	}
+
+	public override void OnStartClient()
+	{
+		Debug.Log("Score: " + SessionDataHolder.score);
+
+		if (!SessionDataHolder.lookForLobby)
+		{
+			SpawnPlayer(InstanceFinder.ClientManager.Connection);
+		}
+		SessionDataHolder.lookForLobby = false;
+	}
+
+	[ServerRpc(RequireOwnership = false)]
+	void SpawnPlayer(NetworkConnection connection)
+	{
+		GameObject player = Instantiate(lobbyPlayerPrefab);
+		Spawn(player, connection);
 	}
 
 	private void OnRemoteConnectionState(NetworkConnection connection, RemoteConnectionStateArgs args)

@@ -681,22 +681,6 @@ MonoBehaviour:
     Rotation: {x: 0, y: 0, z: 0, w: 0}
     Scale: {x: 0, y: 0, z: 0}
     IsValid: 0
---- !u!114 &583794870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7443408888395827735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d015fd287cafd54997647aa0069e549, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  secret: The Mystery of Fitoons Fault
-  port: 40000
-  searchTimeout: 2
-  automatic: 1
 --- !u!1 &791212035
 GameObject:
   m_ObjectHideFlags: 0
@@ -1601,7 +1585,7 @@ MonoBehaviour:
   _playerPrefab: {fileID: 2082762476636234298, guid: bd73feb115f57824989df12b7bf79db3, type: 3}
   _addToDefaultScene: 1
   Spawns:
-  - {fileID: 7443408888395827733}
+  - {fileID: 1832336674}
 --- !u!4 &1091185197
 Transform:
   m_ObjectHideFlags: 0
@@ -1851,6 +1835,7 @@ MonoBehaviour:
   content: {fileID: 992174652}
   countDownText: {fileID: 880853876}
   playerCountText: {fileID: 537252475}
+  lobbyPlayerPrefab: {fileID: 7519999625906144105, guid: bd73feb115f57824989df12b7bf79db3, type: 3}
 --- !u!1 &1571964603
 GameObject:
   m_ObjectHideFlags: 0
@@ -2418,7 +2403,7 @@ MonoBehaviour:
   _runInBackground: 1
   _dontDestroyOnLoad: 1
   _objectPool: {fileID: 0}
-  _persistence: 1
+  _persistence: 0
   _logging: {fileID: 0}
   _spawnablePrefabs: {fileID: 11400000, guid: 0d946cf6cc1b326409cc3a78235aa75f, type: 2}
 --- !u!1 &7443408888395827735
@@ -2432,8 +2417,8 @@ GameObject:
   - component: {fileID: 7443408888395827733}
   - component: {fileID: 7443408888395827734}
   - component: {fileID: 360213296}
-  - component: {fileID: 583794870}
   - component: {fileID: 7443408888395827737}
+  - component: {fileID: 7443408888395827738}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -2458,3 +2443,19 @@ MonoBehaviour:
   _offlineScene: Assets/Scenes/Inicial.unity
   _onlineScene: 
   _replaceScenes: 0
+--- !u!114 &7443408888395827738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7443408888395827735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d015fd287cafd54997647aa0069e549, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  secret: The Mystery of Fitoons Fault
+  port: 40000
+  searchTimeout: 2
+  automatic: 1

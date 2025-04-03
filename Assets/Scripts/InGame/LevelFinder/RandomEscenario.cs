@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 public class RandomEscenario : NetworkBehaviour
 {
-    static List<EscenarioItem> s_EscenariosDisponibles;
     [SerializeField] List<EscenarioItem> escenarios = new List<EscenarioItem>();
     [SerializeField] GameObject container;
     [SerializeField] TextMeshProUGUI countdownText;
@@ -25,10 +24,6 @@ public class RandomEscenario : NetworkBehaviour
 
     void Start()
     {
-        if(s_EscenariosDisponibles == null)
-        {
-            s_EscenariosDisponibles = new List<EscenarioItem>(escenarios);
-        }
         image = container.GetComponentInChildren<Image>();
         text = container.GetComponentInChildren<TextMeshProUGUI>();
         StartCoroutine(CambiarImagenAleatoria());
@@ -44,10 +39,10 @@ public class RandomEscenario : NetworkBehaviour
     {
         StopAllCoroutines();
 
-        EscenarioItem escenario = s_EscenariosDisponibles[i];
+        EscenarioItem escenario = escenarios[i];
 		image.sprite = escenario.imagenEscenario;
 		text.text = escenario.nombreEscenario;
-		s_EscenariosDisponibles.Remove(escenario);
+		escenarios.Remove(escenario);
 
 		timerActive = false;
 		countdownText.text = countdown.ToString();
@@ -60,8 +55,8 @@ public class RandomEscenario : NetworkBehaviour
         while (timer < totalSeconds) 
         {
             yield return new WaitForSeconds(secondsToChange);
-            index = Random.Range(0, s_EscenariosDisponibles.Count);
-			escenarioElegido = s_EscenariosDisponibles[index];
+            index = Random.Range(0, escenarios.Count);
+			escenarioElegido = escenarios[index];
             image.sprite = escenarioElegido.imagenEscenario;
             text.text = escenarioElegido.nombreEscenario;
         }

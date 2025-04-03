@@ -20,7 +20,7 @@ public class BaseRunner : NetworkBehaviour
 	[SerializeField] TextMeshPro nameTag;
 	Coroutine animatorCoroutine;
 
-	int id;
+	public readonly SyncVar<int> id = new SyncVar<int>(-1);
 
 	protected Rigidbody rigidBody;
 	protected Animator animator;
@@ -185,7 +185,7 @@ public class BaseRunner : NetworkBehaviour
 		rigidBody.isKinematic = true;
 		rigidBody.velocity = Vector3.zero;
 		GetComponent<Collider>().enabled = false;
-		FindFirstObjectByType<GameManager>().GoalReached(id);
+		FindFirstObjectByType<GameManager>().GoalReached(id.Value);
 	}
 
 	[ServerRpc]
@@ -216,11 +216,18 @@ public class BaseRunner : NetworkBehaviour
 
 	public void SetId(int i)
 	{
-		id = i;
+		id.Value = i;
+		id.DirtyAll();
 	}
 
 	public int GetId()
 	{
-		return id;
+		return id.Value;
+	}
+
+	[ServerRpc (RequireOwnership = false)]
+	void SetIdServerRpc(int i)
+	{
+		
 	}
 }

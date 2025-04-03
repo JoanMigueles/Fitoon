@@ -48,9 +48,17 @@ public class GameManager : NetworkBehaviour
 	{
 		SceneManager.OnLoadEnd += OnSceneLoaded;
 		countdown.StartCountdown();
-		GetComponent<GameManager>().enabled = false;
+		//GetComponent<GameManager>().enabled = false;
 	}
 
+	void FreezeAllRunners()
+	{
+		for (int i = 0; i < runners.Count; i++)
+		{
+			runners[i].Freeze();
+			runners[i].canMove = false;
+		}
+	}
     void UnfreezeAllRunners()
     {
         for(int i = 0; i < runners.Count; i++)
@@ -96,24 +104,24 @@ public class GameManager : NetworkBehaviour
 	[ServerRpc(RequireOwnership = false)]
     public void GoalReached(int id)
 	{
-		Runner runner = new Runner();
-		BaseRunner runnerObject = null;
-		try
-		{
-			runner = runnerData.Find((r) => r.id == id);
-			runnerObject = runners.Find((r) => r.GetId() == id);
-		}
-		catch (ArgumentNullException)
-		{
-			Debug.LogError("Runner not found");
-			return;
-		}
+		Debug.Log("Goal reached by " + id);
+		Runner runner = runnerData.Find((r) => r.id == id);
+		BaseRunner runnerObject = runners.Find((r) => r.GetId() == id);
+
 		if(positionIndex == 0)
 		{
-			StartCoroutine(FinishCountDown());
+			StartFinishCountdownRpc();
 		}
 		runner.goalReached = true;
-		SetPosition(runner.connection, ++positionIndex);
+		positionIndex++;
+		try
+		{
+			(runnerObject as PlayerController).SetPosition(positionIndex, runnerData.Count);
+		}
+		catch (InvalidCastException)
+		{
+			Debug.Log("Runner is not a player");
+		}
 		if (positionIndex >= runnerData.Count)
 		{
 			StopAllCoroutines();
@@ -135,9 +143,15 @@ public class GameManager : NetworkBehaviour
 		SceneManager.UnloadGlobalScenes(sud);
 	}
 
-	IEnumerator FinishCountDown()
+	[ObserversRpc(ExcludeServer = false)]
+	void StartFinishCountdownRpc()
 	{
-		int countdown = 60;
+		StartCoroutine(FinishCountdown());
+	}
+
+	IEnumerator FinishCountdown()
+	{
+		int countdown = 10;
 		while (countdown > 0)
 		{
 			countdownText.text = countdown.ToString();
@@ -146,7 +160,9 @@ public class GameManager : NetworkBehaviour
 		}
 		if (IsServerInitialized)
 		{
+			FreezeAllRunners();
 			SortRunners();
+			yield return new WaitForSeconds(1);
 			FinishRace();
 		}
 	}
@@ -162,16 +178,18 @@ public class GameManager : NetworkBehaviour
 		{
 			if (!sortedRunners[i].goalReached)
 			{
-				SetPosition(sortedRunners[i].connection, ++positionIndex);
+				positionIndex++;
+				BaseRunner runnerObject = runners.Find((r) => r.GetId() == sortedRunners[i].id);
+				try
+				{
+					(runnerObject as PlayerController).SetPosition(positionIndex, runnerData.Count);
+				}
+				catch (InvalidCastException)
+				{
+					Debug.Log("Runner is not a player");
+				}
 			}
 		}
-	}
-
-	[TargetRpc]
-	void SetPosition(NetworkConnection client, int pos)
-	{
-		positionText.text = pos + "/" + runnerData.Count;
-		SessionDataHolder.score += runnerData.Count - pos + 1;
 	}
 
 	IEnumerator WaitForPlayers()
