@@ -25,11 +25,19 @@ public class DatabaseManager : MonoBehaviour
     /// <summary>
     /// Update the player data in the database.
     /// </summary>
-    /// <param name="score"></param> WONT APPEAR IN THE FINAL VERSION
-    /// <param name="gymKey"></param> WONT APPEAR IN THE FINAL VERSION
-    public void UpdatePlayerData(int score, int gymID, string name)
+    public void UpdatePlayerData()
     {
-        UserData user = new UserData(score, gymID);
+        UserData user = new UserData(SaveData.player.medals, SaveData.player.title, SaveData.player.bannerID, SaveData.player.pfp, SaveData.player.gymKey);
+        string json = JsonUtility.ToJson(user);
+        dbReference.Child("Users").Child(name).SetRawJsonValueAsync(json);
+    }
+
+    /// <summary>
+    /// Force update the player data in the database. ONLY FOR TESTING PURPOSES.
+    /// </summary>
+    public void UpdatePlayerData(string name, int medals, string title, int bannerID, int pfp, int gymKey)
+    {
+        UserData user = new UserData(medals, title, bannerID, pfp, gymKey);
         string json = JsonUtility.ToJson(user);
         dbReference.Child("Users").Child(name).SetRawJsonValueAsync(json);
     }
@@ -139,10 +147,10 @@ public class DatabaseManager : MonoBehaviour
     /// </summary>
     /// <param name="gymKey"></param>
     /// <returns></returns>
-    public void GetLeaderboard(Action<List<Tuple<string, int>>> callback, int? gymKey = null)
+    public void GetLeaderboard(Action<List<Tuple<string, UserData>>> callback, int? gymKey = null)
     {
-        List<Tuple<string, int>> leaderboard = new List<Tuple<string, int>>();
-        dbReference.Child("Users").OrderByChild("score").GetValueAsync().ContinueWith(task =>
+        List<Tuple<string, UserData>> leaderboard = new List<Tuple<string, UserData>>();
+        dbReference.Child("Users").OrderByChild("medals").GetValueAsync().ContinueWith(task =>
         {
             if (task.IsFaulted)
             {
@@ -151,13 +159,15 @@ public class DatabaseManager : MonoBehaviour
             else if (task.IsCompleted)
             {
                 DataSnapshot snapshot = task.Result;
+                Debug.Log("Leaderboard count: " + snapshot.ChildrenCount);
                 foreach (DataSnapshot child in snapshot.Children)
                 {
                     string username = child.Key;
-                    int score = Convert.ToInt32(child.Child("score").Value);
+                    Debug.Log("User: " + username);
+                    UserData userData = child.ConvertTo<UserData>();
                     int gymKey2 = Convert.ToInt32(child.Child("gymKey").Value);
-                    if (gymKey == null) leaderboard.Add(new Tuple<string, int>(username, score));
-                    else if (gymKey == gymKey2) leaderboard.Add(new Tuple<string, int>(username, score));
+                    if (gymKey == null) leaderboard.Add(new Tuple<string, UserData>(username, userData));
+                    else if (gymKey == gymKey2) leaderboard.Add(new Tuple<string, UserData>(username, userData));
                 }
                 callback(leaderboard);
             }
@@ -171,7 +181,7 @@ public class DatabaseManager : MonoBehaviour
     public void GetGlobalPosition(Action<int> callback)
     {
         int position = 0;
-        dbReference.Child("Users").OrderByChild("score").GetValueAsync().ContinueWith(task =>
+        dbReference.Child("Users").OrderByChild("medals").GetValueAsync().ContinueWith(task =>
         {
             if (task.IsFaulted)
             {
@@ -217,12 +227,12 @@ public class DatabaseManager : MonoBehaviour
                     var taskCompletionSource = new System.Threading.Tasks.TaskCompletionSource<bool>();
                     GetLeaderboard((gymLeaderBoard) =>
                     {
-                        int gymScore = 0;
+                        int gymMedals = 0;
                         foreach (var user in gymLeaderBoard)
                         {
-                            gymScore += user.Item2;
+                            gymMedals += user.Item2.medals;
                         }
-                        leaderboard.Add(new Tuple<string, int>(gymName, gymScore));
+                        leaderboard.Add(new Tuple<string, int>(gymName, gymMedals));
                         taskCompletionSource.SetResult(true);
                     }, gymKey);
                     taskCompletionSource.Task.Wait();
@@ -254,12 +264,12 @@ public class DatabaseManager : MonoBehaviour
                     var taskCompletionSource = new System.Threading.Tasks.TaskCompletionSource<bool>();
                     GetLeaderboard((gymLeaderBoard) =>
                     {
-                        int gymScore = 0;
+                        int gymMedals = 0;
                         foreach (var user in gymLeaderBoard)
                         {
-                            gymScore += user.Item2;
+                            gymMedals += user.Item2.medals;
                         }
-                        leaderboard.Add(new Tuple<int, int>(gymKey, gymScore));
+                        leaderboard.Add(new Tuple<int, int>(gymKey, gymMedals));
                         taskCompletionSource.SetResult(true);
                     }, gymKey);
                     taskCompletionSource.Task.Wait();
@@ -292,10 +302,10 @@ public class DatabaseManager : MonoBehaviour
     public void Test()
     {
         // PASSED
-        // Test pushing users
-        // for(int i = 0; i < 50; i++)
+        // Test updating player data
+        // for (int i = 0; i < 50; i++)
         // {
-        //     UpdatePlayerData(i * 100, i / 10, "TestUser " + i);
+        //     UpdatePlayerData("TestUser " + i, i * 100, "TestTitle", 0, 0, i / 10);
         // }
 
         // PASSSED

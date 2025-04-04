@@ -1,14 +1,17 @@
 public class UserData
 {
-    public int score;
+    public int medals;
     public int gymKey;
     public string title;
     public int bannerID;
     public int profileID;
 
-    public UserData(int score, int gymKey)
+    public UserData(int medals, string title, int bannerID, int profileID, int gymKey)
     {
-        this.score = score;
+        this.medals = medals;
+        this.title = title;
+        this.bannerID = bannerID;
+        this.profileID = profileID;
         this.gymKey = gymKey;
     }
 }

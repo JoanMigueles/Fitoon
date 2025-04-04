@@ -87,7 +87,6 @@ public class InitialUIManager : UIManager
         UpdateProfile();
         UpdateStreak();
     }
-
     public void UpdateCoins()
     {
         if (coinsText != null) coinsText.text = SaveData.player.normalCoins.ToString();
@@ -148,7 +147,6 @@ public class InitialUIManager : UIManager
 
     public void UpdateProfile()
     {
-        
         if (playerNameText != null) playerNameText.text = SaveData.player.username;
         if (playerNameField != null) playerNameField.text = SaveData.player.username;
 

@@ -13,6 +13,9 @@ public class PlayerData
     public int runnedDistance;
     public int medals;
     public int wins;
+    public int bannerID;
+    public int gymKey;
+    public string title;
     public List<int> purchasedSkins;
     public List<int> purchasedShoes;
     public List<int> purchasedColors;
@@ -23,6 +26,7 @@ public class PlayerData
         purchasedSkins = new List<int>();
         purchasedShoes = new List<int>();
         purchasedColors = new List<int>();
+        title = "";
     }
 }
 
