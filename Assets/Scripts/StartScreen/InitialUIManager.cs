@@ -1,4 +1,6 @@
-﻿using System.Buffers.Text;
+﻿using System;
+using System.Buffers.Text;
+using System.Collections.Generic;
 using System.Numerics;
 using TMPro;
 using UnityEngine;
@@ -29,6 +31,12 @@ public class InitialUIManager : UIManager
     [SerializeField] private GameObject banner;
     [SerializeField] private Image profileIconImage;
 
+    [Header("Leaderboard Data")]
+    [SerializeField] private GameObject leaderboardContentWindow;
+    [SerializeField] private GameObject leaderboardFieldPrefab;
+
+    List<Tuple<string, UserData>> leaderboard;
+
 
     private void Start()
     {
@@ -38,6 +46,10 @@ public class InitialUIManager : UIManager
 
     private void Update()
     {
+        if (leaderboard != null) {
+            DisplayLeaderBoardData(leaderboard);
+            leaderboard = null;
+        }
         // if (Input.GetKeyDown(KeyCode.Delete)) {
         //     Debug.Log("Erased");
         //     SaveData.SaveToJson();
@@ -151,6 +163,31 @@ public class InitialUIManager : UIManager
         if (playerNameField != null) playerNameField.text = SaveData.player.username;
 
     }
+    public void DisplayLeaderboardData()
+    {
+        Debug.Log("Loading leaderboard...");
+            DatabaseManager.instance.GetLeaderboard((leaderboard) => {
+            this.leaderboard = leaderboard;
+        });
+    }
+
+    public void DisplayLeaderBoardData(List<Tuple<string, UserData>> leaderboard)
+    {
+        foreach(Transform child in leaderboardContentWindow.transform) {
+            Destroy(child.gameObject);
+        }
+        for (int i = 0; i < leaderboard.Count; i++) {
+            Debug.Log("hola");
+            GameObject field = Instantiate(leaderboardFieldPrefab, leaderboardContentWindow.transform);
+            Debug.Log(field.transform.position);
+            LeaderboardField leaderboardField = field.GetComponent<LeaderboardField>();
+
+            leaderboardField.SetPlayerName(leaderboard[i].Item1);
+            leaderboardField.SetMedals(leaderboard[i].Item2.medals, progressData);
+            leaderboardField.SetPosition(i);
+        }
+    }
+
     // --------------------------------------------------------------------------------------------------------------------------------------------------
     // Progresion de puntos
     // --------------------------------------------------------------------------------------------------------------------------------------------------

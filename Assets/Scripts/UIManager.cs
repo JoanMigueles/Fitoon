@@ -18,19 +18,9 @@ public class UIManager : MonoBehaviour
         if (menu != null) {
             menu.SetActive(true);
             if (darkenBackground != null) darkenBackground.SetActive(true);
-            if (menu.name == "LeaderboardMenu")
-            {
-                Debug.Log("Loading leaderboard...");
-                DatabaseManager.instance.GetLeaderboard((leaderboard) =>
-                {
-                    for (int i = 0; i < leaderboard.Count; i++)
-                    {
-                        Debug.Log(leaderboard[i].Item1 + " " + leaderboard[i].Item2.medals);
-                    }
-                });
-            }
         }
     }
+
     public void CloseMenu(GameObject menu)
     {
         if (menu != null) {
