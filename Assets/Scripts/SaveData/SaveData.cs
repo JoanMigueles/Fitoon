@@ -21,7 +21,8 @@ public static class SaveData
         //Si est� vac�o poner un personaje default
         if (player.playerCharacterData is null)
         {
-            player.username = GooglePlayServicesManager.instance.GetPlayerUsername();
+            if(!Application.isEditor) player.username = GooglePlayServicesManager.instance.GetPlayerUsername();
+            else player.username = "Username";
             player.playerCharacterData = new CharacterData();
             player.playerCharacterData.characterName = "Cap Guy";
             player.playerCharacterData.hairColor = new Color(77/255.0f, 36/255.0f, 19/255.0f);
@@ -33,7 +34,7 @@ public static class SaveData
         }
         string playerData = JsonUtility.ToJson(player);
         System.IO.File.WriteAllText(filePath, playerData);
-        GooglePlayServicesManager.instance.SaveGame(playerData);
+        if(!Application.isEditor)GooglePlayServicesManager.instance.SaveGame(playerData);
         Debug.Log("[SAVE] Datos guardados en " + filePath);
     }
 
@@ -42,16 +43,15 @@ public static class SaveData
     /// </summary>
     public static void ReadFromJson()
     {
-        if(SceneManager.GetActiveScene().name == "LoggingIn")
+        if(!Application.isEditor && SceneManager.GetActiveScene().name == "LoggingIn")
         {
             GooglePlayServicesManager.instance.LoadGame();
             return;
         }
-
         try
         {
             string playerData = System.IO.File.ReadAllText(filePath);
-
+            Debug.Log("[LOAD] Datos leidos desde " + filePath);
             player = JsonUtility.FromJson<PlayerData>(playerData);
             if(player.playerCharacterData.hairColor.r > 1 || player.playerCharacterData.hairColor.g > 1 || player.playerCharacterData.hairColor.b > 1)
             {
@@ -70,13 +70,13 @@ public static class SaveData
                 player.playerCharacterData.bottomColor = new Color(player.playerCharacterData.bottomColor.r / 255.0f, player.playerCharacterData.bottomColor.g / 255.0f, player.playerCharacterData.bottomColor.b / 255.0f);
             }
             Debug.Log("[SAVE] Datos leidos");
-            Debug.Log("[CHAR]" + player.playerCharacterData.hairColor + " " + player.playerCharacterData.skinColor + " " + player.playerCharacterData.topColor + " " + player.playerCharacterData.bottomColor);
             if(SceneManager.GetActiveScene().name == "LoggingIn") SceneManager.LoadScene("Inicial");
         }
         catch (System.Exception)
         {
             Debug.Log("No existe JSON: Creandolo buscando en la nube");
-            GooglePlayServicesManager.instance.LoadGame();
+            if(!Application.isEditor) GooglePlayServicesManager.instance.LoadGame();
+            else ReceiveData(null);
         }
     }
 
