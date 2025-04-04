@@ -20532,10 +20532,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1612509295}
     m_Modifications:
-    - target: {fileID: 578014073506418109, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
-      propertyPath: <SceneId>k__BackingField
-      value: 2013248953
-      objectReference: {fileID: 0}
     - target: {fileID: 5393353862635568873, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: m_Name
       value: Boost
@@ -20583,10 +20579,6 @@ PrefabInstance:
     - target: {fileID: 5393353862635568876, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7442938232425430182, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
-      propertyPath: speedBoost
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9067107988207811425, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: <SceneId>k__BackingField
