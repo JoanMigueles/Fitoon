@@ -9,7 +9,8 @@ public class Jumpad : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) {
+		BaseRunner player = other.GetComponent<BaseRunner>();
+		if (player!= null && player.IsOwner) {
             Bounce(other.gameObject);
         }
     }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17d7cba8041eac74282bcb752225924f, type: 3}
-  m_Name: DizzyHeight
+  m_Name: RollingPier
   m_EditorClassIdentifier: 
-  imagenEscenario: {fileID: 21300000, guid: b4708748c1c46f14687f94394e386b07, type: 3}
-  nombreEscenario: DizzyHeightAR
+  imagenEscenario: {fileID: 0}
+  nombreEscenario: 

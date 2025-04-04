@@ -1,7 +1,8 @@
+using FishNet.Object;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CannonBarrage : MonoBehaviour
+public class CannonBarrage : NetworkBehaviour
 {
     public float timeInterval = 1f;
     public int projectileAmount = 2;
@@ -9,9 +10,14 @@ public class CannonBarrage : MonoBehaviour
     private Shoot[] cannons;
     private float time;
 
-    private void Start()
-    {
-        time = 0;
+	public override void OnStartNetwork()
+	{
+        if(!IsServerInitialized)
+        {
+			enabled = false;
+            return;
+		}
+		time = 0;
         cannons = GetComponentsInChildren<Shoot>();
     }
 

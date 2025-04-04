@@ -121,6 +121,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24194d09ff4a6a74ca45fd9e273a3ba5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 0}
+  _networkObjectCache: {fileID: 0}
   timeInterval: 3
 --- !u!1 &5037944514978322513
 GameObject:
@@ -296,6 +299,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1713641276321604561}
     m_Modifications:
+    - target: {fileID: 4632644316539010535, guid: d17a8c244d5f1b14bbe6af563ebd7861, type: 3}
+      propertyPath: <AssetPathHash>k__BackingField
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5088448132940981980, guid: d17a8c244d5f1b14bbe6af563ebd7861, type: 3}
       propertyPath: m_RootOrder
       value: 0

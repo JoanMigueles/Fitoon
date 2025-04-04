@@ -1,23 +1,38 @@
+using FishNet.Object;
 using UnityEngine;
 
-public class Shoot : MonoBehaviour
+public class Shoot : NetworkBehaviour
 {
     public GameObject projectilePrefab;
     public float projectileSpeed;
 
     private Animator animator;
 
-    private void Start()
+	public override void OnStartNetwork()
     {
         animator = GetComponent<Animator>();
     }
 
     public void ShootProjectile()
     {
-        if (projectilePrefab != null) {
-            GameObject projectile = Instantiate(projectilePrefab, transform);
-            projectile.GetComponent<Rigidbody>().velocity = -transform.forward * projectileSpeed;
-            animator.SetTrigger("Shoot");
-        }
+        ShootProjectileServerRpc();
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    void ShootProjectileServerRpc()
+    {
+		if (projectilePrefab != null)
+		{
+			GameObject projectile = Instantiate(projectilePrefab, transform);
+			Spawn(projectile);
+			projectile.GetComponent<Rigidbody>().velocity = -transform.forward * projectileSpeed;
+            ShootProjectileObserverRpc();
+		}
+	}
+
+    [ObserversRpc]
+	void ShootProjectileObserverRpc()
+    {
+		animator.SetTrigger("Shoot");
+	}
 }

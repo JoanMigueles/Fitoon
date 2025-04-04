@@ -1,12 +1,24 @@
+using FishNet.Component.Transforming;
+using FishNet.Object;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+[RequireComponent(typeof(NetworkTransform))]
+public class Projectile : NetworkBehaviour
 {
     public List<string> explodeOnTags = new List<string>();
     public GameObject explosionPrefab;
 
-    public void Explode()
+	public override void OnStartNetwork()
+	{
+		if(!IsServerInitialized)
+        {
+			enabled = false;
+		}
+	}
+
+    [ObserversRpc]
+	public void Explode()
     {
         // TODO: generar sistema de partículas
         GameObject explosion = Instantiate(explosionPrefab, transform.position, transform.rotation);

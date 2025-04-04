@@ -33,13 +33,18 @@ public class CharacterLoader : Object
             }
         }
         characterStruct.name = data.characterName;
+        if(characterStruct.prefab == null)
+		{
+			Debug.LogError("Character Prefab Not Found");
+			characterStruct.prefab = characterDataList.characters[0].characterPrefab;
+		}
 
-        //Debug.Log("COLOR TEST COLOR TEST COLOR TEST");
-        //Debug.Log(data.topColor + " " + data.bottomColor);
-        //Debug.Log(characterStruct.topColor + " " + characterStruct.bottomColor);
+		//Debug.Log("COLOR TEST COLOR TEST COLOR TEST");
+		//Debug.Log(data.topColor + " " + data.bottomColor);
+		//Debug.Log(characterStruct.topColor + " " + characterStruct.bottomColor);
 
 
-        characterStruct.hairColor = data.hairColor;
+		characterStruct.hairColor = data.hairColor;
         characterStruct.skinColor = data.skinColor;
         characterStruct.topColor = data.topColor;
         characterStruct.bottomColor = data.bottomColor;
