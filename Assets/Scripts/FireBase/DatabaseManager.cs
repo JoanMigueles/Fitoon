@@ -159,12 +159,16 @@ public class DatabaseManager : MonoBehaviour
             else if (task.IsCompleted)
             {
                 DataSnapshot snapshot = task.Result;
-                Debug.Log("Leaderboard count: " + snapshot.ChildrenCount);
                 foreach (DataSnapshot child in snapshot.Children)
                 {
                     string username = child.Key;
-                    Debug.Log("User: " + username);
-                    UserData userData = child.ConvertTo<UserData>();
+                    UserData userData = new UserData(
+                        Convert.ToInt32(child.Child("medals").Value),
+                        child.Child("title").Value.ToString(),
+                        Convert.ToInt32(child.Child("bannerID").Value),
+                        Convert.ToInt32(child.Child("profileID").Value),
+                        Convert.ToInt32(child.Child("gymKey").Value)
+                    );
                     int gymKey2 = Convert.ToInt32(child.Child("gymKey").Value);
                     if (gymKey == null) leaderboard.Add(new Tuple<string, UserData>(username, userData));
                     else if (gymKey == gymKey2) leaderboard.Add(new Tuple<string, UserData>(username, userData));
