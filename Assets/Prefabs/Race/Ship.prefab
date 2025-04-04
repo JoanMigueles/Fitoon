@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24194d09ff4a6a74ca45fd9e273a3ba5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 0}
   _networkObjectCache: {fileID: 0}
   timeInterval: 3
@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 1713641276321604561}
   - component: {fileID: 9119467224659023152}
   - component: {fileID: 4691616314156562}
+  - component: {fileID: -7208213829596431788}
   m_Layer: 0
   m_Name: CannonSphere
   m_TagString: Untagged
@@ -292,6 +293,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-7208213829596431788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8260375897404229733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 1
+  _addedNetworkObject: {fileID: 0}
+  _networkObjectCache: {fileID: 0}
 --- !u!1001 &5982939584928663101
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -300,8 +316,44 @@ PrefabInstance:
     m_TransformParent: {fileID: 1713641276321604561}
     m_Modifications:
     - target: {fileID: 4632644316539010535, guid: d17a8c244d5f1b14bbe6af563ebd7861, type: 3}
+      propertyPath: <IsNested>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632644316539010535, guid: d17a8c244d5f1b14bbe6af563ebd7861, type: 3}
+      propertyPath: <PrefabId>k__BackingField
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632644316539010535, guid: d17a8c244d5f1b14bbe6af563ebd7861, type: 3}
       propertyPath: <AssetPathHash>k__BackingField
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632644316539010535, guid: d17a8c244d5f1b14bbe6af563ebd7861, type: 3}
+      propertyPath: <ComponentIndex>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632644316539010535, guid: d17a8c244d5f1b14bbe6af563ebd7861, type: 3}
+      propertyPath: InitializedParentNetworkBehaviour
+      value: 
+      objectReference: {fileID: -7208213829596431788}
+    - target: {fileID: 4632644316539010535, guid: d17a8c244d5f1b14bbe6af563ebd7861, type: 3}
+      propertyPath: SerializedTransformProperties.Position.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632644316539010535, guid: d17a8c244d5f1b14bbe6af563ebd7861, type: 3}
+      propertyPath: SerializedTransformProperties.Position.y
+      value: 7.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632644316539010535, guid: d17a8c244d5f1b14bbe6af563ebd7861, type: 3}
+      propertyPath: SerializedTransformProperties.Position.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632644316539010535, guid: d17a8c244d5f1b14bbe6af563ebd7861, type: 3}
+      propertyPath: SerializedTransformProperties.Rotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632644316539010535, guid: d17a8c244d5f1b14bbe6af563ebd7861, type: 3}
+      propertyPath: SerializedTransformProperties.Rotation.x
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 5088448132940981980, guid: d17a8c244d5f1b14bbe6af563ebd7861, type: 3}
       propertyPath: m_RootOrder
