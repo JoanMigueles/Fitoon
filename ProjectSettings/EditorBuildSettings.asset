@@ -41,8 +41,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/NivelesAR/QuickSandsAR.unity
     guid: 69912a2030bd51540a30e6fc021a3b4d
-  - enabled: 1
-    path: Assets/Scenes/NivelesAR/DizzyHeightAR.unity
+  - enabled: 0
+    path: Assets/Scenes/NivelesAR/DizzyHeightAR 1.unity
     guid: c9e136f19b5601641bb65eb56c431685
   - enabled: 0
     path: Assets/Scenes/Tests/Ajustes.unity
