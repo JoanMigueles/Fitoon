@@ -3138,7 +3138,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7442938232425430182, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: speedBoost
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9067107988207811425, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: <SceneId>k__BackingField
@@ -15967,7 +15967,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5393353862635568873, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5393353862635568873, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: m_TagString
@@ -16039,7 +16039,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7442938232425430182, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: speedBoost
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9067107988207811425, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: <SceneId>k__BackingField
@@ -16279,7 +16279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7442938232425430182, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: speedBoost
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9067107988207811425, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: <SceneId>k__BackingField
@@ -18110,7 +18110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7442938232425430182, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: speedBoost
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9067107988207811425, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: <SceneId>k__BackingField
@@ -30842,7 +30842,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7442938232425430182, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: speedBoost
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9067107988207811425, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: <SceneId>k__BackingField
@@ -45960,7 +45960,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7442938232425430182, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: speedBoost
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9067107988207811425, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: <SceneId>k__BackingField
@@ -60197,7 +60197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7442938232425430182, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: speedBoost
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9067107988207811425, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: <SceneId>k__BackingField
@@ -72470,7 +72470,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7442938232425430182, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: speedBoost
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7594047595496267277, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: m_LocalPosition.x
@@ -75516,7 +75516,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7442938232425430182, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: speedBoost
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9067107988207811425, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: <SceneId>k__BackingField
@@ -77861,7 +77861,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7442938232425430182, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: speedBoost
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9067107988207811425, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: <SceneId>k__BackingField
@@ -80353,7 +80353,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5393353862635568873, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5393353862635568873, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: m_TagString
@@ -80425,7 +80425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7442938232425430182, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: speedBoost
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9067107988207811425, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: <SceneId>k__BackingField
@@ -83033,7 +83033,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7442938232425430182, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: speedBoost
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9067107988207811425, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: <SceneId>k__BackingField
@@ -93506,7 +93506,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7442938232425430182, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: speedBoost
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7594047595496267277, guid: 568b2eb7d21adab4aab8d550a0b18484, type: 3}
       propertyPath: m_LocalPosition.x
