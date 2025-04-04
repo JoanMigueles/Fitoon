@@ -1,8 +1,11 @@
+using FishNet.Component.Transforming;
+using FishNet.Object;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Translator : MonoBehaviour
+[RequireComponent(typeof(NetworkTransform))]
+public class Translator : NetworkBehaviour
 {
     public enum Axis
     {
@@ -24,6 +27,11 @@ public class Translator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(!IsServerInitialized)
+        {
+            enabled = false;
+			return;
+		}
         rB = GetComponent<Rigidbody>();
 
         switch (movementAxis)
@@ -60,10 +68,5 @@ public class Translator : MonoBehaviour
         }
 
         rB.MovePosition(startPosition + direction * height);
-    }
-
-    public void Reset()
-    {
-        transform.position = startPosition;
     }
 }

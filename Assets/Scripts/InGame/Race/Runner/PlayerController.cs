@@ -87,7 +87,8 @@ public class PlayerController : BaseRunner
 			return;
 		}
 		GameObject.Find("PositionText").GetComponent<TextMeshProUGUI>().text = pos + "/" + runnerAmount;
-		SessionDataHolder.score += runnerAmount - pos + 1;
-		Debug.Log("Score: " + SessionDataHolder.score);
+		SaveData.player.medals += runnerAmount - pos + 1 - runnerAmount / 2;
+		SaveData.SaveToJson();
+		Debug.Log("Score: " + SaveData.player.medals);
 	}
 }

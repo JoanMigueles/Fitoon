@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 8406689154444885458}
   m_Layer: 0
   m_Name: BotRunnerPrefab
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,16 +57,9 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 4220177162550495737}
   _networkObjectCache: {fileID: 4220177162550495737}
-  characterData:
-    characterName: 
-    hairColor: {r: 0, g: 0, b: 0, a: 0}
-    skinColor: {r: 0, g: 0, b: 0, a: 0}
-    topColor: {r: 0, g: 0, b: 0, a: 0}
-    bottomColor: {r: 0, g: 0, b: 0, a: 0}
-    shoes: 0
-  playerName: 
   baseSpeed: 7
   rotationSpeed: 1
+  groundDrag: 5
   trailBoost: {fileID: 5239460420796949810}
   whatIsGround:
     serializedVersion: 2

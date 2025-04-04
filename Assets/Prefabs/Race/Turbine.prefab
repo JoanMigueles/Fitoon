@@ -14482,6 +14482,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2900573220654107991}
   - component: {fileID: 3443668789512276468}
+  - component: {fileID: 3645227707040632513}
   m_Layer: 6
   m_Name: Turbine
   m_TagString: Untagged
@@ -14520,12 +14521,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee9c7ae932891ac4a910312df26fab85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 0}
+  _networkObjectCache: {fileID: 0}
   reset: 0
   rotationAxis: {x: 0, y: 1, z: 0}
   rotationSpeed: 500
   randomizeDirection: 0
   randomizeSpeed: 0
   randomSpeed: 5
+--- !u!114 &3645227707040632513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2525172856240281581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 0}
+  _networkObjectCache: {fileID: 0}
+  _componentConfiguration: 0
+  _synchronizeParent: 0
+  _packing:
+    Position: 1
+    Rotation: 1
+    Scale: 0
+  _interpolation: 2
+  _extrapolation: 2
+  _enableTeleport: 0
+  _teleportThreshold: 1
+  _clientAuthoritative: 1
+  _sendToOwner: 1
+  _interval: 1
+  _synchronizePosition: 1
+  _positionSnapping:
+    X: 0
+    Y: 0
+    Z: 0
+  _synchronizeRotation: 1
+  _rotationSnapping:
+    X: 0
+    Y: 0
+    Z: 0
+  _synchronizeScale: 1
+  _scaleSnapping:
+    X: 0
+    Y: 0
+    Z: 0
 --- !u!1 &3443668788426751324
 GameObject:
   m_ObjectHideFlags: 0
@@ -14598,6 +14645,7 @@ GameObject:
   - component: {fileID: 4926460280751770504}
   - component: {fileID: 51970155}
   - component: {fileID: 51970154}
+  - component: {fileID: 3982201619055540001}
   m_Layer: 6
   m_Name: Turbine
   m_TagString: Untagged
@@ -14665,10 +14713,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acbc1e3f75526f446905607fc7ecb137, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 0}
+  _networkObjectCache: {fileID: 0}
   movementAxis: 2
   speed: 1
   height: 4
   offset: 3
+--- !u!114 &3982201619055540001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3443668788900561126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 0}
+  _networkObjectCache: {fileID: 0}
+  _componentConfiguration: 0
+  _synchronizeParent: 0
+  _packing:
+    Position: 1
+    Rotation: 1
+    Scale: 0
+  _interpolation: 2
+  _extrapolation: 2
+  _enableTeleport: 0
+  _teleportThreshold: 1
+  _clientAuthoritative: 1
+  _sendToOwner: 1
+  _interval: 1
+  _synchronizePosition: 1
+  _positionSnapping:
+    X: 0
+    Y: 0
+    Z: 0
+  _synchronizeRotation: 1
+  _rotationSnapping:
+    X: 0
+    Y: 0
+    Z: 0
+  _synchronizeScale: 1
+  _scaleSnapping:
+    X: 0
+    Y: 0
+    Z: 0
 --- !u!1 &5738637005752071175
 GameObject:
   m_ObjectHideFlags: 0

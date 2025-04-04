@@ -19,6 +19,6 @@ public class LobbyPlayer : NetworkBehaviour
 	IEnumerator DelayHostConnection()
 	{
 		yield return new WaitForSeconds(0.1f);
-		FindFirstObjectByType<LobbyManager>().AddPlayer(InstanceFinder.ClientManager.Connection, SaveData.player.username, SaveData.player.pfp, SessionDataHolder.score, SaveData.player.playerCharacterData);
+		FindFirstObjectByType<LobbyManager>().AddPlayer(InstanceFinder.ClientManager.Connection, SaveData.player.username, SaveData.player.pfp, SaveData.player.medals, SaveData.player.playerCharacterData);
 	}
 }

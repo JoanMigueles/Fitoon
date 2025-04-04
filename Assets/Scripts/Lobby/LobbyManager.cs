@@ -85,7 +85,7 @@ public class LobbyManager : NetworkBehaviour
 
 	public override void OnStartClient()
 	{
-		Debug.Log("Score: " + SessionDataHolder.score);
+		Debug.Log("Score: " + SaveData.player.medals);
 
 		if (!SessionDataHolder.lookForLobby)
 		{

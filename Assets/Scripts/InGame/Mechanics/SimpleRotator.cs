@@ -1,8 +1,11 @@
+using FishNet.Component.Transforming;
+using FishNet.Object;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleRotator : MonoBehaviour
+[RequireComponent(typeof(NetworkTransform))]
+public class SimpleRotator : NetworkBehaviour
 {
     public bool reset;
 
@@ -19,6 +22,11 @@ public class SimpleRotator : MonoBehaviour
 
     private void Start()
     {
+        if(!IsServerInitialized)
+        {
+			enabled = false;
+			return;
+		}
         pos = transform.position;
         rot = transform.rotation;
 
