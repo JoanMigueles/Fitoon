@@ -36,6 +36,7 @@ public static class SaveData
         System.IO.File.WriteAllText(filePath, playerData);
         if(!Application.isEditor)GooglePlayServicesManager.instance.SaveGame(playerData);
         Debug.Log("[SAVE] Datos guardados en " + filePath);
+        DatabaseManager.instance.UpdatePlayerData();
     }
 
     /// <summary>

@@ -29,7 +29,19 @@ public class DatabaseManager : MonoBehaviour
     {
         UserData user = new UserData(SaveData.player.medals, SaveData.player.title, SaveData.player.bannerID, SaveData.player.pfp, SaveData.player.gymKey);
         string json = JsonUtility.ToJson(user);
-        dbReference.Child("Users").Child(name).SetRawJsonValueAsync(json);
+        dbReference.Child("Users").Child(SaveData.player.username).SetRawJsonValueAsync(json);
+    }
+
+    public void DeletePlayerData()
+    {
+        try
+        {
+            dbReference.Child("Users").Child(SaveData.player.username).RemoveValueAsync();
+        }
+        catch(Exception e)
+        {
+            Debug.LogError("Error deleting player data: " + e.Message);
+        }
     }
 
     /// <summary>
@@ -299,6 +311,46 @@ public class DatabaseManager : MonoBehaviour
                     callback(gymsLeaderboard.IndexOf(gym) + 1);
                     return;
                 }
+            }
+        });
+    }
+
+    public void GetGymMedals(int gymKey, Action<Tuple<String, int>> callback)
+    {
+        dbReference.Child("Gyms").GetValueAsync().ContinueWith(task =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.LogError("Error getting gym medals: " + task.Exception);
+            }
+            else if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                string gymName = null;
+                int gymMedals = 0;
+                foreach (DataSnapshot child in snapshot.Children)
+                {
+                    if (Convert.ToInt32(child.Child("gymKey").Value) == gymKey)
+                    {
+                        gymName = child.Key;
+                        var taskCompletionSource = new System.Threading.Tasks.TaskCompletionSource<bool>();
+                        GetGymsLeaderboardWithKeys((gymLeaderBoard) =>
+                        {
+                            foreach (Tuple<int, int> gym in gymLeaderBoard)
+                            {
+                                if (gym.Item1 == gymKey)
+                                {
+                                    gymMedals = gym.Item2;
+                                    break;
+                                }
+                            }
+                            taskCompletionSource.SetResult(true);
+                        });
+                        taskCompletionSource.Task.Wait();
+                        break;
+                    }
+                }
+                callback(new Tuple<string, int>(gymName, gymMedals));
             }
         });
     }

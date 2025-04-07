@@ -46,10 +46,6 @@ public class InitialUIManager : UIManager
 
     private void Update()
     {
-        if (leaderboard != null) {
-            DisplayLeaderBoardData(leaderboard);
-            leaderboard = null;
-        }
         // if (Input.GetKeyDown(KeyCode.Delete)) {
         //     Debug.Log("Erased");
         //     SaveData.SaveToJson();
@@ -86,6 +82,7 @@ public class InitialUIManager : UIManager
 
     public void SaveUsername(string value)
     {
+        DatabaseManager.instance.DeletePlayerData();
         SaveData.player.username = value;
         SaveData.SaveToJson();
         UpdateProfile();
@@ -165,9 +162,10 @@ public class InitialUIManager : UIManager
     }
     public void DisplayLeaderboardData()
     {
-        Debug.Log("Loading leaderboard...");
-            DatabaseManager.instance.GetLeaderboard((leaderboard) => {
-            this.leaderboard = leaderboard;
+        DatabaseManager.instance.GetLeaderboard((leaderboard) => {
+            MainThreadDispatcher.instance.Enqueue(() => {
+                DisplayLeaderBoardData(leaderboard);
+            });
         });
     }
 
@@ -177,9 +175,7 @@ public class InitialUIManager : UIManager
             Destroy(child.gameObject);
         }
         for (int i = 0; i < leaderboard.Count; i++) {
-            Debug.Log("hola");
             GameObject field = Instantiate(leaderboardFieldPrefab, leaderboardContentWindow.transform);
-            Debug.Log(field.transform.position);
             LeaderboardField leaderboardField = field.GetComponent<LeaderboardField>();
 
             leaderboardField.SetPlayerName(leaderboard[i].Item1);

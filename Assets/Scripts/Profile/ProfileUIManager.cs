@@ -13,7 +13,6 @@ public class ProfileUIManager : UIManager
     [SerializeField] private TextMeshProUGUI winsText;
     [SerializeField] private TextMeshProUGUI distanceText;
     [SerializeField] private TextMeshProUGUI leaderboardText;
-    
 
     [Header("Player Data")]
     [SerializeField] private TextMeshProUGUI playerNameText;
@@ -37,6 +36,7 @@ public class ProfileUIManager : UIManager
 
     public void SaveUsername(string value)
     {
+        DatabaseManager.instance.DeletePlayerData();
         SaveData.player.username = value;
         SaveData.SaveToJson();
         UpdateProfile();
@@ -54,10 +54,54 @@ public class ProfileUIManager : UIManager
 
     public void UpdateLeaderboardAndGym()
     {
-        //TODO
-        //if (gymLeaderboardText != null) gymLeaderboardText.text = ;
-        //if (gymMedalText != null) gymMedalText.text = ;
-        //if (gymNameText != null) gymNameText.text = ;
+        if (gymLeaderboardText != null)
+        {
+            if(SaveData.player.gymKey == 0) gymLeaderboardText.text = "No Gym";
+            else
+            {
+                DatabaseManager.instance.GetGymPosition(SaveData.player.gymKey, (position) =>
+                {
+                    MainThreadDispatcher.instance.Enqueue(() =>
+                    {
+                        gymLeaderboardText.text = "# " + position.ToString();
+                    });
+                });
+            }
+        };
+        if (gymMedalText != null && gymNameText != null)
+        {
+            if (SaveData.player.gymKey == 0)
+            {
+                gymMedalText.text = "0";
+                gymNameText.text = "No Gym";
+            }
+            else
+            {
+                DatabaseManager.instance.GetGymMedals(SaveData.player.gymKey, (medals) =>
+                {
+                    MainThreadDispatcher.instance.Enqueue(() =>
+                    {
+                        gymNameText.text = medals.Item1;
+                        gymMedalText.text = medals.Item2.ToString();
+                    });
+                });
+            }
+        }
+        if(gymCodeText != null)
+        {
+            if (SaveData.player.gymKey == 0) gymCodeText.text = "";
+            else gymCodeText.text = "#" + SaveData.player.gymKey.ToString();
+        }
+        if(leaderboardText != null)
+        {
+            DatabaseManager.instance.GetGlobalPosition((position) =>
+            {
+                MainThreadDispatcher.instance.Enqueue(() =>
+                {
+                    leaderboardText.text = "# " + position.ToString();
+                });
+            });
+        }
         //if (gymIconImage != null) gymIconImage.sprite = ;
     }
 
