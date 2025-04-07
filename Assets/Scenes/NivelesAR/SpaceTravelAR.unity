@@ -1051,7 +1051,7 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 713993036}
   _networkObjectCache: {fileID: 0}
-  speedBoost: 8
+  speedBoost: 2
   matFade: {fileID: 0}
   mrBoost: []
   isTemporary: 0
@@ -5388,7 +5388,7 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 713993036}
   _networkObjectCache: {fileID: 0}
-  speedBoost: 8
+  speedBoost: 2
   matFade: {fileID: 0}
   mrBoost: []
   isTemporary: 0
@@ -6791,7 +6791,7 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 713993036}
   _networkObjectCache: {fileID: 0}
-  speedBoost: 8
+  speedBoost: 2
   matFade: {fileID: 0}
   mrBoost: []
   isTemporary: 0
@@ -12283,7 +12283,7 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 713993036}
   _networkObjectCache: {fileID: 0}
-  speedBoost: 8
+  speedBoost: 2
   matFade: {fileID: 0}
   mrBoost: []
   isTemporary: 0
@@ -25704,7 +25704,7 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 713993036}
   _networkObjectCache: {fileID: 0}
-  speedBoost: 8
+  speedBoost: 2
   matFade: {fileID: 0}
   mrBoost: []
   isTemporary: 0
@@ -27647,7 +27647,7 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 713993036}
   _networkObjectCache: {fileID: 0}
-  speedBoost: 8
+  speedBoost: 2
   matFade: {fileID: 0}
   mrBoost: []
   isTemporary: 0
@@ -29012,7 +29012,7 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 713993036}
   _networkObjectCache: {fileID: 0}
-  speedBoost: 8
+  speedBoost: 2
   matFade: {fileID: 0}
   mrBoost: []
   isTemporary: 0
@@ -50212,7 +50212,7 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 713993036}
   _networkObjectCache: {fileID: 0}
-  speedBoost: 8
+  speedBoost: 2
   matFade: {fileID: 0}
   mrBoost: []
   isTemporary: 0
@@ -57343,7 +57343,7 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 713993036}
   _networkObjectCache: {fileID: 0}
-  speedBoost: 8
+  speedBoost: 2
   matFade: {fileID: 0}
   mrBoost: []
   isTemporary: 0
@@ -57622,6 +57622,10 @@ PrefabInstance:
       propertyPath: goal
       value: 
       objectReference: {fileID: 1172710292}
+    - target: {fileID: 6724398444373056632, guid: 03602b9adc7668243a938cd1ccea9150, type: 3}
+      propertyPath: scene
+      value: 
+      objectReference: {fileID: 11400000, guid: fb6d688a0d8459444a6ae02d7fdbf47f, type: 2}
     - target: {fileID: 6724398444373056632, guid: 03602b9adc7668243a938cd1ccea9150, type: 3}
       propertyPath: sceneName
       value: SpaceTravelAR
@@ -62035,7 +62039,7 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 713993036}
   _networkObjectCache: {fileID: 0}
-  speedBoost: 8
+  speedBoost: 2
   matFade: {fileID: 0}
   mrBoost: []
   isTemporary: 0
@@ -70186,7 +70190,7 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 713993036}
   _networkObjectCache: {fileID: 0}
-  speedBoost: 8
+  speedBoost: 2
   matFade: {fileID: 0}
   mrBoost: []
   isTemporary: 0
@@ -84991,7 +84995,7 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 713993036}
   _networkObjectCache: {fileID: 0}
-  speedBoost: 8
+  speedBoost: 2
   matFade: {fileID: 0}
   mrBoost: []
   isTemporary: 0
@@ -88379,7 +88383,7 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 713993036}
   _networkObjectCache: {fileID: 0}
-  speedBoost: 8
+  speedBoost: 2
   matFade: {fileID: 0}
   mrBoost: []
   isTemporary: 0

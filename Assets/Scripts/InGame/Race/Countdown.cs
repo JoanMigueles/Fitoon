@@ -27,7 +27,6 @@ public class Countdown : MonoBehaviour
     void Update()
     {
         if (!hasFinished) {
-            Debug.Log(currentTime);
 			if (anim.GetCurrentAnimatorStateInfo(0).IsName("JumpNext"))
             {
                 //Update countdown number

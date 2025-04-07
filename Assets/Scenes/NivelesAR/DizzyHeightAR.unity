@@ -41990,6 +41990,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1653325896}
     - target: {fileID: 6724398444373056632, guid: 03602b9adc7668243a938cd1ccea9150, type: 3}
+      propertyPath: scene
+      value: 
+      objectReference: {fileID: 11400000, guid: f233fc6485c72e948911f4e60813b190, type: 2}
+    - target: {fileID: 6724398444373056632, guid: 03602b9adc7668243a938cd1ccea9150, type: 3}
       propertyPath: spawnPoints.Array.data[0]
       value: 
       objectReference: {fileID: 5273531447699765553}

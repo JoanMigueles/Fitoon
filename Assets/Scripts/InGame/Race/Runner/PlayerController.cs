@@ -86,9 +86,18 @@ public class PlayerController : BaseRunner
 		{
 			return;
 		}
-		GameObject.Find("PositionText").GetComponent<TextMeshProUGUI>().text = pos + "/" + runnerAmount;
-		SaveData.player.medals += runnerAmount - pos + 1 - runnerAmount / 2;
+		if (runnerAmount >= 3)
+		{
+			int medals = Mathf.RoundToInt((runnerAmount - pos + 1 - runnerAmount / 2) * Mathf.Lerp(15, 5, runnerAmount / 32f));
+			GameObject.Find("PositionText").GetComponent<TextMeshProUGUI>().text = pos + "/" + runnerAmount;
+			SaveData.player.medals += medals;
+			if (pos == 1)
+			{
+				SaveData.player.wins++;
+			}
+		}
+		SaveData.player.runnedDistance += (int)faceTracking.GetTotalDistance();
 		SaveData.SaveToJson();
-		Debug.Log("Score: " + SaveData.player.medals);
+		//Debug.Log("Total medals: " + SaveData.player.medals + "\nTotal distance: " + SaveData.player.runnedDistance + "\nMedals: "  + medals + "\nDistance: " + (int)faceTracking.GetTotalDistance());
 	}
 }

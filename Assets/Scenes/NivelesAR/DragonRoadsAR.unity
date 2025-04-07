@@ -20377,6 +20377,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1172710292}
     - target: {fileID: 6724398444373056632, guid: 03602b9adc7668243a938cd1ccea9150, type: 3}
+      propertyPath: scene
+      value: 
+      objectReference: {fileID: 11400000, guid: 8369127b0f33c8c4e8d4ac09608c84eb, type: 2}
+    - target: {fileID: 6724398444373056632, guid: 03602b9adc7668243a938cd1ccea9150, type: 3}
       propertyPath: sceneName
       value: DragonRoadsAR
       objectReference: {fileID: 0}
