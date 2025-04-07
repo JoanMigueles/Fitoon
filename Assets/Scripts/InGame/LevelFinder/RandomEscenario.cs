@@ -24,7 +24,7 @@ public class RandomEscenario : NetworkBehaviour
 
     void Start()
     {
-        image = container.GetComponentInChildren<Image>();
+		image = container.GetComponentInChildren<Image>();
         text = container.GetComponentInChildren<TextMeshProUGUI>();
         StartCoroutine(CambiarImagenAleatoria());
     }
@@ -37,7 +37,8 @@ public class RandomEscenario : NetworkBehaviour
     [ObserversRpc]
     void SetFinalMap(int i)
     {
-        StopAllCoroutines();
+        Debug.Log("SetFinalMap: " + i.ToString() + " " + escenarios[i].nombreEscenario);
+		StopAllCoroutines();
 
         EscenarioItem escenario = escenarios[i];
 		image.sprite = escenario.imagenEscenario;
@@ -55,7 +56,8 @@ public class RandomEscenario : NetworkBehaviour
         while (timer < totalSeconds) 
         {
             yield return new WaitForSeconds(secondsToChange);
-            index = Random.Range(0, escenarios.Count);
+			Random.InitState((int)System.DateTime.Now.Ticks);
+			index = Random.Range(0, escenarios.Count);
 			escenarioElegido = escenarios[index];
             image.sprite = escenarioElegido.imagenEscenario;
             text.text = escenarioElegido.nombreEscenario;

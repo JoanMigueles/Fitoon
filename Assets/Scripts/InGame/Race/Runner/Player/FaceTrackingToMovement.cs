@@ -13,6 +13,10 @@ public class FaceTrackingToMovement : MonoBehaviour
     ARFace face;
 	GameManager gameManager;
 
+    float avgVelocityAcumulator;
+    uint numberOfFrames;
+	DateTime startTime;
+
 	public Quaternion faceRotation
     {
         get
@@ -64,7 +68,8 @@ public class FaceTrackingToMovement : MonoBehaviour
 
 		data = new List<float>();
 
-    }
+		startTime = DateTime.Now;
+	}
 
     private void OnDisable()
     {
@@ -74,12 +79,14 @@ public class FaceTrackingToMovement : MonoBehaviour
 
     void Update()
 	{
+		avgVelocityAcumulator += speed;
+		numberOfFrames++;
 		if (!detectado)
         {
             return;
         }
 		CalculateVelocity(face.transform);
-        gameManager.velocityText.text = $"Velocity: {Math.Round(speed, 2, MidpointRounding.AwayFromZero)} ({Math.Round(speed * 3.6, 2, MidpointRounding.AwayFromZero)} km/h)";
+		gameManager.velocityText.text = $"Velocity: {Math.Round(speed, 2, MidpointRounding.AwayFromZero)} ({Math.Round(speed * 3.6, 2, MidpointRounding.AwayFromZero)} km/h)";
     }
 
     private void CalculateVelocity(Transform faceData)
@@ -108,6 +115,18 @@ public class FaceTrackingToMovement : MonoBehaviour
 		}
 
     }
+
+    public float GetTotalDistance()
+    {
+        float avgSpeed = avgVelocityAcumulator / numberOfFrames;
+        float secondsElapsed = (float)(DateTime.Now - startTime).TotalSeconds;
+		float distance = avgSpeed * secondsElapsed;
+        Debug.Log("Frames transcurridos: " + numberOfFrames);
+		Debug.Log($"Velocidad media: {avgSpeed} m/s.");
+		Debug.Log($"Tiempo transcurrido: {secondsElapsed} s.");
+		Debug.Log($"Distancia recorrida: {distance} m.");
+		return distance;
+	}
 
     //-----------EVENTS---------
     void CaraDetectada(ARFacesChangedEventArgs aRFacesChangedEventArgs)

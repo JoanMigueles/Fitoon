@@ -255,7 +255,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 0}
   _networkObjectCache: {fileID: 0}
   projectilePrefab: {fileID: 6252772940871634296, guid: 4db59d33d51078447a71b75c7b9722bc, type: 3}
-  projectileSpeed: 10
+  projectileSpeed: 30
 --- !u!1 &7943324141433623539
 GameObject:
   m_ObjectHideFlags: 0

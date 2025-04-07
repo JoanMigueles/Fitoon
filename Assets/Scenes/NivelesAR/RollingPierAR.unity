@@ -358,6 +358,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 8767371828632347943, guid: a8e2de256a512864fb5ee1c5b097d83e, type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 3485334771
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8e2de256a512864fb5ee1c5b097d83e, type: 3}
 --- !u!4 &11409504 stripped
@@ -1408,6 +1412,10 @@ PrefabInstance:
     - target: {fileID: 6741219524577875906, guid: a8e2de256a512864fb5ee1c5b097d83e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767371828632347943, guid: a8e2de256a512864fb5ee1c5b097d83e, type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 3984187042
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8e2de256a512864fb5ee1c5b097d83e, type: 3}
@@ -4121,6 +4129,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5088448132940981980, guid: d17a8c244d5f1b14bbe6af563ebd7861, type: 3}
   m_PrefabInstance: {fileID: 326037543}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &326037545 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6690346434393305733, guid: d17a8c244d5f1b14bbe6af563ebd7861, type: 3}
+  m_PrefabInstance: {fileID: 326037543}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41ce22f484160a4408f71c3540b96b5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &338597699
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6687,6 +6706,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5088448132940981980, guid: d17a8c244d5f1b14bbe6af563ebd7861, type: 3}
   m_PrefabInstance: {fileID: 615925916}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &615925918 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6690346434393305733, guid: d17a8c244d5f1b14bbe6af563ebd7861, type: 3}
+  m_PrefabInstance: {fileID: 615925916}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41ce22f484160a4408f71c3540b96b5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &617115455
 GameObject:
   m_ObjectHideFlags: 0
@@ -12138,6 +12168,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 8767371828632347943, guid: a8e2de256a512864fb5ee1c5b097d83e, type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 3980132328
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8e2de256a512864fb5ee1c5b097d83e, type: 3}
 --- !u!4 &1052180672 stripped
@@ -12959,6 +12993,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 8767371828632347943, guid: a8e2de256a512864fb5ee1c5b097d83e, type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 3489267170
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8e2de256a512864fb5ee1c5b097d83e, type: 3}
 --- !u!4 &1135620892 stripped
@@ -13471,6 +13509,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5088448132940981980, guid: d17a8c244d5f1b14bbe6af563ebd7861, type: 3}
   m_PrefabInstance: {fileID: 1165613926}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1165613928 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6690346434393305733, guid: d17a8c244d5f1b14bbe6af563ebd7861, type: 3}
+  m_PrefabInstance: {fileID: 1165613926}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41ce22f484160a4408f71c3540b96b5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1171396631
 GameObject:
   m_ObjectHideFlags: 0
@@ -14433,6 +14482,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2057591694}
     m_Modifications:
+    - target: {fileID: -7173621606677079180, guid: e9c6b0ff891970444a319466a38b601b, type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 4026531759
+      objectReference: {fileID: 0}
     - target: {fileID: -1563682490113784343, guid: e9c6b0ff891970444a319466a38b601b, type: 3}
       propertyPath: <SceneId>k__BackingField
       value: 4294704358
@@ -15262,6 +15315,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2057591694}
     m_Modifications:
+    - target: {fileID: -7173621606677079180, guid: e9c6b0ff891970444a319466a38b601b, type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 3992845492
+      objectReference: {fileID: 0}
     - target: {fileID: -1563682490113784343, guid: e9c6b0ff891970444a319466a38b601b, type: 3}
       propertyPath: <SceneId>k__BackingField
       value: 4021943476
@@ -16797,6 +16854,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2057591694}
     m_Modifications:
+    - target: {fileID: -7173621606677079180, guid: e9c6b0ff891970444a319466a38b601b, type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 3485327359
+      objectReference: {fileID: 0}
     - target: {fileID: -1563682490113784343, guid: e9c6b0ff891970444a319466a38b601b, type: 3}
       propertyPath: <SceneId>k__BackingField
       value: 4257078436
@@ -16923,6 +16984,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1483493803}
   - component: {fileID: 1483493804}
+  - component: {fileID: 1483493805}
   m_Layer: 6
   m_Name: CannonsArray
   m_TagString: Untagged
@@ -16966,6 +17028,62 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 0}
   timeInterval: 3
   projectileAmount: 2
+  cannons:
+  - {fileID: 326037545}
+  - {fileID: 615925918}
+  - {fileID: 1165613928}
+  - {fileID: 1820440034}
+--- !u!114 &1483493805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1483493802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 0
+  <ComponentIndex>k__BackingField: 0
+  <PredictedSpawn>k__BackingField: {fileID: 0}
+  <PredictedOwner>k__BackingField: {fileID: 0}
+  NetworkBehaviours: []
+  InitializedParentNetworkBehaviour: {fileID: 0}
+  InitializedNestedNetworkObjects: []
+  RuntimeParentNetworkBehaviour: {fileID: 0}
+  RuntimeChildNetworkBehaviours: []
+  _isNetworked: 1
+  _isSpawnable: 1
+  _isGlobal: 0
+  _initializeOrder: 0
+  _preventDespawnOnDisconnect: 0
+  _defaultDespawnType: 0
+  _initializedValusSet: 0
+  NetworkObserver: {fileID: 0}
+  _enablePrediction: 0
+  _predictionType: 0
+  _graphicalObject: {fileID: 0}
+  _detachGraphicalObject: 0
+  _enableStateForwarding: 1
+  _networkTransform: {fileID: 0}
+  _ownerInterpolation: 1
+  _ownerSmoothedProperties: 255
+  _adaptiveInterpolation: 3
+  _spectatorSmoothedProperties: 255
+  _spectatorInterpolation: 2
+  _enableTeleport: 0
+  _teleportThreshold: 1
+  <PrefabId>k__BackingField: 65535
+  <SpawnableCollectionId>k__BackingField: 0
+  <AssetPathHash>k__BackingField: 0
+  <SceneId>k__BackingField: 4248436668
+  SerializedTransformProperties:
+    Position: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 0}
+    Scale: {x: 0, y: 0, z: 0}
+    IsValid: 0
 --- !u!1 &1485999633
 GameObject:
   m_ObjectHideFlags: 0
@@ -18820,6 +18938,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2057591694}
     m_Modifications:
+    - target: {fileID: -7173621606677079180, guid: e9c6b0ff891970444a319466a38b601b, type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 4013817575
+      objectReference: {fileID: 0}
     - target: {fileID: -1563682490113784343, guid: e9c6b0ff891970444a319466a38b601b, type: 3}
       propertyPath: <SceneId>k__BackingField
       value: 3749568228
@@ -19053,6 +19175,10 @@ PrefabInstance:
     - target: {fileID: 6741219524577875906, guid: a8e2de256a512864fb5ee1c5b097d83e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767371828632347943, guid: a8e2de256a512864fb5ee1c5b097d83e, type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 3476684207
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8e2de256a512864fb5ee1c5b097d83e, type: 3}
@@ -20310,6 +20436,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5088448132940981980, guid: d17a8c244d5f1b14bbe6af563ebd7861, type: 3}
   m_PrefabInstance: {fileID: 1820440032}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1820440034 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6690346434393305733, guid: d17a8c244d5f1b14bbe6af563ebd7861, type: 3}
+  m_PrefabInstance: {fileID: 1820440032}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41ce22f484160a4408f71c3540b96b5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1824518108
 GameObject:
   m_ObjectHideFlags: 0
@@ -20635,6 +20772,10 @@ PrefabInstance:
       propertyPath: goal
       value: 
       objectReference: {fileID: 1319149175}
+    - target: {fileID: 6724398444373056632, guid: 03602b9adc7668243a938cd1ccea9150, type: 3}
+      propertyPath: scene
+      value: 
+      objectReference: {fileID: 11400000, guid: 28dec288ea613a14ba0ff9916a0036a3, type: 2}
     - target: {fileID: 6724398444373056632, guid: 03602b9adc7668243a938cd1ccea9150, type: 3}
       propertyPath: sceneName
       value: RollingPierAR
@@ -22982,6 +23123,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2057591694}
     m_Modifications:
+    - target: {fileID: -7173621606677079180, guid: e9c6b0ff891970444a319466a38b601b, type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 4013546741
+      objectReference: {fileID: 0}
     - target: {fileID: -1563682490113784343, guid: e9c6b0ff891970444a319466a38b601b, type: 3}
       propertyPath: <SceneId>k__BackingField
       value: 4248436478
@@ -27957,6 +28102,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2057591694}
     m_Modifications:
+    - target: {fileID: -7173621606677079180, guid: e9c6b0ff891970444a319466a38b601b, type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 4294696420
+      objectReference: {fileID: 0}
     - target: {fileID: -1563682490113784343, guid: e9c6b0ff891970444a319466a38b601b, type: 3}
       propertyPath: <SceneId>k__BackingField
       value: 4022066848

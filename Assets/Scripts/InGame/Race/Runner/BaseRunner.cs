@@ -100,7 +100,7 @@ public class BaseRunner : NetworkBehaviour
 		//Slow down character speed boost
 		if (speedMultiplier > 1f)
 		{
-			speedMultiplier -= 0.04f;
+			speedMultiplier -= 0.01f;
 			speedMultiplier = Mathf.Clamp(speedMultiplier, 1f, 10f);
 		}
 	}

@@ -24,12 +24,11 @@ public class Fan : MonoBehaviour
 
                 if (isInverted)
                 {
-                    jumpDirection = -transform.up * windForce; //Calcular la dirección combinada hacia el Player y hacia arriba
+                    jumpDirection = -transform.up * windForce * 10; //Calcular la dirección combinada hacia el Player y hacia arriba
                 }
                 else
                 {
-                    playerRigidbody.rotation = Quaternion.identity;
-                    jumpDirection = transform.up * windForce; //Calcular la dirección combinada hacia adelante y hacia arriba
+                    jumpDirection = transform.up * windForce * 10; //Calcular la dirección combinada hacia adelante y hacia arriba
                 }
 
                 // Aplicar la fuerza combinada

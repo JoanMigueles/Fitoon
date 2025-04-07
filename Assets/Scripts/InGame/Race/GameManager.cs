@@ -25,7 +25,7 @@ public class GameManager : NetworkBehaviour
     [SerializeField] NetworkObject playerPrefab;
     [SerializeField] NetworkObject botPrefab;
     [SerializeField] public Countdown countdown;
-    [SerializeField] string sceneName;
+    [SerializeField] EscenarioItem scene;
 
     public static bool addBots = false;
     
@@ -128,18 +128,20 @@ public class GameManager : NetworkBehaviour
 			positionIndex = 0;
 			runnerData.Clear();
 
-			FinishRace();
+			StartCoroutine(FinishRace());
 		}
 	}
 
-	void FinishRace()
+	IEnumerator FinishRace()
 	{
+		yield return new WaitForSeconds(1);
+
 		LobbyManager.runnerData = new List<Runner>();
 
 		SceneLoadData sld = new SceneLoadData("LobbyScene");
 		SceneManager.LoadGlobalScenes(sld);
 
-		SceneUnloadData sud = new SceneUnloadData(sceneName);
+		SceneUnloadData sud = new SceneUnloadData(scene.nombreEscenario);
 		SceneManager.UnloadGlobalScenes(sud);
 	}
 
@@ -163,7 +165,7 @@ public class GameManager : NetworkBehaviour
 			FreezeAllRunners();
 			SortRunners();
 			yield return new WaitForSeconds(1);
-			FinishRace();
+			StartCoroutine(FinishRace());
 		}
 	}
 

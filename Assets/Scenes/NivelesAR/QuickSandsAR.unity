@@ -13161,6 +13161,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1319149175}
     - target: {fileID: 6724398444373056632, guid: 03602b9adc7668243a938cd1ccea9150, type: 3}
+      propertyPath: scene
+      value: 
+      objectReference: {fileID: 11400000, guid: 202d62e2f1229ce4587c3414bdb9fcb3, type: 2}
+    - target: {fileID: 6724398444373056632, guid: 03602b9adc7668243a938cd1ccea9150, type: 3}
       propertyPath: sceneName
       value: QuickSandsAR
       objectReference: {fileID: 0}
