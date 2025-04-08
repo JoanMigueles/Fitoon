@@ -20,9 +20,11 @@ public class LobbyManager : NetworkBehaviour
 	public class PlayerCard
 	{
 		public string name;
+		public string title;
 		public bool ready;
 		public int score;
 		public int pfp;
+		public int banner;
 	}
 
 	public static List<Runner> runnerData = new List<Runner>();
@@ -63,10 +65,12 @@ public class LobbyManager : NetworkBehaviour
 			{
 				cardList.Add(Instantiate(cardPrefab, content.transform));
 			}
+			cardList[i].GetComponent<Image>().sprite = AssetLoader.LoadBanner(playerCards[i].banner);
 			cardList[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = playerCards[i].name;
 			cardList[i].transform.GetChild(1).GetComponent<Image>().enabled = playerCards[i].ready;
-			cardList[i].transform.GetChild(2).GetComponent<Image>().sprite = PFPLoader.LoadPFP(playerCards[i].pfp);
+			cardList[i].transform.GetChild(2).GetComponent<Image>().sprite = AssetLoader.LoadPFP(playerCards[i].pfp);
 			cardList[i].transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = playerCards[i].score.ToString();
+			cardList[i].transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = playerCards[i].title;
 		}
 		for(int j = cardList.Count - 1; j >= i; j--)
 		{
@@ -137,14 +141,16 @@ public class LobbyManager : NetworkBehaviour
 	}
 
 	[ServerRpc(RequireOwnership = false)]
-	public void AddPlayer(NetworkConnection key, string name, int pfp, int score, CharacterData characterData)
+	public void AddPlayer(NetworkConnection key, string name, string title, int pfp, int banner, int score, CharacterData characterData)
 	{
 		PlayerCard card = new PlayerCard()
 		{
 			name = name,
 			ready = false,
 			pfp = pfp,
-			score = score
+			score = score,
+			banner = banner,
+			title = title
 		};
 		playerEntries.Add(key, card);
 		playerEntries.Dirty(key);

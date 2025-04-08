@@ -927,7 +927,9 @@ MonoBehaviour:
   darkenBackground: {fileID: 1960075282}
   gymNameText: {fileID: 2099260785}
   gymCodeText: {fileID: 2068757355}
-  gymIconImage: {fileID: 898176964}
+  gymIconImage: {fileID: 2023630320}
+  buttonUnlinkGym: {fileID: 2004261415}
+  buttonLinkGym: {fileID: 1957158362}
 --- !u!1 &104378153
 GameObject:
   m_ObjectHideFlags: 0
@@ -18134,6 +18136,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1843356947}
   m_CullTransparentMesh: 1
+--- !u!1001 &1848980748
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3124366173451021543, guid: 5912e7b024445604f8d28701af7188a8, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3124366173451021543, guid: 5912e7b024445604f8d28701af7188a8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3124366173451021543, guid: 5912e7b024445604f8d28701af7188a8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3124366173451021543, guid: 5912e7b024445604f8d28701af7188a8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3124366173451021543, guid: 5912e7b024445604f8d28701af7188a8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3124366173451021543, guid: 5912e7b024445604f8d28701af7188a8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3124366173451021543, guid: 5912e7b024445604f8d28701af7188a8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3124366173451021543, guid: 5912e7b024445604f8d28701af7188a8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3124366173451021543, guid: 5912e7b024445604f8d28701af7188a8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3124366173451021543, guid: 5912e7b024445604f8d28701af7188a8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3124366173451021543, guid: 5912e7b024445604f8d28701af7188a8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6279991871466940566, guid: 5912e7b024445604f8d28701af7188a8, type: 3}
+      propertyPath: m_Name
+      value: DatabaseManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5912e7b024445604f8d28701af7188a8, type: 3}
 --- !u!1 &1851934524
 GameObject:
   m_ObjectHideFlags: 0
@@ -20570,12 +20629,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 98256154}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: OpenMenu
-        m_Mode: 2
+        m_TargetAssemblyTypeName: SettingsUIManager, Assembly-CSharp
+        m_MethodName: UnlinkGym
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 509170530}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -21842,6 +21901,63 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1001 &2069459401
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5231042715712559689, guid: 5f0d3f36cc3d55e448448261222e9236, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231042715712559689, guid: 5f0d3f36cc3d55e448448261222e9236, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -89.22123
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231042715712559689, guid: 5f0d3f36cc3d55e448448261222e9236, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 178.7172
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231042715712559689, guid: 5f0d3f36cc3d55e448448261222e9236, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -402.0881
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231042715712559689, guid: 5f0d3f36cc3d55e448448261222e9236, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231042715712559689, guid: 5f0d3f36cc3d55e448448261222e9236, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231042715712559689, guid: 5f0d3f36cc3d55e448448261222e9236, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231042715712559689, guid: 5f0d3f36cc3d55e448448261222e9236, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231042715712559689, guid: 5f0d3f36cc3d55e448448261222e9236, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231042715712559689, guid: 5f0d3f36cc3d55e448448261222e9236, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231042715712559689, guid: 5f0d3f36cc3d55e448448261222e9236, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231042715712559691, guid: 5f0d3f36cc3d55e448448261222e9236, type: 3}
+      propertyPath: m_Name
+      value: GoogePlayServicesManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5f0d3f36cc3d55e448448261222e9236, type: 3}
 --- !u!1 &2072704174
 GameObject:
   m_ObjectHideFlags: 0
