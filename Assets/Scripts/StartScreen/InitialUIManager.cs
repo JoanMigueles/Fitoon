@@ -35,8 +35,7 @@ public class InitialUIManager : UIManager
     [Header("Leaderboard Data")]
     [SerializeField] private GameObject leaderboardContentWindow;
     [SerializeField] private GameObject leaderboardFieldPrefab;
-
-    List<Tuple<string, UserData>> leaderboard;
+    [SerializeField] private GameObject leaderboardPlayerPreview;
 
 
     private void Start()
@@ -190,6 +189,14 @@ public class InitialUIManager : UIManager
             leaderboardField.SetPlayerName(leaderboard[i].Item1);
             leaderboardField.SetMedals(leaderboard[i].Item2.medals, progressData);
             leaderboardField.SetPosition(i);
+
+            if (leaderboard[i].Item1 == SaveData.player.username)
+            {
+                LeaderboardField playerField = leaderboardPlayerPreview.GetComponent<LeaderboardField>();
+                playerField.SetPlayerName(leaderboard[i].Item1);
+                playerField.SetMedals(leaderboard[i].Item2.medals, progressData);
+                playerField.SetPosition(i);
+            }
         }
     }
 
