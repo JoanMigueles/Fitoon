@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Buffers.Text;
+using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using TMPro;
@@ -82,10 +83,14 @@ public class InitialUIManager : UIManager
 
     public void SaveUsername(string value)
     {
-        DatabaseManager.instance.DeletePlayerData();
-        SaveData.player.username = value;
-        SaveData.SaveToJson();
-        UpdateProfile();
+        if(value == "" || value == SaveData.player.username) return;
+        SaveData.ChangeUsername(value, (result) =>
+        {
+            MainThreadDispatcher.instance.Enqueue(() =>
+            {
+                UpdateProfile(result);
+            });
+        });
     }
 
     public void UpdateAllUI()
@@ -93,7 +98,7 @@ public class InitialUIManager : UIManager
         UpdateExp();
         UpdateCoins();
         UpdateMedals();
-        UpdateProfile();
+        UpdateProfile(true);
         UpdateStreak();
     }
     public void UpdateCoins()
@@ -154,10 +159,14 @@ public class InitialUIManager : UIManager
         if (streakText != null) streakText.text = SaveData.player.streak.ToString();
     }
 
-    public void UpdateProfile()
+    public void UpdateProfile(bool usernameNotTaken = false)
     {
         if (playerNameText != null) playerNameText.text = SaveData.player.username;
-        if (playerNameField != null) playerNameField.text = SaveData.player.username;
+        if (playerNameField != null)
+        {
+            if (!usernameNotTaken) StartCoroutine(ShowError());
+            else playerNameField.text = SaveData.player.username;
+        }
 
     }
     public void DisplayLeaderboardData()
@@ -221,6 +230,15 @@ public class InitialUIManager : UIManager
         }
 
         return totalXP;
+    }
+
+    IEnumerator ShowError()
+    {
+        playerNameField.textComponent.color = Color.red;
+        playerNameField.text = "Already taken!";
+        yield return new WaitForSeconds(1f);
+        playerNameField.textComponent.color = Color.white;
+        playerNameField.text = SaveData.player.username;
     }
 
     // --------------------------------------------------------------------------------------------------------------------------------------------------

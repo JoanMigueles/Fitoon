@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Xml.Linq;
 using TMPro;
 using UnityEngine;
@@ -36,10 +37,14 @@ public class ProfileUIManager : UIManager
 
     public void SaveUsername(string value)
     {
-        DatabaseManager.instance.DeletePlayerData();
-        SaveData.player.username = value;
-        SaveData.SaveToJson();
-        UpdateProfile();
+        if(value == "" || value == SaveData.player.username) return;
+        SaveData.ChangeUsername(value, (result) =>
+        {
+            MainThreadDispatcher.instance.Enqueue(() =>
+            {
+                UpdateProfile(result);
+            });
+        });
     }
 
     public void UpdateAllUI()
@@ -56,7 +61,7 @@ public class ProfileUIManager : UIManager
     {
         if (gymLeaderboardText != null)
         {
-            if(SaveData.player.gymKey == 0) gymLeaderboardText.text = "No Gym";
+            if(SaveData.player.gymKey == -1) gymLeaderboardText.text = "No Gym";
             else
             {
                 DatabaseManager.instance.GetGymPosition(SaveData.player.gymKey, (position) =>
@@ -70,7 +75,7 @@ public class ProfileUIManager : UIManager
         };
         if (gymMedalText != null && gymNameText != null)
         {
-            if (SaveData.player.gymKey == 0)
+            if (SaveData.player.gymKey == -1)
             {
                 gymMedalText.text = "0";
                 gymNameText.text = "No Gym";
@@ -105,11 +110,24 @@ public class ProfileUIManager : UIManager
         //if (gymIconImage != null) gymIconImage.sprite = ;
     }
 
-    public void UpdateProfile()
+    public void UpdateProfile(bool usernameNotTaken = false)
     {
         if (playerNameText != null) playerNameText.text = SaveData.player.username;
-        if (playerNameField != null) playerNameField.text = SaveData.player.username;
+        if (playerNameField != null)
+        {
+            if (!usernameNotTaken) StartCoroutine(ShowError());
+            else playerNameField.text = SaveData.player.username;
+        }
         //if (banner != null) banner...;
         //if (profileIconImage != null) profileIconImage.sprite = ;
+    }
+
+    IEnumerator ShowError()
+    {
+        playerNameField.textComponent.color = Color.red;
+        playerNameField.text = "Already taken!";
+        yield return new WaitForSeconds(1f);
+        playerNameField.textComponent.color = Color.white;
+        playerNameField.text = SaveData.player.username;
     }
 }

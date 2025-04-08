@@ -32,6 +32,10 @@ public class DatabaseManager : MonoBehaviour
         dbReference.Child("Users").Child(SaveData.player.username).SetRawJsonValueAsync(json);
     }
 
+
+    /// <summary>
+    /// Delete the player data in the database.
+    /// </summary>
     public void DeletePlayerData()
     {
         try
@@ -42,6 +46,22 @@ public class DatabaseManager : MonoBehaviour
         {
             Debug.LogError("Error deleting player data: " + e.Message);
         }
+    }
+
+    public void CheckUsername(string username, Action<bool> callback)
+    {
+        dbReference.Child("Users").Child(username).GetValueAsync().ContinueWith(task =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.LogError("Error checking username: " + task.Exception);
+            }
+            else if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                callback(snapshot.Exists && snapshot.ChildrenCount > 0);
+            }
+        });
     }
 
     /// <summary>
@@ -308,7 +328,7 @@ public class DatabaseManager : MonoBehaviour
             {
                 if (gym.Item1 == gymKey)
                 {
-                    callback(gymsLeaderboard.IndexOf(gym) + 1);
+                    callback(gymsLeaderboard.Count - gymsLeaderboard.IndexOf(gym));
                     return;
                 }
             }
