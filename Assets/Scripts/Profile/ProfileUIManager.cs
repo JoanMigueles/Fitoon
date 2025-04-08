@@ -28,6 +28,7 @@ public class ProfileUIManager : UIManager
     [SerializeField] private TextMeshProUGUI gymNameText;
     [SerializeField] private TextMeshProUGUI gymCodeText;
     [SerializeField] private Image gymIconImage;
+    [SerializeField] private GameObject buttonUnlinkGym;
 
     private void Start()
     {
@@ -73,6 +74,7 @@ public class ProfileUIManager : UIManager
                 });
             }
         };
+
         if (gymMedalText != null && gymNameText != null)
         {
             if (SaveData.player.gymKey == -1)
@@ -92,11 +94,13 @@ public class ProfileUIManager : UIManager
                 });
             }
         }
+
         if(gymCodeText != null)
         {
-            if (SaveData.player.gymKey == 0) gymCodeText.text = "";
+            if (SaveData.player.gymKey == -1) gymCodeText.text = "";
             else gymCodeText.text = "#" + SaveData.player.gymKey.ToString();
         }
+
         if(leaderboardText != null)
         {
             DatabaseManager.instance.GetGlobalPosition((position) =>
@@ -107,7 +111,9 @@ public class ProfileUIManager : UIManager
                 });
             });
         }
-        //if (gymIconImage != null) gymIconImage.sprite = ;
+
+        if (buttonUnlinkGym != null) buttonUnlinkGym.SetActive(SaveData.player.gymKey != -1);
+        // if (gymIconImage != null) gymIconImage.sprite = ;
     }
 
     public void UpdateProfile(bool usernameNotTaken = false)
@@ -118,8 +124,15 @@ public class ProfileUIManager : UIManager
             if (!usernameNotTaken) StartCoroutine(ShowError());
             else playerNameField.text = SaveData.player.username;
         }
-        //if (banner != null) banner...;
-        //if (profileIconImage != null) profileIconImage.sprite = ;
+        // if (banner != null) banner...;
+        // if (profileIconImage != null) profileIconImage.sprite = ;
+    }
+
+    public void UnlinkGym()
+    {
+        SaveData.player.gymKey = -1;
+        SaveData.SaveToJson();
+        UpdateAllUI();
     }
 
     IEnumerator ShowError()

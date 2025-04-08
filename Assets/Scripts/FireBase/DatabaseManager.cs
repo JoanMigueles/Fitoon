@@ -205,6 +205,7 @@ public class DatabaseManager : MonoBehaviour
                     if (gymKey == null) leaderboard.Add(new Tuple<string, UserData>(username, userData));
                     else if (gymKey == gymKey2) leaderboard.Add(new Tuple<string, UserData>(username, userData));
                 }
+                leaderboard.Reverse();
                 callback(leaderboard);
             }
         });
@@ -231,7 +232,7 @@ public class DatabaseManager : MonoBehaviour
                     position++;
                     if(child.Key == SaveData.player.username)
                     {
-                        callback(position);
+                        callback((int) snapshot.ChildrenCount - position);
                         break;
                     }
                 }
@@ -273,6 +274,7 @@ public class DatabaseManager : MonoBehaviour
                     }, gymKey);
                     taskCompletionSource.Task.Wait();
                 }
+                leaderboard.Reverse();
                 callback(leaderboard);
             }
         });
@@ -310,6 +312,7 @@ public class DatabaseManager : MonoBehaviour
                     }, gymKey);
                     taskCompletionSource.Task.Wait();
                 }
+                leaderboard.Reverse();
                 callback(leaderboard);
             }
         });
@@ -328,7 +331,7 @@ public class DatabaseManager : MonoBehaviour
             {
                 if (gym.Item1 == gymKey)
                 {
-                    callback(gymsLeaderboard.Count - gymsLeaderboard.IndexOf(gym));
+                    callback(gymsLeaderboard.IndexOf(gym) + 1);
                     return;
                 }
             }
