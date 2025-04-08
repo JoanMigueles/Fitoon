@@ -80,7 +80,7 @@ public class BaseRunner : NetworkBehaviour
 		characterObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
 		characterObject.GetComponent<CharacterPrefabColorChanger>().ChangeColors(character.hairColor, character.skinColor, character.topColor, character.bottomColor);
-		characterObject.GetComponent<CharacterPrefabColorChanger>().ChangeShoe(ShoeLoader.GetMesh(character.shoes.id), ShoeLoader.getMaterials(character.shoes.materials));
+		characterObject.GetComponent<CharacterPrefabColorChanger>().ChangeShoe(ShoeLoader.GetMesh(character.shoes.itemID), ShoeLoader.getMaterials(character.shoes.materials));
 	}
 
 	List<GameObject> GetAllChildrenRecursive(GameObject gameObject)

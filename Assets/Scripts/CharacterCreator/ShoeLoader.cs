@@ -26,4 +26,12 @@ public static class ShoeLoader
 		}
 		return result;
 	}
+
+	public static Sprite GetIcon(int iconIndex)
+	{
+        if (shoeParams == null) {
+            shoeParams = Resources.Load<ObjectParameterList>("ObjectParameterList");
+        }
+        return shoeParams.icons[iconIndex];
+    }
 }

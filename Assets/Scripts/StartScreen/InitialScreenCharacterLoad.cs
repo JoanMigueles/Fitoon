@@ -46,7 +46,7 @@ public class InitialScreenCharacterLoad : MonoBehaviour
         characterObject.transform.localRotation = Quaternion.Euler(0, 180, 0);
 
 		characterObject.GetComponent<CharacterPrefabColorChanger>().ChangeColors(character.hairColor, character.skinColor, character.topColor, character.bottomColor);
-		characterObject.GetComponent<CharacterPrefabColorChanger>().ChangeShoe(ShoeLoader.GetMesh(character.shoes.id), ShoeLoader.getMaterials(character.shoes.materials));
+		characterObject.GetComponent<CharacterPrefabColorChanger>().ChangeShoe(ShoeLoader.GetMesh(character.shoes.itemID), ShoeLoader.getMaterials(character.shoes.materials));
 
         characterObject.GetComponent<Animator>().SetBool("isRunning", true);
     }

@@ -9,13 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 899e49938f2a5a04bbd844155717c132, type: 3}
-  m_Name: ZapasConverseNegras
+  m_Script: {fileID: 11500000, guid: 7b368e25a2ba59140bcbd5b516183d0d, type: 3}
+  m_Name: 23_Night_Purple
   m_EditorClassIdentifier: 
-  id: 2
-  icon: 0
-  mesh: 2
-  materials: 0500000001000000
-  itemType: 2
-  itemName: Black Shoes
-  itemPrice: 10
+  itemID: 23
+  itemType: 1
+  itemName: Night Purple
+  itemPrice: 20
+  color: {r: 0.2509804, g: 0.20000002, b: 0.3254902, a: 1}

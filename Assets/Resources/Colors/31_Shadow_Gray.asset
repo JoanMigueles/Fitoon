@@ -9,13 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 899e49938f2a5a04bbd844155717c132, type: 3}
-  m_Name: ZapasNaranjas
+  m_Script: {fileID: 11500000, guid: 7b368e25a2ba59140bcbd5b516183d0d, type: 3}
+  m_Name: 31_Shadow_Gray
   m_EditorClassIdentifier: 
-  id: 4
-  icon: 1
-  mesh: 4
-  materials: 08000000010000000400000009000000
-  itemType: 2
-  itemName: Orange Shoes
-  itemPrice: 10
+  itemID: 31
+  itemType: 1
+  itemName: Shadow Gray
+  itemPrice: 30
+  color: {r: 0.427451, g: 0.45882356, b: 0.5529412, a: 1}

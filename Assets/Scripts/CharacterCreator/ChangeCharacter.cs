@@ -28,7 +28,7 @@ public class ChangeCharacter : MonoBehaviour
         
     }
 
-    public void OnSkinClicked(string skinName)
+    public void OnSkinClicked(int skinID)
     {
         for(int i = 0; i < optionsPanels.transform.childCount; i++)
         {
@@ -39,7 +39,7 @@ public class ChangeCharacter : MonoBehaviour
         }
 
         //Buscar en qu� �ndice de la lista de personajes est�, segun el NOMBRE de la skin
-        characterActive = characters.FindIndex(character => character.itemName == skinName);
+        characterActive = characters.FindIndex(character => character.itemID == skinID);
         actualCharacter = characters[characterActive];
 
         //Actualizar el personaje en pantalla
@@ -219,7 +219,7 @@ public class ChangeCharacter : MonoBehaviour
         SaveData.player.playerCharacterData.skinColor = actualCharacter.skin.color;
         SaveData.player.playerCharacterData.topColor = actualCharacter.top.color;
         SaveData.player.playerCharacterData.bottomColor = actualCharacter.bottom.color;
-        SaveData.player.playerCharacterData.shoes = actualShoes.id;
+        SaveData.player.playerCharacterData.shoes = actualShoes.itemID;
         SaveData.SaveToJson();
         //saveData.ReadFromJson();
         ReadCharacter();

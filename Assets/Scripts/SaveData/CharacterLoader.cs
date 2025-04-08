@@ -63,7 +63,7 @@ public class CharacterLoader : Object
         characterData.hairColor = Random.ColorHSV(0, 1, 0.25f, 0.75f, 0f, 1f);
         characterData.topColor = Random.ColorHSV();
         characterData.bottomColor = Random.ColorHSV();
-        characterData.shoes = characterDataList.characters[Random.Range(0, characterDataList.characters.Length)].shoes.id;
+        characterData.shoes = characterDataList.characters[Random.Range(0, characterDataList.characters.Length)].shoes.itemID;
         return characterData;
 	}
 }
