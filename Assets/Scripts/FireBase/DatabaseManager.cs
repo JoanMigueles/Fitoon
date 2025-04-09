@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using Unity.VisualScripting;
 using Unity.MLAgents.Actuators;
+using Unity.Mathematics;
 
 public class DatabaseManager : MonoBehaviour
 {
@@ -81,7 +82,7 @@ public class DatabaseManager : MonoBehaviour
     /// <param name="callback"></param> Callback function to handle the result.
     public void CheckGymKey(int gymKey, Action<bool> callback)
     {
-        Query query = dbReference.Child("Gyms").OrderByChild("gymID").EqualTo(gymKey).LimitToFirst(1);
+        Query query = dbReference.Child("Gyms").OrderByChild("gymKey").EqualTo(gymKey).LimitToFirst(1);
         query.GetValueAsync().ContinueWith(task =>
         {
             if (task.IsFaulted)
@@ -147,27 +148,28 @@ public class DatabaseManager : MonoBehaviour
     /// Checks if the gym name already exists and if the auth key is valid before registering.
     /// </summary>
     /// <param name="gymName"></param> Gym name to register.
-    /// <param name="gymKey"></param> Gym ID to register.
     /// <param name="authKey"></param> Auth key to check.
-    public void RegisterGym(string gymName, int gymKey, int authKey)
+    /// <param name="callback"></param> Callback function to handle the result.
+    public void RegisterGym(string gymName, int authKey, Action<Tuple<int, int>> callback)
     {
         CheckGymName(gymName, (exists) =>
         {
             if (exists)
             {
-                Debug.Log("Gym name already exists. Please choose a different name.");
-                return;
+                callback(new Tuple<int, int>(1, 0)); // Gym name already taken
             }
             else
             {
                 CheckAuthKey(authKey, (authorised) =>
                 {
-                    if (!authorised) Debug.Log("Invalid auth key. Please check the key and try again.");
+                    if (!authorised) callback(new Tuple<int, int>(2, 0)); // Wrong auth key
                     else
                     {
+                        int gymKey = math.abs(gymName.GetHashCode());
                         GymData gym = new GymData(gymKey, authKey);
                         string json = JsonUtility.ToJson(gym);
                         dbReference.Child("Gyms").Child(gymName).SetRawJsonValueAsync(json);
+                        callback(new Tuple<int, int>(0, gymKey)); // Gym registered successfully
                     }
                 });
             }
