@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -926,10 +926,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   darkenBackground: {fileID: 1960075282}
   gymNameText: {fileID: 2099260785}
-  gymCodeText: {fileID: 2068757355}
+  gymKeyText: {fileID: 2068757355}
   gymIconImage: {fileID: 2023630320}
+  linkGymMenu: {fileID: 509170530}
+  createGymMenu: {fileID: 452734815}
   buttonUnlinkGym: {fileID: 2004261415}
   buttonLinkGym: {fileID: 1957158362}
+  gymKeyInputField: {fileID: 972747608}
+  gymNameInputField: {fileID: 1764559813}
+  authKeyInputField: {fileID: 1675806972}
 --- !u!1 &104378153
 GameObject:
   m_ObjectHideFlags: 0
@@ -5348,10 +5353,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: JoinLobby
-        m_Mode: 6
+      - m_Target: {fileID: 98256154}
+        m_TargetAssemblyTypeName: SettingsUIManager, Assembly-CSharp
+        m_MethodName: CreateGym
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9704,7 +9709,7 @@ GameObject:
   - component: {fileID: 972747609}
   - component: {fileID: 972747608}
   m_Layer: 5
-  m_Name: PasscodeInputField (TMP)
+  m_Name: GymKeyInputField (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15967,7 +15972,7 @@ GameObject:
   - component: {fileID: 1675806973}
   - component: {fileID: 1675806972}
   m_Layer: 5
-  m_Name: PasscodeInputField (TMP)
+  m_Name: AuthKeyInputField (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16800,7 +16805,7 @@ GameObject:
   - component: {fileID: 1764559814}
   - component: {fileID: 1764559813}
   m_Layer: 5
-  m_Name: PasscodeInputField (TMP) (1)
+  m_Name: GymNameInputField (TMP) (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21051,10 +21056,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: JoinLobby
-        m_Mode: 6
+      - m_Target: {fileID: 98256154}
+        m_TargetAssemblyTypeName: SettingsUIManager, Assembly-CSharp
+        m_MethodName: LinkGym
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
