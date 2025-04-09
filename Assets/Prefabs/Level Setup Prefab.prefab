@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 6724398442642614945}
   - component: {fileID: 6724398442642614950}
   - component: {fileID: 6724398442642614944}
+  - component: {fileID: 7469659698172863469}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -129,6 +130,19 @@ MonoBehaviour:
   offset: {x: 0, y: 3.07, z: -5.35}
   rotationOffset: {x: 0, y: 2, z: 0}
   smoothSpeed: 0.125
+--- !u!114 &7469659698172863469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6724398442642614951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 545568d0d04e8734e8c07535254b2262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  depthTextureMode: -1
 --- !u!1 &6724398442647871108
 GameObject:
   m_ObjectHideFlags: 0
@@ -805,7 +819,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 6648982630179018796, guid: 6965b60badacf614b89091caf24593ea, type: 3}
   botPrefab: {fileID: 4220177162550495737, guid: b0d96e4273bfcc6439e40784dc1e796f, type: 3}
   countdown: {fileID: 4180499137766937161}
-  sceneName: DizzyHeightAR 1
+  scene: {fileID: 0}
 --- !u!114 &6724398444373056634
 MonoBehaviour:
   m_ObjectHideFlags: 0

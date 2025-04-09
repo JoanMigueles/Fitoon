@@ -10,4 +10,5 @@ public class CharacterItem : Item
     public Material hair, skin, top, bottom;
     public Color hairColor, skinColor, topColor, bottomColor;
     public ObjectItem shoes;
+    public Sprite editorIcon;
 }

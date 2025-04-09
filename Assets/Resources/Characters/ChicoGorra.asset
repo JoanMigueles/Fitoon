@@ -16,7 +16,6 @@ MonoBehaviour:
   itemType: 0
   itemName: Cap Guy
   itemPrice: 30
-  characterName: 
   characterPrefab: {fileID: 2399034774071457521, guid: 9e8509871f06db943a76ba79219c56a3, type: 3}
   hair: {fileID: 2100000, guid: 5d0185f5b180b9440a5c5a9d26c1a2b1, type: 2}
   skin: {fileID: 2100000, guid: 073b48346f09f774aa583a315c7eed2e, type: 2}
@@ -24,6 +23,7 @@ MonoBehaviour:
   bottom: {fileID: 2100000, guid: 600f3193300e44e419be70eb3d43048b, type: 2}
   hairColor: {r: 0.30188638, g: 0.14102697, b: 0.07547141, a: 1}
   skinColor: {r: 0.6603774, g: 0.45483583, b: 0.34576324, a: 0}
-  topColor: {r: 0.7075471, g: 0.39915198, b: 0, a: 0}
+  topColor: {r: 0.7058824, g: 0.4, b: 0, a: 0}
   bottomColor: {r: 0.3113204, g: 0.18380803, b: 0.0719559, a: 0}
   shoes: {fileID: 11400000, guid: 158b7b6357dd92847b6a55d0f2f98a7d, type: 2}
+  editorIcon: {fileID: 21300000, guid: c9d05094883537141bfd862764c10b81, type: 3}

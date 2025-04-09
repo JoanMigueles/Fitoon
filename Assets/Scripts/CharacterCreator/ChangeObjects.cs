@@ -18,5 +18,4 @@ public class ChangeObjects : MonoBehaviour
             obj.GetComponent<WhatShoeIHave>().myShoe = objectItem;
         }
     }
-
 }
