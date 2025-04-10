@@ -1,6 +1,9 @@
 using FishNet.Object;
 using UnityEngine;
 
+/// <summary>
+/// This class is responsible for shooting projectiles.
+/// </summary>
 public class Shoot : NetworkBehaviour
 {
     public GameObject projectilePrefab;

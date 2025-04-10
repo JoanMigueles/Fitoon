@@ -17,6 +17,9 @@ public class FaceTrackingToMovement : MonoBehaviour
     uint numberOfFrames;
 	DateTime startTime;
 
+	/// <summary>
+	/// The rotation of the face in the Y axis, multiplied by the rotation intensity.
+	/// </summary>
 	public Quaternion faceRotation
     {
         get

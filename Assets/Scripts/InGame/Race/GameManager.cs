@@ -11,6 +11,9 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// This class handles all data and events related to the race.
+/// </summary>
 public class GameManager : NetworkBehaviour
 {
 	int readyPlayers;
@@ -27,7 +30,7 @@ public class GameManager : NetworkBehaviour
     [SerializeField] public Countdown countdown;
     [SerializeField] EscenarioItem scene;
 
-    public static bool addBots = false;
+    public static bool addBots = false;	//Set to true to add bots to the race
     
     List<BaseRunner> runners = new List<BaseRunner>();
 
@@ -51,6 +54,9 @@ public class GameManager : NetworkBehaviour
 		//GetComponent<GameManager>().enabled = false;
 	}
 
+	/// <summary>
+	/// Freezes all player movement.
+	/// </summary>
 	void FreezeAllRunners()
 	{
 		for (int i = 0; i < runners.Count; i++)
@@ -59,7 +65,11 @@ public class GameManager : NetworkBehaviour
 			runners[i].canMove = false;
 		}
 	}
-    void UnfreezeAllRunners()
+
+	/// <summary>
+	/// Unfreezes all player movement.
+	/// </summary>
+	void UnfreezeAllRunners()
     {
         for(int i = 0; i < runners.Count; i++)
         {
@@ -69,6 +79,9 @@ public class GameManager : NetworkBehaviour
 		}
     }
 
+	/// <summary>
+	/// This method instantiates the runners and spawns them over the network.
+	/// </summary>
 	void SpawnRunners()
     {
 		for (int i = 0; i < runnerData.Count; i++)
@@ -84,7 +97,10 @@ public class GameManager : NetworkBehaviour
 		}
 	}
 
-    void InitializeBots()
+	/// <summary>
+	/// This method initializes the bots with random data.
+	/// </summary>
+	void InitializeBots()
     {
         while (runnerData.Count < 32)
         {
@@ -101,6 +117,10 @@ public class GameManager : NetworkBehaviour
         }
     }
 
+	/// <summary>
+	/// This method is called when a player reaches the goal. It updates the player's data and checks if all players have finished. If it's the first player to finish, it starts the countdown.
+	/// </summary>
+	/// <param name="id"></param>
 	[ServerRpc(RequireOwnership = false)]
     public void GoalReached(int id)
 	{
@@ -132,6 +152,9 @@ public class GameManager : NetworkBehaviour
 		}
 	}
 
+	/// <summary>
+	/// This coroutine waits for a few seconds and then loads the lobby scene.
+	/// </summary>
 	IEnumerator FinishRace()
 	{
 		yield return new WaitForSeconds(1);
@@ -151,6 +174,9 @@ public class GameManager : NetworkBehaviour
 		StartCoroutine(FinishCountdown());
 	}
 
+	/// <summary>
+	/// This coroutine handles the countdown for the finish line. It updates the countdown text every second and then freezes all runners and sorts them based on their distance to the goal.
+	/// </summary>
 	IEnumerator FinishCountdown()
 	{
 		int countdown = 10;
@@ -169,6 +195,9 @@ public class GameManager : NetworkBehaviour
 		}
 	}
 
+	/// <summary>
+	/// This method sorts the runners based on their distance to the goal. It updates the position of each runner and sets their position text.
+	/// </summary>
 	void SortRunners()
 	{
 		List<Runner> sortedRunners = runnerData.OrderBy((runner) =>
@@ -194,6 +223,9 @@ public class GameManager : NetworkBehaviour
 		}
 	}
 
+	/// <summary>
+	/// This coroutine waits a little bit to give time to all players to change scene. Then it initializes the bots if needed. Finally, it spawns the runners and starts the countdown.
+	/// </summary>
 	IEnumerator WaitForPlayers()
 	{
 		yield return new WaitUntil(() => readyPlayers == 2);
@@ -220,11 +252,15 @@ public class GameManager : NetworkBehaviour
         yield return new WaitUntil(() => countdown.HasFinished());
 	}
 }
+
+/// <summary>
+/// This class is used to store the data of each runner. A runner can be a player or a bot.
+/// </summary>
 public class Runner
 {
 	public int id;
     public string name;
-	public NetworkConnection connection;
-    public CharacterData characterData;
+	public NetworkConnection connection; // if null, it's a bot
+	public CharacterData characterData;
 	public bool goalReached = false;
 }

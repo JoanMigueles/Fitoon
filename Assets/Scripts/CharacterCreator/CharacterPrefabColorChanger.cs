@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// This class is used to change the colors and shoes of the character.
+/// </summary>
 public class CharacterPrefabColorChanger : MonoBehaviour
 {
     [SerializeField] Material hairMaterial;
@@ -21,6 +24,9 @@ public class CharacterPrefabColorChanger : MonoBehaviour
         tColor = topMaterial.color;
         bColor = bottomMaterial.color;
 	}
+	/// <summary>
+	/// This method is used to change the colors of the character. It will change the colors of the hair, skin, top and bottom of the character.
+	/// </summary>
 	public void ChangeColors(Color hairColor, Color skinColor, Color topColor, Color bottomColor)
     {
         Debug.Log($"[CHARLOAD]Cambiando colores: {hairColor} {skinColor} {topColor} {bottomColor}");
@@ -66,7 +72,10 @@ public class CharacterPrefabColorChanger : MonoBehaviour
         }
         return children;
     }
-    public void ChangeShoe(Mesh mesh, Material[] materials)
+	/// <summary>
+	/// This method is used to change the shoes of the character. It will change the mesh and materials of the shoes.
+	/// </summary>
+	public void ChangeShoe(Mesh mesh, Material[] materials)
     {
         shoe.sharedMesh = mesh;
         shoe.materials = materials;

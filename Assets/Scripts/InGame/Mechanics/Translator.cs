@@ -4,6 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class is used to move the object in a sinusoidal pattern along a specified axis.
+/// </summary>
 [RequireComponent(typeof(NetworkTransform))]
 public class Translator : NetworkBehaviour
 {

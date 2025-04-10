@@ -3,6 +3,9 @@ using FishNet.Object;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class is used to handle the projectile behavior.
+/// </summary>
 [RequireComponent(typeof(NetworkTransform))]
 public class Projectile : NetworkBehaviour
 {

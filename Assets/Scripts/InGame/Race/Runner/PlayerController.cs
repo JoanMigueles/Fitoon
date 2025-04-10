@@ -7,6 +7,9 @@ using FishNet.Component.Transforming;
 using FishNet.Object.Synchronizing;
 using TMPro;
 
+/// <summary>
+/// This class is used to control the player character. It handles movement and rotation based on face tracking data. It's also used for setting the player's position and medal gain.
+/// </summary>
 public class PlayerController : BaseRunner
 {
 	[SerializeField] new Camera camera;

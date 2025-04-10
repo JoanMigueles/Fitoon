@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class is used to handle the speed boost power-up in the game.
+/// </summary>
 public class SpeedBoost : NetworkBehaviour
 {
     public float speedBoost = 2;

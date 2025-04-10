@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using System;
 
+[Obsolete]
 public class GameOver : MonoBehaviour
 {
     //Debe de ejecutarse este script cuando el jugador acaba la partida por completo, ganando (1 puesto) o perdiendo

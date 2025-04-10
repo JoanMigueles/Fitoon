@@ -4,6 +4,9 @@ using Unity.MLAgents;
 using Unity.MLAgents.Policies;
 using UnityEngine;
 
+/// <summary>
+/// This class is used to control the bots. It handles movement and rotation based on ML-Agents training.
+/// </summary>
 public class BotRunner : BaseRunner
 {
     float moveV;
@@ -32,7 +35,7 @@ public class BotRunner : BaseRunner
 
 
 
-		/* Si en algún momento se vuelven a entrenar los bots recomiendo usar esto, o algo parecido a esto
+		/* Si en algún momento se vuelven a entrenar los bots desde cero recomiendo usar esto, o algo parecido a esto
 		rigidBody.rotation = Quaternion.Slerp(rigidBody.rotation, Quaternion.Euler(0, moveH, 0), rotationSpeed);
 		rigidBody.AddForce(transform.forward * moveV * Mathf.Max(0.1f, speedMultiplier) * baseSpeed, ForceMode.VelocityChange);
 		*/
@@ -90,6 +93,9 @@ public class BotRunner : BaseRunner
 		}
 	}
 
+	/// <summary>
+	/// Set the movement of the bot. This method is used to set the movement values for the bot. It receives these values from the ML-Agents training.
+	/// </summary>
 	public void SetMovement(float moveV, float moveH)
 	{
 		if (canMove)

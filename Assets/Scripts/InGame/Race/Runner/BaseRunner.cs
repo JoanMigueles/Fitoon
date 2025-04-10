@@ -7,6 +7,9 @@ using FishNet.Object.Synchronizing;
 using System;
 using System.Linq;
 
+/// <summary>
+/// Base class for bots and players. It handles setting the appearance of the character and its animation.
+/// </summary>
 public class BaseRunner : NetworkBehaviour
 {
 
@@ -44,10 +47,13 @@ public class BaseRunner : NetworkBehaviour
 		StopCoroutine(animatorCoroutine);
 	}
 
+	/// <summary>
+	/// Sets the character data and name tag for the player.
+	/// </summary>
 	[ServerRpc]
 	protected void SetCharacter(CharacterData characterData, string playerName)
 	{
-				Debug.Log("[CHARLOAD] Server" + characterData.hairColor + " " + characterData.skinColor + " " + characterData.topColor + " " + characterData.bottomColor);
+		Debug.Log("[CHARLOAD] Server" + characterData.hairColor + " " + characterData.skinColor + " " + characterData.topColor + " " + characterData.bottomColor);
 
 		LoadCharacter(characterData);
 		SetNameTag(playerName);
@@ -59,6 +65,9 @@ public class BaseRunner : NetworkBehaviour
 		nameTag.text = name;
 	}
 
+	/// <summary>
+	/// This method is used to load the character data. It instantiates the character prefab and sets its colors.
+	/// </summary>
 	[ObserversRpc]
 	void LoadCharacter(CharacterData characterData)
 	{
@@ -127,12 +136,16 @@ public class BaseRunner : NetworkBehaviour
 
 	protected void BaseUpdate()
 	{
+		//Esto se hace así porque no se sabe exactamente cuando se va a crear el objeto.
 		if (animator == null)
 		{
 			animator = GetComponentInChildren<Animator>();
 		}
 	}
 
+	/// <summary>
+	/// Updates the character animations every 0.5 seconds.
+	/// </summary>
 	IEnumerator UpdateAnimatorAndBoostTrail()
 	{
 		while (IsOwner)
@@ -178,6 +191,9 @@ public class BaseRunner : NetworkBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Called when the player reaches the goal. It freezes the player and notifies the GameManager.
+	/// </summary>
 	void GoalReached()
 	{
 		if(!IsOwner)
@@ -191,6 +207,9 @@ public class BaseRunner : NetworkBehaviour
 		FindFirstObjectByType<GameManager>().GoalReached(id.Value);
 	}
 
+	/// <summary>
+	/// Freezes the player movement and sets the velocity to zero.
+	/// </summary>
 	[ServerRpc]
 	void FreezeServerRpc()
 	{
@@ -207,6 +226,9 @@ public class BaseRunner : NetworkBehaviour
 		rigidBody.velocity = Vector3.zero;
 	}
 
+	/// <summary>
+	/// Unfreezes the player movement.
+	/// </summary>
 	[ObserversRpc(ExcludeServer = false, ExcludeOwner = false)]
 	public void UnFreeze()
 	{
@@ -226,11 +248,5 @@ public class BaseRunner : NetworkBehaviour
 	public int GetId()
 	{
 		return id.Value;
-	}
-
-	[ServerRpc (RequireOwnership = false)]
-	void SetIdServerRpc(int i)
-	{
-		
 	}
 }

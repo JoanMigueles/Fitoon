@@ -7,6 +7,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class is used for each client to send information to the server when they initially connect. It is instantiated and spawned by the PlayerSpawner component in the LobbyScene.
+/// </summary>
 public class LobbyPlayer : NetworkBehaviour
 {
 	public override void OnStartClient()

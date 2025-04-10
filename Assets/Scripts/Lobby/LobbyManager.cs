@@ -15,8 +15,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// This class is used to manage the lobby. It handles player entries, ready states, and starting the game.
+/// </summary>
 public class LobbyManager : NetworkBehaviour
 {
+	/// <summary>
+	/// This class is used to store the data necessary to render each player's banner in the lobby.
+	/// </summary>
 	public class PlayerCard
 	{
 		public string name;
@@ -56,6 +62,7 @@ public class LobbyManager : NetworkBehaviour
 
 	private void Update()
 	{
+		// The update loop is used to render the player cards client-side.
 		List<PlayerCard> playerCards = playerEntries.Values.ToList();
 		playerCards = playerCards.OrderByDescending(p => p.score).ToList();
 		int i;

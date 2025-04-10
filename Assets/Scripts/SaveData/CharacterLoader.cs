@@ -2,10 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class to load character data and create character instances.
+/// </summary>
 public class CharacterLoader : Object
 {
     static CharacterDataList characterDataList;
-    public static Character GetCharacter(CharacterData data)
+
+	/// <summary>
+	/// Given a CharacterData object, this method retrieves the corresponding character prefab, shoes and colors.
+    /// </summary>
+	public static Character GetCharacter(CharacterData data)
     {
         Character characterStruct = new Character
         {
@@ -51,7 +58,11 @@ public class CharacterLoader : Object
 
 		return characterStruct;
     }
-    public static CharacterData CreateRandomCharacterData()
+
+	/// <summary>
+	/// Returns a random character data object.
+    /// </summary>
+	public static CharacterData CreateRandomCharacterData()
     {
         if(characterDataList == null)
         {
@@ -67,6 +78,10 @@ public class CharacterLoader : Object
         return characterData;
 	}
 }
+
+/// <summary>
+/// Struct that holds the data necessary to instantiate a character.
+/// </summary>
 public struct Character
 {
     public GameObject prefab;

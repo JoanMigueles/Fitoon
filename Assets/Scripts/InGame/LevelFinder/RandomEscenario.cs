@@ -7,6 +7,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// This class is used to randomly select the map for the game. It will show a countdown and then load the selected map.
+/// </summary>
 public class RandomEscenario : NetworkBehaviour
 {
     [SerializeField] List<EscenarioItem> escenarios = new List<EscenarioItem>();
@@ -34,7 +37,10 @@ public class RandomEscenario : NetworkBehaviour
         if(timerActive) timer += Time.deltaTime;
     }
 
-    [ObserversRpc]
+	/// <summary>
+	/// Sets the final map to be loaded. This function is called by the server when the countdown ends.
+	/// </summary>
+	[ObserversRpc]
     void SetFinalMap(int i)
     {
         Debug.Log("SetFinalMap: " + i.ToString() + " " + escenarios[i].nombreEscenario);

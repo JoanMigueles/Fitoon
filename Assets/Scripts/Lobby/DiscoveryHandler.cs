@@ -6,12 +6,15 @@ using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
 
+/// <summary>
+/// This class is used to discover servers on the network. It uses the NetworkDiscovery component to search for servers and connect to them.
+/// </summary>
 public class DiscoveryHandler : MonoBehaviour
 {
 	public static string Passcode;
 	NetworkDiscovery netDiscovery;
 	[SerializeField] NetworkManager networkManager;
-	[SerializeField] ushort port = 7077;
+	[SerializeField] ushort port = 7077;    //This is the port where the game is hosted.
 
 	void Start()
 	{
@@ -35,6 +38,9 @@ public class DiscoveryHandler : MonoBehaviour
 		netDiscovery.ServerFoundCallback -= ConnectToServer;
 	}
 
+	/// <summary>
+	/// This method is used to start the server discovery process. It will search for servers on the network and connect to them if found. If none are found, it will start a server on the local machine.
+	/// </summary>
 	public void BeginSearch()
 	{
 		Debug.Log("Searching. . . ");
