@@ -37,11 +37,15 @@ public class InitialUIManager : UIManager
     [SerializeField] private GameObject leaderboardFieldPrefab;
     [SerializeField] private GameObject leaderboardPlayerPreview;
 
+    [Header("Pay Screen")]
+    [SerializeField] private GameObject UnlinkedGymScreen;
+
 
     private void Start()
     {
         SaveData.ReadFromJson();
         UpdateAllUI();
+        CheckGymStatus();
     }
 
     private void Update()
@@ -90,6 +94,11 @@ public class InitialUIManager : UIManager
                 UpdateProfile(result);
             });
         });
+    }
+
+    public void CheckGymStatus()
+    {
+        
     }
 
     public void UpdateAllUI()
