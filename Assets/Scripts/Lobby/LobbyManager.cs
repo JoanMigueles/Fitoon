@@ -44,7 +44,7 @@ public class LobbyManager : NetworkBehaviour
 	[SerializeField] TextMeshProUGUI playerCountText;
 	[SerializeField] GameObject lobbyPlayerPrefab;
 
-	List<GameObject> cardList = new List<GameObject>();
+	List<LeaderboardField> cardList = new List<LeaderboardField>();
 
 	bool starting = false;
 
@@ -70,18 +70,20 @@ public class LobbyManager : NetworkBehaviour
 		{
 			if(i >= cardList.Count)
 			{
-				cardList.Add(Instantiate(cardPrefab, content.transform));
+				LeaderboardField card = Instantiate(cardPrefab, content.transform).GetComponent<LeaderboardField>();
+                cardList.Add(card);
 			}
-			cardList[i].GetComponent<Image>().sprite = AssetLoader.LoadBanner(playerCards[i].banner);
-			cardList[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = playerCards[i].name;
-			cardList[i].transform.GetChild(1).GetComponent<Image>().enabled = playerCards[i].ready;
-			cardList[i].transform.GetChild(2).GetComponent<Image>().sprite = AssetLoader.LoadPFP(playerCards[i].pfp);
-			cardList[i].transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = playerCards[i].score.ToString();
-			cardList[i].transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = playerCards[i].title;
+			(Color outline, Sprite background) = AssetLoader.LoadBanner(playerCards[i].banner);
+            cardList[i].SetBanner(outline, background);
+			cardList[i].SetPlayerName(playerCards[i].name);
+			cardList[i].SetReady(playerCards[i].ready);
+			cardList[i].SetProfilePicture(AssetLoader.LoadPFP(playerCards[i].pfp));
+			cardList[i].SetMedals(playerCards[i].score);
+			cardList[i].SetPlayerTitle(playerCards[i].title);
 		}
 		for(int j = cardList.Count - 1; j >= i; j--)
 		{
-			Destroy(cardList[j]);
+			Destroy(cardList[j].gameObject);
 			cardList.RemoveAt(j);
 		}
 	}

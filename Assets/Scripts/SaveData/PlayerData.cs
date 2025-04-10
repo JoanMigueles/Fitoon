@@ -19,6 +19,8 @@ public class PlayerData
     public List<int> purchasedSkins;
     public List<int> purchasedShoes;
     public List<int> purchasedColors;
+    public List<int> unlockedBanners;
+    public List<int> unlockedIcons;
     public CharacterData playerCharacterData;
 
     public PlayerData()
@@ -26,6 +28,9 @@ public class PlayerData
         purchasedSkins = new List<int> { 0 };
         purchasedShoes = new List<int> { 0 };
         purchasedColors = new List<int> { 0, 2, 4, 7, 10, 13, 14, 16 };
+
+        unlockedBanners = new List<int> { 0 };
+        unlockedIcons = new List<int> { 0 };
         title = "Novice Runner";
     }
 }

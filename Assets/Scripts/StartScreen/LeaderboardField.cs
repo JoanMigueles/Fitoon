@@ -21,11 +21,13 @@ public class LeaderboardField : MonoBehaviour
 
     public void SetPlayerTitle(string title)
     {
-        playerName.text = title;
+        playerTitle.text = title;
     }
 
-    public void SetMedals(int medals, ProgressData pData)
+    public void SetMedals(int medals)
     {
+        ProgressData pData = Resources.Load<ProgressData>("ProgressData");
+
         this.medals.text = medals.ToString();
         int rank = medals / pData.rankMedalInterval;
         if(rank >= pData.rankTitles.Count) {
@@ -42,12 +44,17 @@ public class LeaderboardField : MonoBehaviour
         position.text = "#" + pos.ToString();
     }
 
-    public void SetBanner(int bannerID)
+    public void SetBanner(Color outline, Sprite background)
     {
 
     }
 
-    public void SetProfilePicture(int pfpID)
+    public void SetProfilePicture(Sprite pfp)
+    {
+
+    }
+
+    public void SetReady(bool ready)
     {
 
     }

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using TMPro;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
@@ -257,14 +258,16 @@ public class InitialUIManager : UIManager
             LeaderboardField leaderboardField = field.GetComponent<LeaderboardField>();
 
             leaderboardField.SetPlayerName(leaderboard[i].Item1);
-            leaderboardField.SetMedals(leaderboard[i].Item2.medals, progressData);
+            leaderboardField.SetPlayerTitle(leaderboard[i].Item2.title);
+            leaderboardField.SetMedals(leaderboard[i].Item2.medals);
             leaderboardField.SetPosition(i);
 
             if (leaderboard[i].Item1 == SaveData.player.username)
             {
                 LeaderboardField playerField = leaderboardPlayerPreview.GetComponent<LeaderboardField>();
                 playerField.SetPlayerName(leaderboard[i].Item1);
-                playerField.SetMedals(leaderboard[i].Item2.medals, progressData);
+                playerField.SetPlayerTitle(leaderboard[i].Item2.title);
+                playerField.SetMedals(leaderboard[i].Item2.medals);
                 playerField.SetPosition(i);
             }
         }
@@ -280,13 +283,15 @@ public class InitialUIManager : UIManager
             LeaderboardField leaderboardField = field.GetComponent<LeaderboardField>();
 
             leaderboardField.SetPlayerName(leaderboard[i].Item1);
-            leaderboardField.SetMedals(leaderboard[i].Item2.medals, progressData);
+            leaderboardField.SetPlayerTitle(leaderboard[i].Item2.title);
+            leaderboardField.SetMedals(leaderboard[i].Item2.medals);
             leaderboardField.SetPosition(i);
 
             if (leaderboard[i].Item1 == SaveData.player.username) {
                 LeaderboardField playerField = leaderboardPlayerPreview.GetComponent<LeaderboardField>();
                 playerField.SetPlayerName(leaderboard[i].Item1);
-                playerField.SetMedals(leaderboard[i].Item2.medals, progressData);
+                playerField.SetPlayerTitle(leaderboard[i].Item2.title);
+                playerField.SetMedals(leaderboard[i].Item2.medals);
                 playerField.SetPosition(i);
             }
         }
@@ -303,7 +308,7 @@ public class InitialUIManager : UIManager
             LeaderboardField leaderboardField = field.GetComponent<LeaderboardField>();
 
             leaderboardField.SetPlayerName(leaderboard[i].Item1);
-            leaderboardField.SetMedals(leaderboard[i].Item2, progressData);
+            leaderboardField.SetMedals(leaderboard[i].Item2);
             leaderboardField.SetPosition(i);
         }
     }

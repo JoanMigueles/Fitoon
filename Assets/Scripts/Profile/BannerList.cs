@@ -6,4 +6,5 @@ using UnityEngine;
 public class BannerList : ScriptableObject
 {
 	public Sprite[] Banners;
+    public Color[] Colors;
 }

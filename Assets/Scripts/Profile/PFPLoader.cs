@@ -12,10 +12,10 @@ public class AssetLoader
             pfpList = Resources.Load<PFPList>("PFPList");
         return pfpList.sprites[i];
     }
-    public static Sprite LoadBanner(int i)
+    public static (Color, Sprite) LoadBanner(int i)
 	{
 		if (bannerList == null)
 			bannerList = Resources.Load<BannerList>("BannerList");
-		return bannerList.Banners[i];
+		return (bannerList.Colors[i], bannerList.Banners[i]);
 	}
 }

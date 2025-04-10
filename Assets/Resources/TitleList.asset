@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19378c15532e46f47a40a7527fb27289, type: 3}
-  m_Name: BannerList
+  m_Script: {fileID: 11500000, guid: 6f1b24b2fa814bd4f8b7faecd42788cb, type: 3}
+  m_Name: TitleList
   m_EditorClassIdentifier: 
-  Banners:
-  - {fileID: 21300000, guid: 83829fec224c23d4dba54f624d05a980, type: 3}
-  Colors:
-  - {r: 0.91892976, g: 0.740566, b: 1, a: 0}
+  Titles:
+  - Novice Runner
