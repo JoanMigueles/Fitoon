@@ -3,6 +3,7 @@ using Firebase.Database;
 using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using System.Linq;
 
 public class DatabaseManager : MonoBehaviour
 {
@@ -273,7 +274,7 @@ public class DatabaseManager : MonoBehaviour
     public void GetGymsLeaderboardWithNames(Action<List<Tuple<string, int>>> callback)
     {
         List<Tuple<string, int>> leaderboard = new List<Tuple<string, int>>();
-        dbReference.Child("Gyms").OrderByChild("gymKey").GetValueAsync().ContinueWith(task =>
+        dbReference.Child("Gyms").GetValueAsync().ContinueWith(task =>
         {
             if (task.IsFaulted)
             {
@@ -300,8 +301,8 @@ public class DatabaseManager : MonoBehaviour
                     }, gymKey);
                     taskCompletionSource.Task.Wait();
                 }
-                leaderboard.Reverse();
-                callback(leaderboard);
+                List<Tuple<string, int>> orderedLeaderboard = leaderboard.OrderByDescending(t => t.Item2).ToList();
+                callback(orderedLeaderboard);
             }
         });
     }

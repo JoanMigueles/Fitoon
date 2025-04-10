@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -33,7 +34,17 @@ public class InitialUIManager : UIManager
     [SerializeField] private Image profileIconImage;
 
     [Header("Leaderboard Data")]
-    [SerializeField] private GameObject leaderboardContentWindow;
+    [SerializeField] private GameObject leaderboardScroll;
+    [SerializeField] private GameObject leaderboardTabs;
+    [SerializeField] private GameObject selectedContentTab;
+    [SerializeField] private GameObject Global;
+    [SerializeField] private GameObject AllGyms;
+    [SerializeField] private GameObject Gym;
+
+    [SerializeField] private Sprite selectedTabSprite;
+    [SerializeField] private Sprite deselectedTabSprite;
+    
+
     [SerializeField] private GameObject leaderboardFieldPrefab;
     [SerializeField] private GameObject leaderboardPlayerPreview;
 
@@ -111,6 +122,25 @@ public class InitialUIManager : UIManager
                 });
             }
         });
+    }
+
+    public void SetLeaderboardTab(GameObject selectedTab)
+    {
+        foreach (Transform tab in leaderboardScroll.transform) {
+            tab.gameObject.SetActive(tab.gameObject == selectedTab);
+            selectedContentTab = selectedTab.GetComponent<ScrollRect>().content.gameObject;
+        }
+    }
+
+    public void SetTabButtonSelected(GameObject selectedButton)
+    {
+        foreach (Transform button in leaderboardTabs.transform) {
+            if (button.gameObject == selectedButton) {
+                button.GetComponent<Image>().sprite = selectedTabSprite;
+            } else {
+                button.GetComponent<Image>().sprite = deselectedTabSprite;
+            }
+        }
     }
 
     public void UpdateAllUI()
@@ -191,20 +221,39 @@ public class InitialUIManager : UIManager
     }
     public void DisplayLeaderboardData()
     {
-        DatabaseManager.instance.GetLeaderboard((leaderboard) => {
-            MainThreadDispatcher.instance.Enqueue(() => {
-                DisplayLeaderBoardData(leaderboard);
+        if(leaderboardPlayerPreview != null) leaderboardPlayerPreview.transform.parent.gameObject.SetActive(true);
+        if (selectedContentTab == Global)
+        {
+            DatabaseManager.instance.GetLeaderboard((leaderboard) => {
+                MainThreadDispatcher.instance.Enqueue(() => {
+                    DisplayLeaderBoardData(leaderboard);
+                });
             });
-        });
+        }
+        else if (selectedContentTab == Gym && SaveData.player.gymKey != -1) {
+            DatabaseManager.instance.GetLeaderboard((leaderboard) => {
+                MainThreadDispatcher.instance.Enqueue(() => {
+                    DisplayGymLeaderBoardData(leaderboard);
+                });
+            }, SaveData.player.gymKey);
+        }
+        else if (selectedContentTab == AllGyms) {
+            DatabaseManager.instance.GetGymsLeaderboardWithNames((leaderboard) => {
+                MainThreadDispatcher.instance.Enqueue(() => {
+                    foreach (var item in leaderboard) Debug.Log(item.Item1);
+                    DisplayAllGymsLeaderBoardData(leaderboard);
+                });
+            });
+        }
     }
 
     public void DisplayLeaderBoardData(List<Tuple<string, UserData>> leaderboard)
     {
-        foreach(Transform child in leaderboardContentWindow.transform) {
+        foreach(Transform child in selectedContentTab.transform) {
             Destroy(child.gameObject);
         }
         for (int i = 0; i < leaderboard.Count; i++) {
-            GameObject field = Instantiate(leaderboardFieldPrefab, leaderboardContentWindow.transform);
+            GameObject field = Instantiate(leaderboardFieldPrefab, selectedContentTab.transform);
             LeaderboardField leaderboardField = field.GetComponent<LeaderboardField>();
 
             leaderboardField.SetPlayerName(leaderboard[i].Item1);
@@ -218,6 +267,44 @@ public class InitialUIManager : UIManager
                 playerField.SetMedals(leaderboard[i].Item2.medals, progressData);
                 playerField.SetPosition(i);
             }
+        }
+    }
+
+    public void DisplayGymLeaderBoardData(List<Tuple<string, UserData>> leaderboard)
+    {
+        foreach (Transform child in selectedContentTab.transform) {
+            Destroy(child.gameObject);
+        }
+        for (int i = 0; i < leaderboard.Count; i++) {
+            GameObject field = Instantiate(leaderboardFieldPrefab, selectedContentTab.transform);
+            LeaderboardField leaderboardField = field.GetComponent<LeaderboardField>();
+
+            leaderboardField.SetPlayerName(leaderboard[i].Item1);
+            leaderboardField.SetMedals(leaderboard[i].Item2.medals, progressData);
+            leaderboardField.SetPosition(i);
+
+            if (leaderboard[i].Item1 == SaveData.player.username) {
+                LeaderboardField playerField = leaderboardPlayerPreview.GetComponent<LeaderboardField>();
+                playerField.SetPlayerName(leaderboard[i].Item1);
+                playerField.SetMedals(leaderboard[i].Item2.medals, progressData);
+                playerField.SetPosition(i);
+            }
+        }
+    }
+
+    public void DisplayAllGymsLeaderBoardData(List<Tuple<string, int>> leaderboard)
+    {
+        leaderboardPlayerPreview.transform.parent.gameObject.SetActive(false);
+        foreach (Transform child in selectedContentTab.transform) {
+            Destroy(child.gameObject);
+        }
+        for (int i = 0; i < leaderboard.Count; i++) {
+            GameObject field = Instantiate(leaderboardFieldPrefab, selectedContentTab.transform);
+            LeaderboardField leaderboardField = field.GetComponent<LeaderboardField>();
+
+            leaderboardField.SetPlayerName(leaderboard[i].Item1);
+            leaderboardField.SetMedals(leaderboard[i].Item2, progressData);
+            leaderboardField.SetPosition(i);
         }
     }
 
