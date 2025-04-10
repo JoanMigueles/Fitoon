@@ -2,9 +2,6 @@ using UnityEngine;
 using Firebase.Database;
 using System;
 using System.Collections.Generic;
-using UnityEditor;
-using Unity.VisualScripting;
-using Unity.MLAgents.Actuators;
 using Unity.Mathematics;
 
 public class DatabaseManager : MonoBehaviour
@@ -49,6 +46,11 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks if the username already exists in the database.
+    /// </summary>
+    /// <param name="username"></param>
+    /// <param name="callback"></param>
     public void CheckUsername(string username, Action<bool> callback)
     {
         dbReference.Child("Users").Child(username).GetValueAsync().ContinueWith(task =>
@@ -145,21 +147,22 @@ public class DatabaseManager : MonoBehaviour
 
     public void CheckGymStatus(int gymKey, Action<bool> callback)
     {
-        dbReference.Child("Gyms").Child(gymKey.ToString()).GetValueAsync().ContinueWith(task =>
+        dbReference.Child("Gyms").OrderByChild("gymKey").EqualTo(gymKey).LimitToFirst(1).GetValueAsync().ContinueWith(task =>
         {
             if (task.IsFaulted)
             {
-                Debug.LogError("Error checking gym status: " + task.Exception);
                 callback(false);
             }
             else if (task.IsCompleted)
             {
                 DataSnapshot snapshot = task.Result;
-                CheckAuthKey(Convert.ToInt32(snapshot.Child("authKey").Value), (authorised) =>
+                foreach (DataSnapshot child in snapshot.Children)
                 {
-                    if (!authorised) callback(false); // Wrong auth key
-                    else callback(true); // Gym is valid
-                });
+                    CheckAuthKey(Convert.ToInt32(child.Child("authKey").Value), (authorised) =>
+                    {
+                        callback(authorised);
+                    });
+                }
             }
         });
     }
