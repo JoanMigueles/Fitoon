@@ -143,6 +143,27 @@ public class DatabaseManager : MonoBehaviour
         });
     }
 
+    public void CheckGymStatus(int gymKey, Action<bool> callback)
+    {
+        dbReference.Child("Gyms").Child(gymKey.ToString()).GetValueAsync().ContinueWith(task =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.LogError("Error checking gym status: " + task.Exception);
+                callback(false);
+            }
+            else if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                CheckAuthKey(Convert.ToInt32(snapshot.Child("authKey").Value), (authorised) =>
+                {
+                    if (!authorised) callback(false); // Wrong auth key
+                    else callback(true); // Gym is valid
+                });
+            }
+        });
+    }
+
     /// <summary>
     /// Registers a new gym in the database.
     /// Checks if the gym name already exists and if the auth key is valid before registering.

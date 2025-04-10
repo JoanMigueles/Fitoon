@@ -45,7 +45,7 @@ public class InitialUIManager : UIManager
     {
         SaveData.ReadFromJson();
         UpdateAllUI();
-        CheckGymStatus();
+        if(SaveData.player.gymKey != -1) CheckGymStatus();
     }
 
     private void Update()
@@ -98,7 +98,19 @@ public class InitialUIManager : UIManager
 
     public void CheckGymStatus()
     {
-        
+        DatabaseManager.instance.CheckGymStatus(SaveData.player.gymKey, (status) =>
+        {
+            if(!status)
+            {
+                MainThreadDispatcher.instance.Enqueue(() =>
+                {
+                    Debug.Log("Gym status false, opening pay screen");
+                    OpenMenu(UnlinkedGymScreen);
+                    SaveData.player.gymKey = -1;
+                    SaveData.SaveToJson();
+                });
+            }
+        });
     }
 
     public void UpdateAllUI()
