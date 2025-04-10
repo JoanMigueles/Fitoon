@@ -5,7 +5,9 @@ using TMPro;
 using UnityEngine.UI;
 using FishNet.Object;
 using FishNet;
+using System;
 
+[Obsolete]
 public class Ranking : NetworkBehaviour
 {/*
     [SerializeField] GameObject rankingPosPrefab;

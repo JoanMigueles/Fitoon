@@ -26,3 +26,4 @@ MonoBehaviour:
   topColor: {r: 0.078431375, g: 0.627451, b: 0.18039216, a: 1}
   bottomColor: {r: 0.15686275, g: 0.36078432, b: 0.76862746, a: 1}
   shoes: {fileID: 11400000, guid: 6cbb8dfb02351d24395c22f2a698c655, type: 2}
+  editorIcon: {fileID: 21300000, guid: 00d9cc0a699892143b59bd136b5bc761, type: 3}

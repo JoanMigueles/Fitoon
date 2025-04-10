@@ -48,9 +48,9 @@ public class SimpleRotator : NetworkBehaviour
         transform.Rotate(rotationAxis * rotationSpeed * Time.deltaTime);
     }
 
-    public void Reset()
+    /*public void Reset()
     {
         transform.SetPositionAndRotation(pos, rot);
-    }
+    }*/
 
 }

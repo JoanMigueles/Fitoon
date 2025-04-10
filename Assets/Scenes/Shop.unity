@@ -158,9 +158,9 @@ RectTransform:
   m_Father: {fileID: 1932563353}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 228, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 333, y: 0}
   m_SizeDelta: {x: 0, y: 700}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &10889427
@@ -664,8 +664,8 @@ RectTransform:
   m_Father: {fileID: 1932563353}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 100, y: 0}
   m_SizeDelta: {x: 0, y: 700}
   m_Pivot: {x: 0, y: 1}
@@ -1574,9 +1574,9 @@ RectTransform:
   m_Father: {fileID: 1932563353}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 164, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 234, y: 0}
   m_SizeDelta: {x: 0, y: 700}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &866884900
@@ -4510,23 +4510,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 31139ce02ebf2dd4fac1bc77f8e4d3b2, type: 2}
   - {fileID: 11400000, guid: 45e162a67199dbd46b847c1d9c3ddbe9, type: 2}
   colorItems:
-  - {fileID: 11400000, guid: ff24b724a93668b499693ba02d6d3563, type: 2}
   - {fileID: 11400000, guid: cae3b5bd374e9144097026d859511809, type: 2}
-  - {fileID: 11400000, guid: 7cb6a231cae702f4a8324ba320f91e29, type: 2}
   - {fileID: 11400000, guid: 8c5decf2b3fcd5c49a4dfec39f545ee3, type: 2}
-  - {fileID: 11400000, guid: c6d19282f579d0644bb4bd3f423a00a6, type: 2}
   - {fileID: 11400000, guid: 557e46caed1471049a4c526e6340461e, type: 2}
   - {fileID: 11400000, guid: 00d9b204b75b03a45ba8bac33ce898f3, type: 2}
-  - {fileID: 11400000, guid: a21a613533d05c844a9e3d3c8e530a8c, type: 2}
   - {fileID: 11400000, guid: ddd910a057a162f46a7e79524faadff3, type: 2}
   - {fileID: 11400000, guid: 8ff5f06ce13fe5c4997eca8c7457dc76, type: 2}
-  - {fileID: 11400000, guid: 83869bc5fdb87b2499c3d5c6fe89ef30, type: 2}
   - {fileID: 11400000, guid: b0f7e3e75e1d2fc46be7dc27a4f9cc25, type: 2}
   - {fileID: 11400000, guid: a057cd0b92a16c6489dad52ef25ec173, type: 2}
-  - {fileID: 11400000, guid: 36ab9318ac3b74443ab8b63df7902938, type: 2}
-  - {fileID: 11400000, guid: d6d3a6c54977ce244af65a511c8dd555, type: 2}
   - {fileID: 11400000, guid: 96502a0ed5ea9a649b5c06a15fb80c1e, type: 2}
-  - {fileID: 11400000, guid: ac69595760eaf074ab9acdb52a66e10e, type: 2}
   - {fileID: 11400000, guid: ce5086c7397afa8449833f2615491467, type: 2}
   - {fileID: 11400000, guid: 2a3bbcbb299dfc946b00403e5a97cfcc, type: 2}
   - {fileID: 11400000, guid: 9dfd816c6e591b3458ed3f27f4239b47, type: 2}
@@ -4546,6 +4538,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dee8eb4fd78c9fb4094b96297d9a6081, type: 2}
   - {fileID: 11400000, guid: 5e7a2570b432320458dc451138093872, type: 2}
   - {fileID: 11400000, guid: 4453df426798fe0408cacdeef1b58374, type: 2}
+  - {fileID: 11400000, guid: 2daa129c2cfdef74ebfb21ccebb88b00, type: 2}
   charactersContainer: {fileID: 418534453}
   shoesContainer: {fileID: 866884898}
   colorsContainer: {fileID: 10889425}
