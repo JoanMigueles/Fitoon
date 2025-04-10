@@ -34,9 +34,6 @@ public class InitialUIManager : UIManager
 
     [Header("Leaderboard Data")]
     [SerializeField] private GameObject leaderboardContentWindow;
-    [SerializeField] private GameObject leaderboardGymContentWindow;
-    [SerializeField] private GameObject leaderboardAllGymsContentWindow;
-    private string currentActiveLeaderboardTab = "GLOBAL";
     [SerializeField] private GameObject leaderboardFieldPrefab;
     [SerializeField] private GameObject leaderboardPlayerPreview;
 
@@ -114,13 +111,6 @@ public class InitialUIManager : UIManager
                 });
             }
         });
-    }
-
-    public void SetLeaderboardTab(string tab)
-    {
-        if (tab == "GLOBAL") {
-
-        }
     }
 
     public void UpdateAllUI()
