@@ -6266,11 +6266,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8286025641903178675, guid: 6e6d07ea019d1fe49bf66ca1152cd51c, type: 3}
       propertyPath: m_text
-      value: PABLO
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8286025641903178675, guid: 6e6d07ea019d1fe49bf66ca1152cd51c, type: 3}
       propertyPath: m_fontSize
-      value: 43.7
+      value: 50.19
       objectReference: {fileID: 0}
     - target: {fileID: 8286025641903178675, guid: 6e6d07ea019d1fe49bf66ca1152cd51c, type: 3}
       propertyPath: m_fontSizeBase

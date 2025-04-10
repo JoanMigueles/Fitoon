@@ -23,10 +23,10 @@ public class PlayerData
 
     public PlayerData()
     {
-        purchasedSkins = new List<int>();
-        purchasedShoes = new List<int>();
-        purchasedColors = new List<int>();
-        title = "";
+        purchasedSkins = new List<int> { 0 };
+        purchasedShoes = new List<int> { 0 };
+        purchasedColors = new List<int> { 0, 2, 4, 7, 10, 13, 14, 16 };
+        title = "Novice Runner";
     }
 }
 

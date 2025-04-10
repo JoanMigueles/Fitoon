@@ -94,6 +94,7 @@ public class PlayerController : BaseRunner
 			int medals = Mathf.RoundToInt((runnerAmount - pos + 1 - runnerAmount / 2) * Mathf.Lerp(15, 5, runnerAmount / 32f));
 			GameObject.Find("PositionText").GetComponent<TextMeshProUGUI>().text = pos + "/" + runnerAmount;
 			SaveData.player.medals += medals;
+			SaveData.player.normalCoins += 5;
 			if (pos == 1)
 			{
 				SaveData.player.wins++;

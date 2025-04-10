@@ -23,7 +23,7 @@ public static class SaveData
         if (player.playerCharacterData is null)
         {
             if(!Application.isEditor) player.username = GooglePlayServicesManager.instance.GetPlayerUsername();
-            else player.username = "Username";
+            else player.username = "Fitooner";
             player.playerCharacterData = new CharacterData();
             player.playerCharacterData.characterName = "Cap Guy";
             player.playerCharacterData.hairColor = new Color(77/255.0f, 36/255.0f, 19/255.0f);
@@ -116,7 +116,7 @@ public static class SaveData
               else
               {
                 callback(false);
-            }
+              }
         });
     }
 }
