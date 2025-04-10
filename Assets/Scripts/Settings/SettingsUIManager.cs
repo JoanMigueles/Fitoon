@@ -62,12 +62,25 @@ public class SettingsUIManager : UIManager
             {
                 if (result)
                 {
-                    MainThreadDispatcher.instance.Enqueue(() =>
+                    DatabaseManager.instance.CheckGymStatus(gymKey, (status) =>
                     {
-                        SaveData.player.gymKey = gymKey;
-                        SaveData.SaveToJson();
-                        UpdateAllUI();
-                        CloseMenu(linkGymMenu);
+                        if(status)
+                        {
+                            MainThreadDispatcher.instance.Enqueue(() =>
+                            {
+                                SaveData.player.gymKey = gymKey;
+                                SaveData.SaveToJson();
+                                UpdateAllUI();
+                                CloseMenu(linkGymMenu);
+                            });
+                        }
+                        else
+                        {
+                            MainThreadDispatcher.instance.Enqueue(() =>
+                            {
+                                StartCoroutine(ShowGymKeyError("This gym is no longer active."));
+                            });
+                        }
                     });
                 }
                 else

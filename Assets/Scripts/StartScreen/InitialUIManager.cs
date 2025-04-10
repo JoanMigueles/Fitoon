@@ -37,11 +37,15 @@ public class InitialUIManager : UIManager
     [SerializeField] private GameObject leaderboardFieldPrefab;
     [SerializeField] private GameObject leaderboardPlayerPreview;
 
+    [Header("Pay Screen")]
+    [SerializeField] private GameObject UnlinkedGymScreen;
+
 
     private void Start()
     {
         SaveData.ReadFromJson();
         UpdateAllUI();
+        if(SaveData.player.gymKey != -1) CheckGymStatus();
     }
 
     private void Update()
@@ -89,6 +93,23 @@ public class InitialUIManager : UIManager
             {
                 UpdateProfile(result);
             });
+        });
+    }
+
+    public void CheckGymStatus()
+    {
+        DatabaseManager.instance.CheckGymStatus(SaveData.player.gymKey, (status) =>
+        {
+            if(!status)
+            {
+                MainThreadDispatcher.instance.Enqueue(() =>
+                {
+                    Debug.Log("Gym status false, opening pay screen");
+                    OpenMenu(UnlinkedGymScreen);
+                    SaveData.player.gymKey = -1;
+                    SaveData.SaveToJson();
+                });
+            }
         });
     }
 
