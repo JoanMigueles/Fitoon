@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using Unity.VisualScripting;
 using Unity.MLAgents.Actuators;
+using Unity.Mathematics;
 
 public class DatabaseManager : MonoBehaviour
 {
@@ -32,6 +33,10 @@ public class DatabaseManager : MonoBehaviour
         dbReference.Child("Users").Child(SaveData.player.username).SetRawJsonValueAsync(json);
     }
 
+
+    /// <summary>
+    /// Delete the player data in the database.
+    /// </summary>
     public void DeletePlayerData()
     {
         try
@@ -42,6 +47,22 @@ public class DatabaseManager : MonoBehaviour
         {
             Debug.LogError("Error deleting player data: " + e.Message);
         }
+    }
+
+    public void CheckUsername(string username, Action<bool> callback)
+    {
+        dbReference.Child("Users").Child(username).GetValueAsync().ContinueWith(task =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.LogError("Error checking username: " + task.Exception);
+            }
+            else if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                callback(snapshot.Exists && snapshot.ChildrenCount > 0);
+            }
+        });
     }
 
     /// <summary>
@@ -61,7 +82,7 @@ public class DatabaseManager : MonoBehaviour
     /// <param name="callback"></param> Callback function to handle the result.
     public void CheckGymKey(int gymKey, Action<bool> callback)
     {
-        Query query = dbReference.Child("Gyms").OrderByChild("gymID").EqualTo(gymKey).LimitToFirst(1);
+        Query query = dbReference.Child("Gyms").OrderByChild("gymKey").EqualTo(gymKey).LimitToFirst(1);
         query.GetValueAsync().ContinueWith(task =>
         {
             if (task.IsFaulted)
@@ -127,27 +148,28 @@ public class DatabaseManager : MonoBehaviour
     /// Checks if the gym name already exists and if the auth key is valid before registering.
     /// </summary>
     /// <param name="gymName"></param> Gym name to register.
-    /// <param name="gymKey"></param> Gym ID to register.
     /// <param name="authKey"></param> Auth key to check.
-    public void RegisterGym(string gymName, int gymKey, int authKey)
+    /// <param name="callback"></param> Callback function to handle the result.
+    public void RegisterGym(string gymName, int authKey, Action<Tuple<int, int>> callback)
     {
         CheckGymName(gymName, (exists) =>
         {
             if (exists)
             {
-                Debug.Log("Gym name already exists. Please choose a different name.");
-                return;
+                callback(new Tuple<int, int>(1, 0)); // Gym name already taken
             }
             else
             {
                 CheckAuthKey(authKey, (authorised) =>
                 {
-                    if (!authorised) Debug.Log("Invalid auth key. Please check the key and try again.");
+                    if (!authorised) callback(new Tuple<int, int>(2, 0)); // Wrong auth key
                     else
                     {
+                        int gymKey = math.abs(gymName.GetHashCode());
                         GymData gym = new GymData(gymKey, authKey);
                         string json = JsonUtility.ToJson(gym);
                         dbReference.Child("Gyms").Child(gymName).SetRawJsonValueAsync(json);
+                        callback(new Tuple<int, int>(0, gymKey)); // Gym registered successfully
                     }
                 });
             }
@@ -185,6 +207,7 @@ public class DatabaseManager : MonoBehaviour
                     if (gymKey == null) leaderboard.Add(new Tuple<string, UserData>(username, userData));
                     else if (gymKey == gymKey2) leaderboard.Add(new Tuple<string, UserData>(username, userData));
                 }
+                leaderboard.Reverse();
                 callback(leaderboard);
             }
         });
@@ -211,7 +234,7 @@ public class DatabaseManager : MonoBehaviour
                     position++;
                     if(child.Key == SaveData.player.username)
                     {
-                        callback(position);
+                        callback((int) snapshot.ChildrenCount - position);
                         break;
                     }
                 }
@@ -253,6 +276,7 @@ public class DatabaseManager : MonoBehaviour
                     }, gymKey);
                     taskCompletionSource.Task.Wait();
                 }
+                leaderboard.Reverse();
                 callback(leaderboard);
             }
         });
@@ -290,6 +314,7 @@ public class DatabaseManager : MonoBehaviour
                     }, gymKey);
                     taskCompletionSource.Task.Wait();
                 }
+                leaderboard.Reverse();
                 callback(leaderboard);
             }
         });

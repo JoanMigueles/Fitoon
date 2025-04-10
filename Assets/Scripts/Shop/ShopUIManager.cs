@@ -21,10 +21,7 @@ public class ShopUIManager : UIManager
     public GameObject charactersContainer;
     public GameObject shoesContainer;
     public GameObject colorsContainer;
-
     public GameObject shopSlotPrefab;
-
-   
 
     public void Awake()
     {

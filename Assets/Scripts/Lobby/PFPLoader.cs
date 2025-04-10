@@ -2,13 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PFPLoader : MonoBehaviour
+public class AssetLoader
 {
     static PFPList pfpList;
-    public static Sprite LoadPFP(int i)
+	static BannerList bannerList;
+	public static Sprite LoadPFP(int i)
     {
         if (pfpList == null)
             pfpList = Resources.Load<PFPList>("PFPList");
         return pfpList.sprites[i];
     }
+    public static Sprite LoadBanner(int i)
+	{
+		if (bannerList == null)
+			bannerList = Resources.Load<BannerList>("BannerList");
+		return bannerList.Banners[i];
+	}
 }

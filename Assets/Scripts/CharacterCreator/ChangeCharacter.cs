@@ -2,45 +2,141 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEditor;
-using System.Drawing;
+using UnityEngine.UI;
+using System.Linq;
+using static Google.Protobuf.WellKnownTypes.Field.Types;
 
 public class ChangeCharacter : MonoBehaviour
 {
     public CharacterItem actualCharacter; //el que sale mostrado actualmente en el creador de personajes
     public CharacterItem playerCharacter; //el guardado
 
-    [SerializeField] GameObject optionsPanels;
     [SerializeField] GameObject container;
     [SerializeField] GameObject characterSavedText;
     [SerializeField] List<CharacterItem> characters;
+    [SerializeField] List<ColorItem> colors;
     [SerializeField] List<ObjectItem> shoes;
     int characterActive = 0;
+
     [SerializeField] ObjectItem actualShoes;
     [SerializeField] TextMeshProUGUI nameText;
 
+    [SerializeField] private GameObject imageButtonPrefab;
+    [SerializeField] private GameObject colorButtonPrefab;
+    [SerializeField] private Toggle clothesToggle;
+    [SerializeField] private GameObject skinsContent;
+    [SerializeField] private GameObject colorContent;
+    [SerializeField] private GameObject shoesContent;
+
+    [SerializeField] private GameObject skinColorContent;
+    [SerializeField] private GameObject hairColorContent;
 
     private void Awake()
     {
 		//Leer el personaje guardado
 		SaveData.ReadFromJson();
+        ReadUnlockedItems();
+        AddColorListeners();
         ReadCharacter();
+    }
+
+    private void ReadUnlockedItems()
+    {
+        // Skins
+        CharacterDataList characterDataList = Resources.Load<CharacterDataList>("CharacterDataList");
+        List<CharacterItem> characterItemList = characterDataList.characters.ToList();
+        foreach (int skinID in SaveData.player.purchasedSkins) {
+            GameObject panel = Instantiate(imageButtonPrefab, skinsContent.transform);
+            Button button = panel.transform.GetChild(0).GetComponent<Button>();
+
+            CharacterItem item = characterItemList.Find(c => c.itemID == skinID);
+            button.GetComponent<Image>().sprite = item.editorIcon;
+            button.onClick.AddListener(() => OnSkinClicked(skinID));
+            characters.Add(item);
+        }
+
+        // Clothes colors
+        ColorDataList colorDataList = Resources.Load<ColorDataList>("ColorDataList");
+        List<ColorItem> colorItemList = colorDataList.colors.ToList();
+        foreach (int colorID in SaveData.player.purchasedColors) {
+            GameObject panel = Instantiate(colorButtonPrefab, colorContent.transform);
+            Button button = panel.GetComponent<Button>();
+
+            ColorItem item = colorItemList.Find(c => c.itemID == colorID);
+            button.GetComponent<Image>().color = item.color;
+            button.onClick.AddListener(() => SetClothesColor(item.color));
+            colors.Add(item);
+        }
+
+        // Shoes colors
+        ObjectDataList objDataList = Resources.Load<ObjectDataList>("ObjectDataList");
+        List<ObjectItem> objItemList = objDataList.shoes.ToList();
+        foreach (int shoeID in SaveData.player.purchasedShoes) {
+            GameObject panel = Instantiate(imageButtonPrefab, shoesContent.transform);
+            Button button = panel.transform.GetChild(0).GetComponent<Button>();
+
+            ObjectItem item = objItemList.Find(c => c.itemID == shoeID);
+            button.GetComponent<Image>().sprite = ShoeLoader.GetIcon(item.icon);
+            button.onClick.AddListener(() => SetShoes(item));
+            actualShoes = item;
+            shoes.Add(item);
+        }
+    }
+
+    private void AddColorListeners()
+    {
+        foreach (Transform colorPanel in skinColorContent.transform) {
+            Button button = colorPanel.GetComponent<Button>();
+            button.onClick.AddListener(() => SetSkinColor(colorPanel.GetComponent<Image>().color));
+        }
+
+        foreach (Transform colorPanel in hairColorContent.transform) {
+            Button button = colorPanel.GetComponent<Button>();
+            button.onClick.AddListener(() => SetHairColor(colorPanel.GetComponent<Image>().color));
+        }
+    }
+
+    public void SetClothesColor(Color color)
+    {
+        if (clothesToggle.isOn)
+        {
+            actualCharacter.bottom.color = color;
+        } else {
+            actualCharacter.top.color = color;
+        }
         
     }
 
-    public void OnSkinClicked(string skinName)
+    public void SetSkinColor(Color color)
     {
-        for(int i = 0; i < optionsPanels.transform.childCount; i++)
-        {
-            if (optionsPanels.transform.GetChild(i).gameObject.activeInHierarchy)
-            {
-                optionsPanels.transform.GetChild(i).gameObject.SetActive(false);
-            }
-        }
+        actualCharacter.skin.color = color;
+    }
 
+    public void SetHairColor(Color color)
+    {
+        actualCharacter.hair.color = color;
+    }
+
+    //cuando se pulsa el zapato en cuestion, cambiar la malla actual por esa
+    public void SetShoes(ObjectItem objectItem)
+    {
+        GameObject[] selectedObjects;
+        selectedObjects = GameObject.FindGameObjectsWithTag("Shoes");
+        foreach (GameObject obj in selectedObjects) {
+            SkinnedMeshRenderer renderer = obj.GetComponent<SkinnedMeshRenderer>();
+            renderer.sharedMesh = ShoeLoader.GetMesh(objectItem.mesh);
+            renderer.materials = ShoeLoader.getMaterials(objectItem.materials);
+            obj.GetComponent<WhatShoeIHave>().myShoe = objectItem;
+            actualShoes = objectItem;
+        }
+    }
+
+    public void OnSkinClicked(int skinID)
+    {
         //Buscar en qu� �ndice de la lista de personajes est�, segun el NOMBRE de la skin
-        characterActive = characters.FindIndex(character => character.itemName == skinName);
-        actualCharacter = characters[characterActive];
+        characterActive = skinID;
+        actualCharacter = characters.Find((c) => c.itemID == skinID);
+        
 
         //Actualizar el personaje en pantalla
         DestroyImmediate(container.transform.GetChild(0).gameObject);
@@ -54,19 +150,9 @@ public class ChangeCharacter : MonoBehaviour
 
     public void OnArrowClicked(string direction)
     {
-        DestroyImmediate(container.transform.GetChild(0).gameObject);
-        for (int i = 0; i < optionsPanels.transform.childCount; i++)
-        {
-            if (optionsPanels.transform.GetChild(i).gameObject.activeInHierarchy)
-            {
-                optionsPanels.transform.GetChild(i).gameObject.SetActive(false);
-            }
-        }
-
         if (direction == "RIGHT")
         {
             characterActive++;
-
             if (characterActive == characters.Count)
             {
                 characterActive = 0;
@@ -76,18 +162,18 @@ public class ChangeCharacter : MonoBehaviour
         else if (direction == "LEFT")
         {
             characterActive--;
-
             if (characterActive < 0)
             {
                 characterActive = characters.Count - 1;
             }
         }
 
+        //Actualizar el personaje en pantalla
+        DestroyImmediate(container.transform.GetChild(0).gameObject);
         GameObject instance = Instantiate(characters[characterActive].characterPrefab, Vector3.zero, Quaternion.identity, container.transform);
         instance.GetComponent<RotateCharacter>().enabled = true;
         instance.GetComponent<Outline>().enabled = false;
         nameText.text = characters[characterActive].itemName;
-
         actualCharacter = characters[characterActive];
 
         UpdateShoes();
@@ -137,40 +223,6 @@ public class ChangeCharacter : MonoBehaviour
 
         UpdateShoes();
         UpdateColors();
-        
-
-        //Asignar colores guardados (cuando haga reset deben salir estos)
-        /* Color color = Color.black; //si falla saldr� negro
-         if (ColorUtility.TryParseHtmlString(saveData.player.playerCharacterData.hairColor, out color))
-         {
-             actualCharacter.hairColor = color;
-             playerCharacter.hairColor = color;
-         }
-         if (ColorUtility.TryParseHtmlString(saveData.player.playerCharacterData.skinColor, out color))
-         {
-             actualCharacter.skinColor = color;
-         }
-         if (ColorUtility.TryParseHtmlString(saveData.player.playerCharacterData.bottomColor, out color))
-         {
-             actualCharacter.bottomColor = color;
-         }
-         if (ColorUtility.TryParseHtmlString(saveData.player.playerCharacterData.topColor, out color))
-         {
-             actualCharacter.topColor = color;
-         }*/
-
-
-        //scriptable object con estos datos
-        /*playerCharacter.characterName = actualCharacter.characterName;
-          playerCharacter.prefab = actualCharacter.prefab;
-          playerCharacter.hair = actualCharacter.hair;
-          playerCharacter.skin = actualCharacter.skin;
-          playerCharacter.top = actualCharacter.top;
-          playerCharacter.bottom = actualCharacter.bottom;
-          playerCharacter.hairColor = actualCharacter.hairColor;
-          playerCharacter.skinColor = actualCharacter.skinColor;
-          playerCharacter.topColor = actualCharacter.topColor;
-          playerCharacter.bottomColor = actualCharacter.bottomColor;*/
     }
     void UpdateShoes()
     {
@@ -206,20 +258,13 @@ public class ChangeCharacter : MonoBehaviour
 
     public void SaveCharacter()
     {
-        for (int i = 0; i < optionsPanels.transform.childCount; i++)
-        {
-            if (optionsPanels.transform.GetChild(i).gameObject.activeInHierarchy)
-            {
-                optionsPanels.transform.GetChild(i).gameObject.SetActive(false);
-            }
-        }
 
         SaveData.player.playerCharacterData.characterName = actualCharacter.itemName;
         SaveData.player.playerCharacterData.hairColor = actualCharacter.hair.color;
         SaveData.player.playerCharacterData.skinColor = actualCharacter.skin.color;
         SaveData.player.playerCharacterData.topColor = actualCharacter.top.color;
         SaveData.player.playerCharacterData.bottomColor = actualCharacter.bottom.color;
-        SaveData.player.playerCharacterData.shoes = actualShoes.id;
+        SaveData.player.playerCharacterData.shoes = actualShoes.itemID;
         SaveData.SaveToJson();
         //saveData.ReadFromJson();
         ReadCharacter();
@@ -233,17 +278,4 @@ public class ChangeCharacter : MonoBehaviour
         yield return new WaitForSeconds(2);
         characterSavedText.SetActive(false);
     }
-
-    private void AsignColors()
-    {
-        //Para hacer reset de todos los personajes al darle al play
-        foreach (CharacterItem character in characters)
-        {
-            character.hairColor = character.hair.color;
-            character.skinColor = character.skin.color;
-            character.topColor = character.top.color;
-            character.bottomColor = character.bottom.color;
-        }
-    }
-
 }

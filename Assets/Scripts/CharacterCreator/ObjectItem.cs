@@ -6,7 +6,6 @@ using UnityEngine;
 [System.Serializable]
 public class ObjectItem : Item
 {
-    public int id;
     public int icon;
     public int mesh;
     public int[] materials;

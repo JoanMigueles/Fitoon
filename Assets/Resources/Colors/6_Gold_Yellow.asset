@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b368e25a2ba59140bcbd5b516183d0d, type: 3}
+  m_Name: 6_Gold_Yellow
+  m_EditorClassIdentifier: 
+  itemID: 6
+  itemType: 1
+  itemName: Gold Yellow
+  itemPrice: 30
+  color: {r: 1, g: 0.8352942, b: 0.25490198, a: 1}

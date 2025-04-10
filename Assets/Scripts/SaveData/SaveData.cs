@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -99,5 +100,23 @@ public static class SaveData
             player = new PlayerData();
             SaveToJson();
         }
+    }
+
+    public static void ChangeUsername(string username, Action<bool> callback)
+    {
+        DatabaseManager.instance.CheckUsername(username, (result) =>
+        {
+           if(!result)
+           {
+                DatabaseManager.instance.DeletePlayerData();
+                player.username = username;
+                SaveToJson();
+                callback(true);
+              }
+              else
+              {
+                callback(false);
+            }
+        });
     }
 }
