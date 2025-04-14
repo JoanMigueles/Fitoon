@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: BannerList
   m_EditorClassIdentifier: 
   Banners:
-  - {fileID: 21300000, guid: 83829fec224c23d4dba54f624d05a980, type: 3}
+  - {fileID: 21300000, guid: 66baa818e259ffd429f2ddc1411a2ab9, type: 3}
+  - {fileID: 21300000, guid: c386dac9494005b4a827e11e35de3cf0, type: 3}
+  - {fileID: 21300000, guid: 5d5814b525ff8904580674ada065843f, type: 3}
   Colors:
-  - {r: 0.91892976, g: 0.740566, b: 1, a: 0}
+  - {r: 1, g: 0.5137255, b: 0.77254903, a: 0.40392157}
+  - {r: 1, g: 0.93523, b: 0.2028302, a: 0.40392157}
+  - {r: 0.8714372, g: 1, b: 0.7028302, a: 0.40392157}

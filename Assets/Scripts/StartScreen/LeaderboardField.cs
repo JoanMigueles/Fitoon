@@ -10,9 +10,9 @@ public class LeaderboardField : MonoBehaviour
     [SerializeField] private TextMeshProUGUI playerTitle;
     [SerializeField] private TextMeshProUGUI medals;
     [SerializeField] private TextMeshProUGUI position;
-    [SerializeField] private GameObject banner;
-    [SerializeField] private Image profileIcon;
+    [SerializeField] private Banner banner;
     [SerializeField] private Image leagueIcon;
+    [SerializeField] private Image readyIcon;
 
     public void SetPlayerName(string name)
     {
@@ -44,19 +44,19 @@ public class LeaderboardField : MonoBehaviour
         position.text = "#" + pos.ToString();
     }
 
-    public void SetBanner(Color outline, Sprite background)
+    public void SetBanner(int b)
     {
-
+        banner.SetBanner(b);
     }
 
-    public void SetProfilePicture(Sprite pfp)
+    public void SetProfilePicture(int pfp)
     {
-
+        banner.SetProfilePicture(pfp);
     }
 
     public void SetReady(bool ready)
     {
-
+        readyIcon.gameObject.SetActive(ready);
     }
     
 }

@@ -21,6 +21,7 @@ public class PlayerData
     public List<int> purchasedColors;
     public List<int> unlockedBanners;
     public List<int> unlockedIcons;
+    public List<string> unlockedTitles;
     public CharacterData playerCharacterData;
 
     public PlayerData()
@@ -29,8 +30,9 @@ public class PlayerData
         purchasedShoes = new List<int> { 0 };
         purchasedColors = new List<int> { 0, 2, 4, 7, 10, 13, 14, 16 };
 
-        unlockedBanners = new List<int> { 0 };
-        unlockedIcons = new List<int> { 0 };
+        unlockedBanners = new List<int> { 0, 1, 2 };
+        unlockedIcons = new List<int> { 0, 1, 2, 3 };
+        unlockedTitles = new List<string> { "Novice Runner", "Fitooner" };
         title = "Novice Runner";
     }
 }

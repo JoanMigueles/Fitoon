@@ -73,11 +73,11 @@ public class LobbyManager : NetworkBehaviour
 				LeaderboardField card = Instantiate(cardPrefab, content.transform).GetComponent<LeaderboardField>();
                 cardList.Add(card);
 			}
-			(Color outline, Sprite background) = AssetLoader.LoadBanner(playerCards[i].banner);
-            cardList[i].SetBanner(outline, background);
+
+			cardList[i].SetBanner(playerCards[i].banner);
 			cardList[i].SetPlayerName(playerCards[i].name);
 			cardList[i].SetReady(playerCards[i].ready);
-			cardList[i].SetProfilePicture(AssetLoader.LoadPFP(playerCards[i].pfp));
+			cardList[i].SetProfilePicture(playerCards[i].pfp);
 			cardList[i].SetMedals(playerCards[i].score);
 			cardList[i].SetPlayerTitle(playerCards[i].title);
 		}

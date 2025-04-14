@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Linq;
 using System.Xml.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class ProfileUIManager : UIManager
@@ -19,8 +21,7 @@ public class ProfileUIManager : UIManager
     [SerializeField] private TextMeshProUGUI playerNameText;
     [SerializeField] private TMP_InputField playerNameField;
     [SerializeField] private TextMeshProUGUI playerTitleText;
-    [SerializeField] private GameObject banner;
-    [SerializeField] private Image profileIconImage;
+    [SerializeField] private Banner banner;
 
     [Header("Gym Data")]
     [SerializeField] private TextMeshProUGUI gymLeaderboardText;
@@ -30,10 +31,73 @@ public class ProfileUIManager : UIManager
     [SerializeField] private Image gymIconImage;
     [SerializeField] private GameObject buttonUnlinkGym;
 
+    [Header("Unlocked Profiles and Banners")]
+    [SerializeField] private GameObject iconsContent;
+    [SerializeField] private GameObject bannersContent;
+    [SerializeField] private GameObject iconButtonPrefab;
+    [SerializeField] private GameObject bannerButtonPrefab;
+    [SerializeField] private TMP_Dropdown titleDropdown;
+
     private void Start()
     {
         SaveData.ReadFromJson();
+        ReadUnlockedElements();
         UpdateAllUI();
+    }
+
+    public static void RefreshLayoutGroupsImmediateAndRecursive(GameObject root)
+    {
+        foreach (var layoutGroup in root.GetComponentsInChildren<LayoutGroup>()) {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(layoutGroup.GetComponent<RectTransform>());
+        }
+    }
+
+    private void ReadUnlockedElements()
+    {
+        // Icons
+        foreach (int iconID in SaveData.player.unlockedIcons) {
+            GameObject icon = Instantiate(iconButtonPrefab, iconsContent.transform);
+            Button button = icon.GetComponent<Button>();
+            
+            button.transform.GetChild(0).GetComponent<Image>().sprite = AssetLoader.LoadPFP(iconID);
+            button.onClick.AddListener(() => SavePFP(iconID));
+        }
+
+        // Banners
+        foreach (int bannerID in SaveData.player.unlockedBanners) {
+            GameObject banner = Instantiate(bannerButtonPrefab, bannersContent.transform);
+            Button button = banner.GetComponent<Button>();
+
+            button.GetComponent<Banner>().SetBanner(bannerID);
+            button.onClick.AddListener(() => SaveBanner(bannerID));
+        }
+
+        // Titles
+        foreach (string title in SaveData.player.unlockedTitles) {
+            titleDropdown.options.Add(new TMP_Dropdown.OptionData(title));
+            SelectOptionByText(SaveData.player.title);
+        }
+    }
+
+    private void SelectOptionByText(string optionText)
+    {
+        // Find the index of the option with matching text
+        for (int i = 0; i < titleDropdown.options.Count; i++) {
+            if (titleDropdown.options[i].text == optionText) {
+                titleDropdown.value = i;
+                titleDropdown.RefreshShownValue();
+                return;
+            }
+        }
+
+        Debug.LogWarning("Option not found: " + optionText);
+    }
+
+    public void SaveTitle(int titleIndex)
+    {
+        SaveData.player.title = titleDropdown.options[titleIndex].text;
+        UpdateTitle();
+        SaveData.SaveToJson();
     }
 
     public void SaveUsername(string value)
@@ -48,6 +112,21 @@ public class ProfileUIManager : UIManager
         });
     }
 
+    public void SaveBanner(int bannerID)
+    {
+        SaveData.player.bannerID = bannerID;
+        UpdateBanner();
+        SaveData.SaveToJson();
+    }
+
+    public void SavePFP(int profileID)
+    {
+        SaveData.player.pfp = profileID;
+        Debug.Log("pfp changed");
+        UpdateBanner();
+        SaveData.SaveToJson();
+    }
+
     public void UpdateAllUI()
     {
         if (medalText != null) medalText.text = SaveData.player.medals.ToString();
@@ -55,6 +134,7 @@ public class ProfileUIManager : UIManager
         if (winsText != null) winsText.text = SaveData.player.wins.ToString();
         if (distanceText != null) distanceText.text = SaveData.player.runnedDistance.ToString();
         UpdateProfile();
+        UpdateBanner();
         UpdateLeaderboardAndGym();
     }
 
@@ -124,8 +204,20 @@ public class ProfileUIManager : UIManager
             if (!usernameNotTaken) StartCoroutine(ShowError());
             else playerNameField.text = SaveData.player.username;
         }
-        // if (banner != null) banner...;
-        // if (profileIconImage != null) profileIconImage.sprite = ;
+        UpdateTitle();
+    }
+
+    public void UpdateTitle()
+    {
+        if (playerTitleText != null) playerTitleText.text = SaveData.player.title;
+    }
+
+    public void UpdateBanner()
+    {
+        if (banner != null) {
+            banner.SetBanner(SaveData.player.bannerID);
+            banner.SetProfilePicture(SaveData.player.pfp);
+        }
     }
 
     public void UnlinkGym()

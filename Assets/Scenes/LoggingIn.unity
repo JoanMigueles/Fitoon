@@ -443,6 +443,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 9035893103957023397, guid: bbbc19e098bc97c429b35380aa70b5bf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9035893103957023397, guid: bbbc19e098bc97c429b35380aa70b5bf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9035893103957023397, guid: bbbc19e098bc97c429b35380aa70b5bf, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9035893103957023397, guid: bbbc19e098bc97c429b35380aa70b5bf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9035893104123747136, guid: bbbc19e098bc97c429b35380aa70b5bf, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 0

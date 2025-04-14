@@ -31,7 +31,7 @@ public class InitialUIManager : UIManager
     [Header("Player Data")]
     [SerializeField] private TextMeshProUGUI playerNameText;
     [SerializeField] private TMP_InputField playerNameField;
-    [SerializeField] private GameObject banner;
+    [SerializeField] private Banner banner;
     [SerializeField] private Image profileIconImage;
 
     [Header("Leaderboard Data")]
@@ -218,6 +218,10 @@ public class InitialUIManager : UIManager
             if (!usernameNotTaken) StartCoroutine(ShowError());
             else playerNameField.text = SaveData.player.username;
         }
+        if (banner != null) {
+            banner.SetBanner(SaveData.player.bannerID);
+            banner.SetProfilePicture(SaveData.player.pfp);
+        }
 
     }
     public void DisplayLeaderboardData()
@@ -256,7 +260,8 @@ public class InitialUIManager : UIManager
         for (int i = 0; i < leaderboard.Count; i++) {
             GameObject field = Instantiate(leaderboardFieldPrefab, selectedContentTab.transform);
             LeaderboardField leaderboardField = field.GetComponent<LeaderboardField>();
-
+            leaderboardField.SetBanner(leaderboard[i].Item2.bannerID);
+            leaderboardField.SetProfilePicture(leaderboard[i].Item2.profileID);
             leaderboardField.SetPlayerName(leaderboard[i].Item1);
             leaderboardField.SetPlayerTitle(leaderboard[i].Item2.title);
             leaderboardField.SetMedals(leaderboard[i].Item2.medals);
@@ -265,6 +270,8 @@ public class InitialUIManager : UIManager
             if (leaderboard[i].Item1 == SaveData.player.username)
             {
                 LeaderboardField playerField = leaderboardPlayerPreview.GetComponent<LeaderboardField>();
+                playerField.SetBanner(leaderboard[i].Item2.bannerID);
+                playerField.SetProfilePicture(leaderboard[i].Item2.profileID);
                 playerField.SetPlayerName(leaderboard[i].Item1);
                 playerField.SetPlayerTitle(leaderboard[i].Item2.title);
                 playerField.SetMedals(leaderboard[i].Item2.medals);
@@ -281,7 +288,8 @@ public class InitialUIManager : UIManager
         for (int i = 0; i < leaderboard.Count; i++) {
             GameObject field = Instantiate(leaderboardFieldPrefab, selectedContentTab.transform);
             LeaderboardField leaderboardField = field.GetComponent<LeaderboardField>();
-
+            leaderboardField.SetBanner(leaderboard[i].Item2.bannerID);
+            leaderboardField.SetProfilePicture(leaderboard[i].Item2.profileID);
             leaderboardField.SetPlayerName(leaderboard[i].Item1);
             leaderboardField.SetPlayerTitle(leaderboard[i].Item2.title);
             leaderboardField.SetMedals(leaderboard[i].Item2.medals);
@@ -289,6 +297,8 @@ public class InitialUIManager : UIManager
 
             if (leaderboard[i].Item1 == SaveData.player.username) {
                 LeaderboardField playerField = leaderboardPlayerPreview.GetComponent<LeaderboardField>();
+                playerField.SetBanner(leaderboard[i].Item2.bannerID);
+                playerField.SetProfilePicture(leaderboard[i].Item2.profileID);
                 playerField.SetPlayerName(leaderboard[i].Item1);
                 playerField.SetPlayerTitle(leaderboard[i].Item2.title);
                 playerField.SetMedals(leaderboard[i].Item2.medals);
@@ -306,7 +316,6 @@ public class InitialUIManager : UIManager
         for (int i = 0; i < leaderboard.Count; i++) {
             GameObject field = Instantiate(leaderboardFieldPrefab, selectedContentTab.transform);
             LeaderboardField leaderboardField = field.GetComponent<LeaderboardField>();
-
             leaderboardField.SetPlayerName(leaderboard[i].Item1);
             leaderboardField.SetMedals(leaderboard[i].Item2);
             leaderboardField.SetPosition(i);

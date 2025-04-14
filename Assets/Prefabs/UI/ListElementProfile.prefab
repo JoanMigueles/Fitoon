@@ -610,6 +610,7 @@ GameObject:
   - component: {fileID: 183671421157942943}
   - component: {fileID: 183671421157942928}
   - component: {fileID: 8558201262564720156}
+  - component: {fileID: 5553128564958831070}
   m_Layer: 5
   m_Name: ListElementProfile
   m_TagString: Untagged
@@ -708,9 +709,23 @@ MonoBehaviour:
   playerTitle: {fileID: 183671421352226145}
   medals: {fileID: 183671421559767170}
   position: {fileID: 183671420805256958}
-  banner: {fileID: 183671422087214239}
-  profileIcon: {fileID: 183671420848947148}
+  banner: {fileID: 5553128564958831070}
   leagueIcon: {fileID: 183671420638411531}
+--- !u!114 &5553128564958831070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183671421157942930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27bf35d1d52b38d49b1142db9d93dc04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  background: {fileID: 183671420813434519}
+  highlight: {fileID: 183671420752399604}
+  pfp: {fileID: 183671420848947148}
 --- !u!1 &183671421190424775
 GameObject:
   m_ObjectHideFlags: 0
